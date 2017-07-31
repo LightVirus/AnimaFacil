@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.CodeDom.Compiler;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -33,6 +36,7 @@ namespace AnimaFacil
 {
     public class Form1 : Form
     {
+        public Personaje PersAGuardar;
         private object ultimoValorCelda = "";
         private static Random r;
         private static object syncObj = new object();
@@ -63,9 +67,9 @@ namespace AnimaFacil
         private Label label7;
         private Label label10;
         private Button buttonExportar;
-        private SaveFileDialog saveFileDialog1;
+        private SaveFileDialog saveFileDialogTabla;
         private Button buttonImportar;
-        private OpenFileDialog openFileDialog1;
+        private OpenFileDialog openFileDialogTabla;
         private TabPage tabPage2;
         private Label label14;
         private Label label13;
@@ -101,7 +105,7 @@ namespace AnimaFacil
         private Label CPAdano;
         private Label label24;
         private Label label23;
-        private TextBox textBox2;
+        private TextBox CPA1dano;
         private ComboBox CPA1critico;
         private TextBox CPA1ha;
         private Label label22;
@@ -109,42 +113,99 @@ namespace AnimaFacil
         private Label label21;
         private TextBox CPvida;
         private Label label20;
-        private TextBox textBox20;
-        private ComboBox comboBox7;
-        private TextBox textBox21;
+        private TextBox CPA8dano;
+        private ComboBox CPA8critico;
+        private TextBox CPA8ha;
         private TextBox CPA8nombre;
         private Label label31;
-        private TextBox textBox17;
-        private ComboBox comboBox6;
-        private TextBox textBox18;
+        private TextBox CPA7dano;
+        private ComboBox CPA7critico;
+        private TextBox CPA7ha;
         private TextBox CPA7nombre;
         private Label label30;
-        private TextBox textBox14;
-        private ComboBox comboBox5;
-        private TextBox textBox15;
+        private TextBox CPA6dano;
+        private ComboBox CPA6critico;
+        private TextBox CPA6ha;
         private TextBox CPA6nombre;
         private Label label29;
-        private TextBox textBox11;
-        private ComboBox comboBox4;
-        private TextBox textBox12;
+        private TextBox CPA5dano;
+        private ComboBox CPA5critico;
+        private TextBox CPA5ha;
         private TextBox CPA5nombre;
         private Label label28;
-        private TextBox textBox8;
-        private ComboBox comboBox3;
-        private TextBox textBox9;
+        private TextBox CPA4dano;
+        private ComboBox CPA4critico;
+        private TextBox CPA4ha;
         private TextBox CPA4nombre;
         private Label label27;
-        private TextBox textBox5;
-        private ComboBox comboBox2;
-        private TextBox textBox6;
+        private TextBox CPA3dano;
+        private ComboBox CPA3critico;
+        private TextBox CPA3ha;
         private TextBox CPA3nombre;
         private Label label26;
-        private TextBox textBox1;
-        private ComboBox comboBox1;
-        private TextBox textBox3;
+        private TextBox CPA2dano;
+        private ComboBox CPA2critico;
+        private TextBox CPA2ha;
         private TextBox CPA2nombre;
         private Label label25;
+        private GroupBox groupBox7;
+        private TextBox CPTAfil;
+        private Label label40;
+        private GroupBox groupBox6;
+        private TextBox CPD8defensa;
+        private TextBox CPD8nombre;
+        private Label label33;
+        private TextBox CPD7defensa;
+        private TextBox CPD7nombre;
+        private Label label34;
+        private TextBox CPD6defensa;
+        private TextBox CPD6nombre;
+        private Label label35;
+        private TextBox CPD5defensa;
+        private TextBox CPD5nombre;
+        private Label label36;
+        private TextBox CPD4defensa;
+        private TextBox CPD4nombre;
+        private Label label37;
+        private TextBox CPD3defensa;
+        private TextBox CPD3nombre;
+        private Label label38;
+        private TextBox CPD2defensa;
+        private TextBox CPD2nombre;
+        private Label label39;
+        private Label label42;
+        private TextBox CPD1defensa;
+        private Label label43;
+        private TextBox CPD1nombre;
+        private Label label44;
+        private TextBox CPturno;
+        private Label label32;
+        private TextBox CPTApen;
+        private Label label45;
+        private TextBox CPTAcon;
+        private Label label41;
+        private TextBox CPTAfri;
+        private Label label46;
+        private TextBox CPTAele;
+        private Label label47;
+        private TextBox CPTAcal;
+        private Label label48;
+        private TextBox CPTAene;
+        private Label label49;
         private Label label15;
+        private OpenFileDialog openFileDialogCreador;
+        private SaveFileDialog saveFileDialogCreador;
+        private Button CPsave;
+        private ComboBox CPnatura;
+        private Label label51;
+        private TextBox CPcansancio;
+        private Label label50;
+        private ComboBox CPsuerte;
+        private Label label52;
+        private Button button1;
+        private Button CPload;
+        private Button button2;
+        Dictionary<string,Personaje> ListaPers = new Dictionary<string, Personaje>();
         public Form1()
         {
             this.InitializeComponent();
@@ -339,13 +400,13 @@ namespace AnimaFacil
                         }
                     }
                     int num2;
-                    if (dataGridViewRow.Cells["Dados Turno"].Value == null)
+                    if (dataGridViewRow.Cells["DadosT"].Value == null)
                     {
                         num2 = this.d100Anima(tipo, suerte);
                     }
                     else
                     {
-                        num2 = int.Parse(dataGridViewRow.Cells["Dados Turno"].Value.ToString());
+                        num2 = int.Parse(dataGridViewRow.Cells["DadosT"].Value.ToString());
                     }   
                     int num3 = num + num2;
                     dataGridViewRow.Cells["Iniciativa"].Value = num3;
@@ -509,190 +570,7 @@ namespace AnimaFacil
             }
             this.buttonExportar.Enabled = false;
         }
-        private void buttonExportar_Click(object sender, EventArgs e)
-        {
-            string fileName = "Vacio";
-            if (this.dataGridView1.CurrentRow.Cells["Personaje"] != null)
-            {
-                fileName = this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString();
-            }
-            this.saveFileDialog1.FileName = fileName;
-            this.saveFileDialog1.ShowDialog();
-        }
-        private void rowsAddednousar(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-        }
-        private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            string fileName = this.saveFileDialog1.FileName;
-            this.escribirFichero(fileName);
-        }
-        private void escribirFichero(string nombreFichero)
-        {
-            string text;
-            if (this.dataGridView1.CurrentRow.Cells["Personaje"].Value != null && this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString() != "")
-            {
-                text = this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString();
-            }
-            else
-            {
-                text = "Desconocido";
-            }
-            string text2;
-            if (this.dataGridView1.CurrentRow.Cells["Turno"].Value != null && this.dataGridView1.CurrentRow.Cells["Turno"].Value.ToString() != "")
-            {
-                text2 = this.dataGridView1.CurrentRow.Cells["Turno"].Value.ToString();
-            }
-            else
-            {
-                text2 = "0";
-            }
-            string text3;
-            if (this.dataGridView1.CurrentRow.Cells["VidaActual"].Value != null && this.dataGridView1.CurrentRow.Cells["VidaActual"].Value.ToString() != "")
-            {
-                text3 = this.dataGridView1.CurrentRow.Cells["VidaActual"].Value.ToString();
-            }
-            else
-            {
-                text3 = "0";
-            }
-            string text4;
-            if (this.dataGridView1.CurrentRow.Cells["Cansancio"].Value != null && this.dataGridView1.CurrentRow.Cells["Cansancio"].Value.ToString() != "")
-            {
-                text4 = this.dataGridView1.CurrentRow.Cells["Cansancio"].Value.ToString();
-            }
-            else
-            {
-                text4 = "0";
-            }
-            string text5;
-            if (this.dataGridView1.CurrentRow.Cells["Ki"].Value != null && this.dataGridView1.CurrentRow.Cells["Ki"].Value.ToString() != "")
-            {
-                text5 = this.dataGridView1.CurrentRow.Cells["Ki"].Value.ToString();
-            }
-            else
-            {
-                text5 = "0";
-            }
-            string text6;
-            if (this.dataGridView1.CurrentRow.Cells["Zeon"].Value != null && this.dataGridView1.CurrentRow.Cells["Zeon"].Value.ToString() != "")
-            {
-                text6 = this.dataGridView1.CurrentRow.Cells["Zeon"].Value.ToString();
-            }
-            else
-            {
-                text6 = "0";
-            }
-            string text7;
-            if (this.dataGridView1.CurrentRow.Cells["Natura"].Value != null && this.dataGridView1.CurrentRow.Cells["Natura"].Value.ToString() != "")
-            {
-                text7 = this.dataGridView1.CurrentRow.Cells["Natura"].Value.ToString();
-            }
-            else
-            {
-                text7 = "Natura +5/+10";
-            }
-            string text8;
-            if (this.dataGridView1.CurrentRow.Cells["Uroboros"].Value != null && this.dataGridView1.CurrentRow.Cells["Uroboros"].Value.ToString() != "")
-            {
-                text8 = this.dataGridView1.CurrentRow.Cells["Uroboros"].Value.ToString();
-            }
-            else
-            {
-                text8 = "False";
-            }
-            string text9;
-            if (this.dataGridView1.CurrentRow.Cells["Notas"].Value != null && this.dataGridView1.CurrentRow.Cells["Notas"].Value.ToString() != "")
-            {
-                text9 = this.dataGridView1.CurrentRow.Cells["Notas"].Value.ToString();
-            }
-            else
-            {
-                text9 = "-";
-            }
-            string text10;
-            if (this.dataGridView1.CurrentRow.Cells["Suerte"].Value != null && this.dataGridView1.CurrentRow.Cells["Suerte"].Value.ToString() != "")
-            {
-                text10 = this.dataGridView1.CurrentRow.Cells["Suerte"].Value.ToString();
-            }
-            else
-            {
-                text10 = "Normal";
-            }
-            string text11;
-            if (this.dataGridView1.CurrentRow.Cells["CV"].Value != null && this.dataGridView1.CurrentRow.Cells["CV"].Value.ToString() != "")
-            {
-                text11 = this.dataGridView1.CurrentRow.Cells["CV"].Value.ToString();
-            }
-            else
-            {
-                text11 = "0";
-            }
-            string[] contents = new string[]
-            {
-                "ANIMAFACILCHARACTERDATA",
-                text,
-                text2,
-                text3,
-                text4,
-                text5,
-                text6,
-                text7,
-                text8,
-                text9,
-                text10,
-                text11
-            };
-            File.WriteAllLines(nombreFichero, contents);
-        }
-        private void buttonImportar_Click(object sender, EventArgs e)
-        {
-            this.openFileDialog1.ShowDialog();
-        }
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            string fileName = this.openFileDialog1.FileName;
-            string[] array = new string[12];
-            int num = 0;
-            StreamReader streamReader = new StreamReader(fileName);
-            string value;
-            while ((value = streamReader.ReadLine()) != null)
-            {
-                array.SetValue(value, num);
-                num++;
-            }
-            streamReader.Close();
-            if (!array[0].Equals("ANIMAFACILCHARACTERDATA"))
-            {
-                MessageBox.Show("Archivo incorrecto. Error localizado en la cabecera.");
-                return;
-            }
-            if (num < 10)
-            {
-                MessageBox.Show("Archivo incorrecto. Error localizado en las líneas.");
-                return;
-            }
-            this.dataGridView1.Rows.Add(new object[]
-            {
-                array[1],
-                array[2],
-                null,
-                "0",
-                array[3],
-                array[4],
-                array[5],
-                array[6],
-                array[11],
-                array[7],
-                array[10],
-                array[8],
-                "",
-                array[9]
-            });
-        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing && this.components != null)
@@ -712,6 +590,7 @@ namespace AnimaFacil
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.numericTurno = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
@@ -755,69 +634,124 @@ namespace AnimaFacil
             this.Sorpresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Notas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.CPload = new System.Windows.Forms.Button();
+            this.CPsuerte = new System.Windows.Forms.ComboBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.CPnatura = new System.Windows.Forms.ComboBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.CPcansancio = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.CPsave = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.CPTAene = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.CPTAfri = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.CPTAele = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.CPTAcal = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.CPTApen = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.CPTAcon = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.CPTAfil = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.CPD8defensa = new System.Windows.Forms.TextBox();
+            this.CPD8nombre = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.CPD7defensa = new System.Windows.Forms.TextBox();
+            this.CPD7nombre = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.CPD6defensa = new System.Windows.Forms.TextBox();
+            this.CPD6nombre = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.CPD5defensa = new System.Windows.Forms.TextBox();
+            this.CPD5nombre = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.CPD4defensa = new System.Windows.Forms.TextBox();
+            this.CPD4nombre = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.CPD3defensa = new System.Windows.Forms.TextBox();
+            this.CPD3nombre = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.CPD2defensa = new System.Windows.Forms.TextBox();
+            this.CPD2nombre = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.CPD1defensa = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.CPD1nombre = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.CPturno = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.CPA8dano = new System.Windows.Forms.TextBox();
+            this.CPA8critico = new System.Windows.Forms.ComboBox();
+            this.CPA8ha = new System.Windows.Forms.TextBox();
+            this.CPA8nombre = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.CPA7dano = new System.Windows.Forms.TextBox();
+            this.CPA7critico = new System.Windows.Forms.ComboBox();
+            this.CPA7ha = new System.Windows.Forms.TextBox();
+            this.CPA7nombre = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.CPA6dano = new System.Windows.Forms.TextBox();
+            this.CPA6critico = new System.Windows.Forms.ComboBox();
+            this.CPA6ha = new System.Windows.Forms.TextBox();
+            this.CPA6nombre = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.CPA5dano = new System.Windows.Forms.TextBox();
+            this.CPA5critico = new System.Windows.Forms.ComboBox();
+            this.CPA5ha = new System.Windows.Forms.TextBox();
+            this.CPA5nombre = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.CPA4dano = new System.Windows.Forms.TextBox();
+            this.CPA4critico = new System.Windows.Forms.ComboBox();
+            this.CPA4ha = new System.Windows.Forms.TextBox();
+            this.CPA4nombre = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.CPA3dano = new System.Windows.Forms.TextBox();
+            this.CPA3critico = new System.Windows.Forms.ComboBox();
+            this.CPA3ha = new System.Windows.Forms.TextBox();
+            this.CPA3nombre = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.CPA2dano = new System.Windows.Forms.TextBox();
+            this.CPA2critico = new System.Windows.Forms.ComboBox();
+            this.CPA2ha = new System.Windows.Forms.TextBox();
+            this.CPA2nombre = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.CPAdano = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.CPA1dano = new System.Windows.Forms.TextBox();
+            this.CPA1critico = new System.Windows.Forms.ComboBox();
+            this.CPA1ha = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.CPA1nombre = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.CPvida = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.CPcv = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.CPzeon = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.CPki = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.CPnombre = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.CPnombre = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.CPki = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.CPzeon = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.CPcv = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.CPvida = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.CPA1nombre = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.CPA1ha = new System.Windows.Forms.TextBox();
-            this.CPA1critico = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.CPAdano = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.CPA2nombre = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.CPA3nombre = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.CPA4nombre = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.CPA5nombre = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.CPA6nombre = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.CPA7nombre = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.textBox20 = new System.Windows.Forms.TextBox();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.textBox21 = new System.Windows.Forms.TextBox();
-            this.CPA8nombre = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
+            this.saveFileDialogTabla = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogTabla = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogCreador = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogCreador = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -832,9 +766,11 @@ namespace AnimaFacil
             ((System.ComponentModel.ISupportInitialize)(this.numAtaque)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -853,6 +789,7 @@ namespace AnimaFacil
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.buttonImportar);
             this.tabPage1.Controls.Add(this.buttonExportar);
@@ -868,6 +805,17 @@ namespace AnimaFacil
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Principal";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(481, 413);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Eliminar personaje seleccionado";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox3
             // 
@@ -1142,6 +1090,7 @@ namespace AnimaFacil
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1291,7 +1240,1066 @@ namespace AnimaFacil
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Creador Personajes";
             this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.CPload);
+            this.groupBox4.Controls.Add(this.CPsuerte);
+            this.groupBox4.Controls.Add(this.label52);
+            this.groupBox4.Controls.Add(this.CPnatura);
+            this.groupBox4.Controls.Add(this.label51);
+            this.groupBox4.Controls.Add(this.CPcansancio);
+            this.groupBox4.Controls.Add(this.label50);
+            this.groupBox4.Controls.Add(this.CPsave);
+            this.groupBox4.Controls.Add(this.groupBox7);
+            this.groupBox4.Controls.Add(this.groupBox6);
+            this.groupBox4.Controls.Add(this.CPturno);
+            this.groupBox4.Controls.Add(this.label32);
+            this.groupBox4.Controls.Add(this.groupBox5);
+            this.groupBox4.Controls.Add(this.CPvida);
+            this.groupBox4.Controls.Add(this.label20);
+            this.groupBox4.Controls.Add(this.CPcv);
+            this.groupBox4.Controls.Add(this.label19);
+            this.groupBox4.Controls.Add(this.CPzeon);
+            this.groupBox4.Controls.Add(this.label18);
+            this.groupBox4.Controls.Add(this.CPki);
+            this.groupBox4.Controls.Add(this.label17);
+            this.groupBox4.Controls.Add(this.CPnombre);
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Location = new System.Drawing.Point(7, 7);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1034, 499);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Personaje";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(558, 392);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(101, 23);
+            this.button2.TabIndex = 63;
+            this.button2.Text = "Enviar a tabla";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // CPload
+            // 
+            this.CPload.Location = new System.Drawing.Point(398, 427);
+            this.CPload.Name = "CPload";
+            this.CPload.Size = new System.Drawing.Size(135, 23);
+            this.CPload.TabIndex = 62;
+            this.CPload.Text = "Cargar Personaje";
+            this.CPload.UseVisualStyleBackColor = true;
+            this.CPload.Click += new System.EventHandler(this.CPload_Click);
+            // 
+            // CPsuerte
+            // 
+            this.CPsuerte.BackColor = System.Drawing.SystemColors.Window;
+            this.CPsuerte.FormattingEnabled = true;
+            this.CPsuerte.Items.AddRange(new object[] {
+            "Normal",
+            "Buena",
+            "Mala"});
+            this.CPsuerte.Location = new System.Drawing.Point(411, 84);
+            this.CPsuerte.Name = "CPsuerte";
+            this.CPsuerte.Size = new System.Drawing.Size(73, 21);
+            this.CPsuerte.TabIndex = 61;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(367, 88);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(38, 13);
+            this.label52.TabIndex = 60;
+            this.label52.Text = "Suerte";
+            // 
+            // CPnatura
+            // 
+            this.CPnatura.BackColor = System.Drawing.SystemColors.Window;
+            this.CPnatura.FormattingEnabled = true;
+            this.CPnatura.Items.AddRange(new object[] {
+            "Natura +0",
+            "Natura +5/+10",
+            "Natura +15"});
+            this.CPnatura.Location = new System.Drawing.Point(411, 50);
+            this.CPnatura.Name = "CPnatura";
+            this.CPnatura.Size = new System.Drawing.Size(73, 21);
+            this.CPnatura.TabIndex = 54;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(366, 54);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(39, 13);
+            this.label51.TabIndex = 59;
+            this.label51.Text = "Natura";
+            // 
+            // CPcansancio
+            // 
+            this.CPcansancio.Location = new System.Drawing.Point(299, 85);
+            this.CPcansancio.Name = "CPcansancio";
+            this.CPcansancio.Size = new System.Drawing.Size(48, 20);
+            this.CPcansancio.TabIndex = 58;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(236, 88);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(57, 13);
+            this.label50.TabIndex = 57;
+            this.label50.Text = "Cansancio";
+            // 
+            // CPsave
+            // 
+            this.CPsave.Location = new System.Drawing.Point(398, 392);
+            this.CPsave.Name = "CPsave";
+            this.CPsave.Size = new System.Drawing.Size(135, 23);
+            this.CPsave.TabIndex = 56;
+            this.CPsave.Text = "Guardar Personaje";
+            this.CPsave.UseVisualStyleBackColor = true;
+            this.CPsave.Click += new System.EventHandler(this.CPsave_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.CPTAene);
+            this.groupBox7.Controls.Add(this.label49);
+            this.groupBox7.Controls.Add(this.CPTAfri);
+            this.groupBox7.Controls.Add(this.label46);
+            this.groupBox7.Controls.Add(this.CPTAele);
+            this.groupBox7.Controls.Add(this.label47);
+            this.groupBox7.Controls.Add(this.CPTAcal);
+            this.groupBox7.Controls.Add(this.label48);
+            this.groupBox7.Controls.Add(this.CPTApen);
+            this.groupBox7.Controls.Add(this.label45);
+            this.groupBox7.Controls.Add(this.CPTAcon);
+            this.groupBox7.Controls.Add(this.label41);
+            this.groupBox7.Controls.Add(this.CPTAfil);
+            this.groupBox7.Controls.Add(this.label40);
+            this.groupBox7.Location = new System.Drawing.Point(10, 382);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(361, 83);
+            this.groupBox7.TabIndex = 55;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "TA\'s";
+            // 
+            // CPTAene
+            // 
+            this.CPTAene.Location = new System.Drawing.Point(302, 17);
+            this.CPTAene.Name = "CPTAene";
+            this.CPTAene.Size = new System.Drawing.Size(41, 20);
+            this.CPTAene.TabIndex = 66;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(267, 20);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(29, 13);
+            this.label49.TabIndex = 65;
+            this.label49.Text = "ENE";
+            // 
+            // CPTAfri
+            // 
+            this.CPTAfri.Location = new System.Drawing.Point(210, 52);
+            this.CPTAfri.Name = "CPTAfri";
+            this.CPTAfri.Size = new System.Drawing.Size(41, 20);
+            this.CPTAfri.TabIndex = 64;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(180, 55);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(24, 13);
+            this.label46.TabIndex = 63;
+            this.label46.Text = "FRI";
+            // 
+            // CPTAele
+            // 
+            this.CPTAele.Location = new System.Drawing.Point(126, 52);
+            this.CPTAele.Name = "CPTAele";
+            this.CPTAele.Size = new System.Drawing.Size(41, 20);
+            this.CPTAele.TabIndex = 62;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(93, 55);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(27, 13);
+            this.label47.TabIndex = 61;
+            this.label47.Text = "ELE";
+            // 
+            // CPTAcal
+            // 
+            this.CPTAcal.Location = new System.Drawing.Point(37, 52);
+            this.CPTAcal.Name = "CPTAcal";
+            this.CPTAcal.Size = new System.Drawing.Size(41, 20);
+            this.CPTAcal.TabIndex = 60;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(4, 55);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(27, 13);
+            this.label48.TabIndex = 59;
+            this.label48.Text = "CAL";
+            // 
+            // CPTApen
+            // 
+            this.CPTApen.Location = new System.Drawing.Point(210, 17);
+            this.CPTApen.Name = "CPTApen";
+            this.CPTApen.Size = new System.Drawing.Size(41, 20);
+            this.CPTApen.TabIndex = 58;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(175, 20);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(29, 13);
+            this.label45.TabIndex = 57;
+            this.label45.Text = "PEN";
+            // 
+            // CPTAcon
+            // 
+            this.CPTAcon.Location = new System.Drawing.Point(126, 17);
+            this.CPTAcon.Name = "CPTAcon";
+            this.CPTAcon.Size = new System.Drawing.Size(41, 20);
+            this.CPTAcon.TabIndex = 56;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(90, 20);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(30, 13);
+            this.label41.TabIndex = 55;
+            this.label41.Text = "CON";
+            // 
+            // CPTAfil
+            // 
+            this.CPTAfil.Location = new System.Drawing.Point(37, 17);
+            this.CPTAfil.Name = "CPTAfil";
+            this.CPTAfil.Size = new System.Drawing.Size(41, 20);
+            this.CPTAfil.TabIndex = 54;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(9, 20);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(22, 13);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "FIL";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.CPD8defensa);
+            this.groupBox6.Controls.Add(this.CPD8nombre);
+            this.groupBox6.Controls.Add(this.label33);
+            this.groupBox6.Controls.Add(this.CPD7defensa);
+            this.groupBox6.Controls.Add(this.CPD7nombre);
+            this.groupBox6.Controls.Add(this.label34);
+            this.groupBox6.Controls.Add(this.CPD6defensa);
+            this.groupBox6.Controls.Add(this.CPD6nombre);
+            this.groupBox6.Controls.Add(this.label35);
+            this.groupBox6.Controls.Add(this.CPD5defensa);
+            this.groupBox6.Controls.Add(this.CPD5nombre);
+            this.groupBox6.Controls.Add(this.label36);
+            this.groupBox6.Controls.Add(this.CPD4defensa);
+            this.groupBox6.Controls.Add(this.CPD4nombre);
+            this.groupBox6.Controls.Add(this.label37);
+            this.groupBox6.Controls.Add(this.CPD3defensa);
+            this.groupBox6.Controls.Add(this.CPD3nombre);
+            this.groupBox6.Controls.Add(this.label38);
+            this.groupBox6.Controls.Add(this.CPD2defensa);
+            this.groupBox6.Controls.Add(this.CPD2nombre);
+            this.groupBox6.Controls.Add(this.label39);
+            this.groupBox6.Controls.Add(this.label42);
+            this.groupBox6.Controls.Add(this.CPD1defensa);
+            this.groupBox6.Controls.Add(this.label43);
+            this.groupBox6.Controls.Add(this.CPD1nombre);
+            this.groupBox6.Controls.Add(this.label44);
+            this.groupBox6.Location = new System.Drawing.Point(398, 115);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(261, 261);
+            this.groupBox6.TabIndex = 54;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Defensa";
+            // 
+            // CPD8defensa
+            // 
+            this.CPD8defensa.Location = new System.Drawing.Point(160, 223);
+            this.CPD8defensa.Name = "CPD8defensa";
+            this.CPD8defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD8defensa.TabIndex = 43;
+            // 
+            // CPD8nombre
+            // 
+            this.CPD8nombre.Location = new System.Drawing.Point(44, 223);
+            this.CPD8nombre.Name = "CPD8nombre";
+            this.CPD8nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD8nombre.TabIndex = 41;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 226);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(33, 13);
+            this.label33.TabIndex = 42;
+            this.label33.Text = "Def 8";
+            // 
+            // CPD7defensa
+            // 
+            this.CPD7defensa.Location = new System.Drawing.Point(160, 197);
+            this.CPD7defensa.Name = "CPD7defensa";
+            this.CPD7defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD7defensa.TabIndex = 40;
+            // 
+            // CPD7nombre
+            // 
+            this.CPD7nombre.Location = new System.Drawing.Point(44, 197);
+            this.CPD7nombre.Name = "CPD7nombre";
+            this.CPD7nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD7nombre.TabIndex = 38;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(6, 200);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(33, 13);
+            this.label34.TabIndex = 39;
+            this.label34.Text = "Def 7";
+            // 
+            // CPD6defensa
+            // 
+            this.CPD6defensa.Location = new System.Drawing.Point(160, 171);
+            this.CPD6defensa.Name = "CPD6defensa";
+            this.CPD6defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD6defensa.TabIndex = 37;
+            // 
+            // CPD6nombre
+            // 
+            this.CPD6nombre.Location = new System.Drawing.Point(44, 171);
+            this.CPD6nombre.Name = "CPD6nombre";
+            this.CPD6nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD6nombre.TabIndex = 35;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 174);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(33, 13);
+            this.label35.TabIndex = 36;
+            this.label35.Text = "Def 6";
+            // 
+            // CPD5defensa
+            // 
+            this.CPD5defensa.Location = new System.Drawing.Point(160, 145);
+            this.CPD5defensa.Name = "CPD5defensa";
+            this.CPD5defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD5defensa.TabIndex = 34;
+            // 
+            // CPD5nombre
+            // 
+            this.CPD5nombre.Location = new System.Drawing.Point(44, 145);
+            this.CPD5nombre.Name = "CPD5nombre";
+            this.CPD5nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD5nombre.TabIndex = 32;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(6, 148);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(33, 13);
+            this.label36.TabIndex = 33;
+            this.label36.Text = "Def 5";
+            // 
+            // CPD4defensa
+            // 
+            this.CPD4defensa.Location = new System.Drawing.Point(160, 120);
+            this.CPD4defensa.Name = "CPD4defensa";
+            this.CPD4defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD4defensa.TabIndex = 31;
+            // 
+            // CPD4nombre
+            // 
+            this.CPD4nombre.Location = new System.Drawing.Point(44, 120);
+            this.CPD4nombre.Name = "CPD4nombre";
+            this.CPD4nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD4nombre.TabIndex = 29;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(6, 123);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(33, 13);
+            this.label37.TabIndex = 30;
+            this.label37.Text = "Def 4";
+            // 
+            // CPD3defensa
+            // 
+            this.CPD3defensa.Location = new System.Drawing.Point(160, 94);
+            this.CPD3defensa.Name = "CPD3defensa";
+            this.CPD3defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD3defensa.TabIndex = 26;
+            // 
+            // CPD3nombre
+            // 
+            this.CPD3nombre.Location = new System.Drawing.Point(44, 94);
+            this.CPD3nombre.Name = "CPD3nombre";
+            this.CPD3nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD3nombre.TabIndex = 24;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 97);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(33, 13);
+            this.label38.TabIndex = 25;
+            this.label38.Text = "Def 3";
+            // 
+            // CPD2defensa
+            // 
+            this.CPD2defensa.Location = new System.Drawing.Point(160, 68);
+            this.CPD2defensa.Name = "CPD2defensa";
+            this.CPD2defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD2defensa.TabIndex = 21;
+            // 
+            // CPD2nombre
+            // 
+            this.CPD2nombre.Location = new System.Drawing.Point(44, 68);
+            this.CPD2nombre.Name = "CPD2nombre";
+            this.CPD2nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD2nombre.TabIndex = 19;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(6, 71);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(33, 13);
+            this.label39.TabIndex = 20;
+            this.label39.Text = "Def 2";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(171, 16);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(47, 13);
+            this.label42.TabIndex = 16;
+            this.label42.Text = "Defensa";
+            // 
+            // CPD1defensa
+            // 
+            this.CPD1defensa.Location = new System.Drawing.Point(160, 42);
+            this.CPD1defensa.Name = "CPD1defensa";
+            this.CPD1defensa.Size = new System.Drawing.Size(67, 20);
+            this.CPD1defensa.TabIndex = 13;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(76, 16);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(44, 13);
+            this.label43.TabIndex = 12;
+            this.label43.Text = "Nombre";
+            // 
+            // CPD1nombre
+            // 
+            this.CPD1nombre.Location = new System.Drawing.Point(44, 42);
+            this.CPD1nombre.Name = "CPD1nombre";
+            this.CPD1nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPD1nombre.TabIndex = 11;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(6, 45);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(33, 13);
+            this.label44.TabIndex = 11;
+            this.label44.Text = "Def 1";
+            // 
+            // CPturno
+            // 
+            this.CPturno.Location = new System.Drawing.Point(161, 85);
+            this.CPturno.Name = "CPturno";
+            this.CPturno.Size = new System.Drawing.Size(48, 20);
+            this.CPturno.TabIndex = 12;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(120, 88);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(35, 13);
+            this.label32.TabIndex = 11;
+            this.label32.Text = "Turno";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.CPA8dano);
+            this.groupBox5.Controls.Add(this.CPA8critico);
+            this.groupBox5.Controls.Add(this.CPA8ha);
+            this.groupBox5.Controls.Add(this.CPA8nombre);
+            this.groupBox5.Controls.Add(this.label31);
+            this.groupBox5.Controls.Add(this.CPA7dano);
+            this.groupBox5.Controls.Add(this.CPA7critico);
+            this.groupBox5.Controls.Add(this.CPA7ha);
+            this.groupBox5.Controls.Add(this.CPA7nombre);
+            this.groupBox5.Controls.Add(this.label30);
+            this.groupBox5.Controls.Add(this.CPA6dano);
+            this.groupBox5.Controls.Add(this.CPA6critico);
+            this.groupBox5.Controls.Add(this.CPA6ha);
+            this.groupBox5.Controls.Add(this.CPA6nombre);
+            this.groupBox5.Controls.Add(this.label29);
+            this.groupBox5.Controls.Add(this.CPA5dano);
+            this.groupBox5.Controls.Add(this.CPA5critico);
+            this.groupBox5.Controls.Add(this.CPA5ha);
+            this.groupBox5.Controls.Add(this.CPA5nombre);
+            this.groupBox5.Controls.Add(this.label28);
+            this.groupBox5.Controls.Add(this.CPA4dano);
+            this.groupBox5.Controls.Add(this.CPA4critico);
+            this.groupBox5.Controls.Add(this.CPA4ha);
+            this.groupBox5.Controls.Add(this.CPA4nombre);
+            this.groupBox5.Controls.Add(this.label27);
+            this.groupBox5.Controls.Add(this.CPA3dano);
+            this.groupBox5.Controls.Add(this.CPA3critico);
+            this.groupBox5.Controls.Add(this.CPA3ha);
+            this.groupBox5.Controls.Add(this.CPA3nombre);
+            this.groupBox5.Controls.Add(this.label26);
+            this.groupBox5.Controls.Add(this.CPA2dano);
+            this.groupBox5.Controls.Add(this.CPA2critico);
+            this.groupBox5.Controls.Add(this.CPA2ha);
+            this.groupBox5.Controls.Add(this.CPA2nombre);
+            this.groupBox5.Controls.Add(this.label25);
+            this.groupBox5.Controls.Add(this.CPAdano);
+            this.groupBox5.Controls.Add(this.label24);
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.CPA1dano);
+            this.groupBox5.Controls.Add(this.CPA1critico);
+            this.groupBox5.Controls.Add(this.CPA1ha);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.CPA1nombre);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Location = new System.Drawing.Point(10, 115);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(361, 261);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Ataque";
+            // 
+            // CPA8dano
+            // 
+            this.CPA8dano.Location = new System.Drawing.Point(286, 224);
+            this.CPA8dano.Name = "CPA8dano";
+            this.CPA8dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA8dano.TabIndex = 53;
+            // 
+            // CPA8critico
+            // 
+            this.CPA8critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA8critico.FormattingEnabled = true;
+            this.CPA8critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA8critico.Location = new System.Drawing.Point(207, 223);
+            this.CPA8critico.Name = "CPA8critico";
+            this.CPA8critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA8critico.TabIndex = 52;
+            // 
+            // CPA8ha
+            // 
+            this.CPA8ha.Location = new System.Drawing.Point(160, 224);
+            this.CPA8ha.Name = "CPA8ha";
+            this.CPA8ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA8ha.TabIndex = 51;
+            // 
+            // CPA8nombre
+            // 
+            this.CPA8nombre.Location = new System.Drawing.Point(44, 224);
+            this.CPA8nombre.Name = "CPA8nombre";
+            this.CPA8nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA8nombre.TabIndex = 49;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 227);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(32, 13);
+            this.label31.TabIndex = 50;
+            this.label31.Text = "Atq 8";
+            // 
+            // CPA7dano
+            // 
+            this.CPA7dano.Location = new System.Drawing.Point(286, 198);
+            this.CPA7dano.Name = "CPA7dano";
+            this.CPA7dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA7dano.TabIndex = 48;
+            // 
+            // CPA7critico
+            // 
+            this.CPA7critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA7critico.FormattingEnabled = true;
+            this.CPA7critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA7critico.Location = new System.Drawing.Point(207, 197);
+            this.CPA7critico.Name = "CPA7critico";
+            this.CPA7critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA7critico.TabIndex = 47;
+            // 
+            // CPA7ha
+            // 
+            this.CPA7ha.Location = new System.Drawing.Point(160, 198);
+            this.CPA7ha.Name = "CPA7ha";
+            this.CPA7ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA7ha.TabIndex = 46;
+            // 
+            // CPA7nombre
+            // 
+            this.CPA7nombre.Location = new System.Drawing.Point(44, 198);
+            this.CPA7nombre.Name = "CPA7nombre";
+            this.CPA7nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA7nombre.TabIndex = 44;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(6, 201);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(32, 13);
+            this.label30.TabIndex = 45;
+            this.label30.Text = "Atq 7";
+            // 
+            // CPA6dano
+            // 
+            this.CPA6dano.Location = new System.Drawing.Point(286, 172);
+            this.CPA6dano.Name = "CPA6dano";
+            this.CPA6dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA6dano.TabIndex = 43;
+            // 
+            // CPA6critico
+            // 
+            this.CPA6critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA6critico.FormattingEnabled = true;
+            this.CPA6critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA6critico.Location = new System.Drawing.Point(207, 171);
+            this.CPA6critico.Name = "CPA6critico";
+            this.CPA6critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA6critico.TabIndex = 42;
+            // 
+            // CPA6ha
+            // 
+            this.CPA6ha.Location = new System.Drawing.Point(160, 172);
+            this.CPA6ha.Name = "CPA6ha";
+            this.CPA6ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA6ha.TabIndex = 41;
+            // 
+            // CPA6nombre
+            // 
+            this.CPA6nombre.Location = new System.Drawing.Point(44, 172);
+            this.CPA6nombre.Name = "CPA6nombre";
+            this.CPA6nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA6nombre.TabIndex = 39;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 175);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(32, 13);
+            this.label29.TabIndex = 40;
+            this.label29.Text = "Atq 6";
+            // 
+            // CPA5dano
+            // 
+            this.CPA5dano.Location = new System.Drawing.Point(286, 146);
+            this.CPA5dano.Name = "CPA5dano";
+            this.CPA5dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA5dano.TabIndex = 38;
+            // 
+            // CPA5critico
+            // 
+            this.CPA5critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA5critico.FormattingEnabled = true;
+            this.CPA5critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA5critico.Location = new System.Drawing.Point(207, 145);
+            this.CPA5critico.Name = "CPA5critico";
+            this.CPA5critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA5critico.TabIndex = 37;
+            // 
+            // CPA5ha
+            // 
+            this.CPA5ha.Location = new System.Drawing.Point(160, 146);
+            this.CPA5ha.Name = "CPA5ha";
+            this.CPA5ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA5ha.TabIndex = 36;
+            // 
+            // CPA5nombre
+            // 
+            this.CPA5nombre.Location = new System.Drawing.Point(44, 146);
+            this.CPA5nombre.Name = "CPA5nombre";
+            this.CPA5nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA5nombre.TabIndex = 34;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 149);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(32, 13);
+            this.label28.TabIndex = 35;
+            this.label28.Text = "Atq 5";
+            // 
+            // CPA4dano
+            // 
+            this.CPA4dano.Location = new System.Drawing.Point(286, 120);
+            this.CPA4dano.Name = "CPA4dano";
+            this.CPA4dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA4dano.TabIndex = 33;
+            // 
+            // CPA4critico
+            // 
+            this.CPA4critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA4critico.FormattingEnabled = true;
+            this.CPA4critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA4critico.Location = new System.Drawing.Point(207, 119);
+            this.CPA4critico.Name = "CPA4critico";
+            this.CPA4critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA4critico.TabIndex = 32;
+            // 
+            // CPA4ha
+            // 
+            this.CPA4ha.Location = new System.Drawing.Point(160, 120);
+            this.CPA4ha.Name = "CPA4ha";
+            this.CPA4ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA4ha.TabIndex = 31;
+            // 
+            // CPA4nombre
+            // 
+            this.CPA4nombre.Location = new System.Drawing.Point(44, 120);
+            this.CPA4nombre.Name = "CPA4nombre";
+            this.CPA4nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA4nombre.TabIndex = 29;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(6, 123);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(32, 13);
+            this.label27.TabIndex = 30;
+            this.label27.Text = "Atq 4";
+            // 
+            // CPA3dano
+            // 
+            this.CPA3dano.Location = new System.Drawing.Point(286, 94);
+            this.CPA3dano.Name = "CPA3dano";
+            this.CPA3dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA3dano.TabIndex = 28;
+            // 
+            // CPA3critico
+            // 
+            this.CPA3critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA3critico.FormattingEnabled = true;
+            this.CPA3critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA3critico.Location = new System.Drawing.Point(207, 93);
+            this.CPA3critico.Name = "CPA3critico";
+            this.CPA3critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA3critico.TabIndex = 27;
+            // 
+            // CPA3ha
+            // 
+            this.CPA3ha.Location = new System.Drawing.Point(160, 94);
+            this.CPA3ha.Name = "CPA3ha";
+            this.CPA3ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA3ha.TabIndex = 26;
+            // 
+            // CPA3nombre
+            // 
+            this.CPA3nombre.Location = new System.Drawing.Point(44, 94);
+            this.CPA3nombre.Name = "CPA3nombre";
+            this.CPA3nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA3nombre.TabIndex = 24;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 97);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(32, 13);
+            this.label26.TabIndex = 25;
+            this.label26.Text = "Atq 3";
+            // 
+            // CPA2dano
+            // 
+            this.CPA2dano.Location = new System.Drawing.Point(286, 68);
+            this.CPA2dano.Name = "CPA2dano";
+            this.CPA2dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA2dano.TabIndex = 23;
+            // 
+            // CPA2critico
+            // 
+            this.CPA2critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA2critico.FormattingEnabled = true;
+            this.CPA2critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA2critico.Location = new System.Drawing.Point(207, 67);
+            this.CPA2critico.Name = "CPA2critico";
+            this.CPA2critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA2critico.TabIndex = 22;
+            // 
+            // CPA2ha
+            // 
+            this.CPA2ha.Location = new System.Drawing.Point(160, 68);
+            this.CPA2ha.Name = "CPA2ha";
+            this.CPA2ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA2ha.TabIndex = 21;
+            // 
+            // CPA2nombre
+            // 
+            this.CPA2nombre.Location = new System.Drawing.Point(44, 68);
+            this.CPA2nombre.Name = "CPA2nombre";
+            this.CPA2nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA2nombre.TabIndex = 19;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 71);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(32, 13);
+            this.label25.TabIndex = 20;
+            this.label25.Text = "Atq 2";
+            // 
+            // CPAdano
+            // 
+            this.CPAdano.AutoSize = true;
+            this.CPAdano.Location = new System.Drawing.Point(299, 16);
+            this.CPAdano.Name = "CPAdano";
+            this.CPAdano.Size = new System.Drawing.Size(33, 13);
+            this.CPAdano.TabIndex = 18;
+            this.CPAdano.Text = "Daño";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(225, 16);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(36, 13);
+            this.label24.TabIndex = 17;
+            this.label24.Text = "Critico";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(170, 16);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(22, 13);
+            this.label23.TabIndex = 16;
+            this.label23.Text = "HA";
+            // 
+            // CPA1dano
+            // 
+            this.CPA1dano.Location = new System.Drawing.Point(286, 42);
+            this.CPA1dano.Name = "CPA1dano";
+            this.CPA1dano.Size = new System.Drawing.Size(61, 20);
+            this.CPA1dano.TabIndex = 15;
+            // 
+            // CPA1critico
+            // 
+            this.CPA1critico.BackColor = System.Drawing.SystemColors.Window;
+            this.CPA1critico.FormattingEnabled = true;
+            this.CPA1critico.Items.AddRange(new object[] {
+            "FIL",
+            "CON",
+            "PEN",
+            "CAL",
+            "ELE",
+            "FRI",
+            "ENE"});
+            this.CPA1critico.Location = new System.Drawing.Point(207, 41);
+            this.CPA1critico.Name = "CPA1critico";
+            this.CPA1critico.Size = new System.Drawing.Size(73, 21);
+            this.CPA1critico.TabIndex = 14;
+            // 
+            // CPA1ha
+            // 
+            this.CPA1ha.Location = new System.Drawing.Point(160, 42);
+            this.CPA1ha.Name = "CPA1ha";
+            this.CPA1ha.Size = new System.Drawing.Size(41, 20);
+            this.CPA1ha.TabIndex = 13;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(76, 16);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(44, 13);
+            this.label22.TabIndex = 12;
+            this.label22.Text = "Nombre";
+            // 
+            // CPA1nombre
+            // 
+            this.CPA1nombre.Location = new System.Drawing.Point(44, 42);
+            this.CPA1nombre.Name = "CPA1nombre";
+            this.CPA1nombre.Size = new System.Drawing.Size(110, 20);
+            this.CPA1nombre.TabIndex = 11;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 45);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(32, 13);
+            this.label21.TabIndex = 11;
+            this.label21.Text = "Atq 1";
+            // 
+            // CPvida
+            // 
+            this.CPvida.Location = new System.Drawing.Point(299, 51);
+            this.CPvida.Name = "CPvida";
+            this.CPvida.Size = new System.Drawing.Size(48, 20);
+            this.CPvida.TabIndex = 9;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(235, 55);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(58, 13);
+            this.label20.TabIndex = 8;
+            this.label20.Text = "Pt. de vida";
+            // 
+            // CPcv
+            // 
+            this.CPcv.Location = new System.Drawing.Point(161, 51);
+            this.CPcv.Name = "CPcv";
+            this.CPcv.Size = new System.Drawing.Size(48, 20);
+            this.CPcv.TabIndex = 7;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(134, 55);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(21, 13);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "CV";
+            // 
+            // CPzeon
+            // 
+            this.CPzeon.Location = new System.Drawing.Point(57, 85);
+            this.CPzeon.Name = "CPzeon";
+            this.CPzeon.Size = new System.Drawing.Size(48, 20);
+            this.CPzeon.TabIndex = 5;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(19, 88);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(32, 13);
+            this.label18.TabIndex = 4;
+            this.label18.Text = "Zeon";
+            // 
+            // CPki
+            // 
+            this.CPki.Location = new System.Drawing.Point(57, 52);
+            this.CPki.Name = "CPki";
+            this.CPki.Size = new System.Drawing.Size(48, 20);
+            this.CPki.TabIndex = 3;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(35, 55);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(16, 13);
+            this.label17.TabIndex = 2;
+            this.label17.Text = "Ki";
+            // 
+            // CPnombre
+            // 
+            this.CPnombre.Location = new System.Drawing.Point(57, 17);
+            this.CPnombre.Name = "CPnombre";
+            this.CPnombre.Size = new System.Drawing.Size(389, 20);
+            this.CPnombre.TabIndex = 1;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Nombre";
             // 
             // tabPage2
             // 
@@ -1346,588 +2354,33 @@ namespace AnimaFacil
             this.label11.TabIndex = 0;
             this.label11.Text = "Anima Fácil v.1.2";
             // 
-            // saveFileDialog1
+            // saveFileDialogTabla
             // 
-            this.saveFileDialog1.DefaultExt = "apj";
-            this.saveFileDialog1.Filter = "Anima PJ (*.apj)|*.apj";
-            this.saveFileDialog1.Title = "Guardar personaje...";
-            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
+            this.saveFileDialogTabla.DefaultExt = "apj";
+            this.saveFileDialogTabla.Filter = "Anima PJ (*.apj)|*.apj";
+            this.saveFileDialogTabla.Title = "Guardar personaje...";
+            this.saveFileDialogTabla.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogTabla_FileOk);
             // 
-            // openFileDialog1
+            // openFileDialogTabla
             // 
-            this.openFileDialog1.DefaultExt = "apj";
-            this.openFileDialog1.Filter = "Anima PJ (*.apj)|*.apj";
-            this.openFileDialog1.Title = "Cargar personaje...";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            this.openFileDialogTabla.DefaultExt = "apj";
+            this.openFileDialogTabla.Filter = "Anima PJ (*.apj)|*.apj";
+            this.openFileDialogTabla.Title = "Cargar personaje...";
+            this.openFileDialogTabla.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogTabla_FileOk);
             // 
-            // groupBox4
+            // openFileDialogCreador
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox4.Controls.Add(this.groupBox5);
-            this.groupBox4.Controls.Add(this.CPvida);
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.CPcv);
-            this.groupBox4.Controls.Add(this.label19);
-            this.groupBox4.Controls.Add(this.CPzeon);
-            this.groupBox4.Controls.Add(this.label18);
-            this.groupBox4.Controls.Add(this.CPki);
-            this.groupBox4.Controls.Add(this.label17);
-            this.groupBox4.Controls.Add(this.CPnombre);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Location = new System.Drawing.Point(7, 7);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1034, 499);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Personaje";
+            this.openFileDialogCreador.DefaultExt = "apj";
+            this.openFileDialogCreador.Filter = "Anima PJ (*.apj)|*.apj";
+            this.openFileDialogCreador.Title = "Cargar personaje...";
+            this.openFileDialogCreador.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogCreador_FileOk);
             // 
-            // label16
+            // saveFileDialogCreador
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(7, 20);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(44, 13);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Nombre";
-            // 
-            // CPnombre
-            // 
-            this.CPnombre.Location = new System.Drawing.Point(57, 17);
-            this.CPnombre.Name = "CPnombre";
-            this.CPnombre.Size = new System.Drawing.Size(389, 20);
-            this.CPnombre.TabIndex = 1;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(35, 58);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(16, 13);
-            this.label17.TabIndex = 2;
-            this.label17.Text = "Ki";
-            // 
-            // CPki
-            // 
-            this.CPki.Location = new System.Drawing.Point(57, 55);
-            this.CPki.Name = "CPki";
-            this.CPki.Size = new System.Drawing.Size(48, 20);
-            this.CPki.TabIndex = 3;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(125, 58);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(32, 13);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "Zeon";
-            // 
-            // CPzeon
-            // 
-            this.CPzeon.Location = new System.Drawing.Point(163, 55);
-            this.CPzeon.Name = "CPzeon";
-            this.CPzeon.Size = new System.Drawing.Size(48, 20);
-            this.CPzeon.TabIndex = 5;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(233, 58);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(21, 13);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "CV";
-            // 
-            // CPcv
-            // 
-            this.CPcv.Location = new System.Drawing.Point(260, 55);
-            this.CPcv.Name = "CPcv";
-            this.CPcv.Size = new System.Drawing.Size(48, 20);
-            this.CPcv.TabIndex = 7;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(334, 58);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(58, 13);
-            this.label20.TabIndex = 8;
-            this.label20.Text = "Pt. de vida";
-            // 
-            // CPvida
-            // 
-            this.CPvida.Location = new System.Drawing.Point(398, 55);
-            this.CPvida.Name = "CPvida";
-            this.CPvida.Size = new System.Drawing.Size(48, 20);
-            this.CPvida.TabIndex = 9;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.textBox20);
-            this.groupBox5.Controls.Add(this.comboBox7);
-            this.groupBox5.Controls.Add(this.textBox21);
-            this.groupBox5.Controls.Add(this.CPA8nombre);
-            this.groupBox5.Controls.Add(this.label31);
-            this.groupBox5.Controls.Add(this.textBox17);
-            this.groupBox5.Controls.Add(this.comboBox6);
-            this.groupBox5.Controls.Add(this.textBox18);
-            this.groupBox5.Controls.Add(this.CPA7nombre);
-            this.groupBox5.Controls.Add(this.label30);
-            this.groupBox5.Controls.Add(this.textBox14);
-            this.groupBox5.Controls.Add(this.comboBox5);
-            this.groupBox5.Controls.Add(this.textBox15);
-            this.groupBox5.Controls.Add(this.CPA6nombre);
-            this.groupBox5.Controls.Add(this.label29);
-            this.groupBox5.Controls.Add(this.textBox11);
-            this.groupBox5.Controls.Add(this.comboBox4);
-            this.groupBox5.Controls.Add(this.textBox12);
-            this.groupBox5.Controls.Add(this.CPA5nombre);
-            this.groupBox5.Controls.Add(this.label28);
-            this.groupBox5.Controls.Add(this.textBox8);
-            this.groupBox5.Controls.Add(this.comboBox3);
-            this.groupBox5.Controls.Add(this.textBox9);
-            this.groupBox5.Controls.Add(this.CPA4nombre);
-            this.groupBox5.Controls.Add(this.label27);
-            this.groupBox5.Controls.Add(this.textBox5);
-            this.groupBox5.Controls.Add(this.comboBox2);
-            this.groupBox5.Controls.Add(this.textBox6);
-            this.groupBox5.Controls.Add(this.CPA3nombre);
-            this.groupBox5.Controls.Add(this.label26);
-            this.groupBox5.Controls.Add(this.textBox1);
-            this.groupBox5.Controls.Add(this.comboBox1);
-            this.groupBox5.Controls.Add(this.textBox3);
-            this.groupBox5.Controls.Add(this.CPA2nombre);
-            this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Controls.Add(this.CPAdano);
-            this.groupBox5.Controls.Add(this.label24);
-            this.groupBox5.Controls.Add(this.label23);
-            this.groupBox5.Controls.Add(this.textBox2);
-            this.groupBox5.Controls.Add(this.CPA1critico);
-            this.groupBox5.Controls.Add(this.CPA1ha);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.CPA1nombre);
-            this.groupBox5.Controls.Add(this.label21);
-            this.groupBox5.Location = new System.Drawing.Point(10, 102);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(361, 261);
-            this.groupBox5.TabIndex = 10;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Ataque";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 45);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(32, 13);
-            this.label21.TabIndex = 11;
-            this.label21.Text = "Atq 1";
-            // 
-            // CPA1nombre
-            // 
-            this.CPA1nombre.Location = new System.Drawing.Point(44, 42);
-            this.CPA1nombre.Name = "CPA1nombre";
-            this.CPA1nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA1nombre.TabIndex = 11;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(76, 16);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(44, 13);
-            this.label22.TabIndex = 12;
-            this.label22.Text = "Nombre";
-            // 
-            // CPA1ha
-            // 
-            this.CPA1ha.Location = new System.Drawing.Point(160, 42);
-            this.CPA1ha.Name = "CPA1ha";
-            this.CPA1ha.Size = new System.Drawing.Size(41, 20);
-            this.CPA1ha.TabIndex = 13;
-            // 
-            // CPA1critico
-            // 
-            this.CPA1critico.BackColor = System.Drawing.SystemColors.Window;
-            this.CPA1critico.FormattingEnabled = true;
-            this.CPA1critico.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.CPA1critico.Location = new System.Drawing.Point(207, 41);
-            this.CPA1critico.Name = "CPA1critico";
-            this.CPA1critico.Size = new System.Drawing.Size(73, 21);
-            this.CPA1critico.TabIndex = 14;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(286, 42);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(61, 20);
-            this.textBox2.TabIndex = 15;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(170, 16);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(22, 13);
-            this.label23.TabIndex = 16;
-            this.label23.Text = "HA";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(225, 16);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(36, 13);
-            this.label24.TabIndex = 17;
-            this.label24.Text = "Critico";
-            // 
-            // CPAdano
-            // 
-            this.CPAdano.AutoSize = true;
-            this.CPAdano.Location = new System.Drawing.Point(299, 16);
-            this.CPAdano.Name = "CPAdano";
-            this.CPAdano.Size = new System.Drawing.Size(33, 13);
-            this.CPAdano.TabIndex = 18;
-            this.CPAdano.Text = "Daño";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(286, 68);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(61, 20);
-            this.textBox1.TabIndex = 23;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox1.Location = new System.Drawing.Point(207, 67);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(73, 21);
-            this.comboBox1.TabIndex = 22;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(160, 68);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(41, 20);
-            this.textBox3.TabIndex = 21;
-            // 
-            // CPA2nombre
-            // 
-            this.CPA2nombre.Location = new System.Drawing.Point(44, 68);
-            this.CPA2nombre.Name = "CPA2nombre";
-            this.CPA2nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA2nombre.TabIndex = 19;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 71);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(32, 13);
-            this.label25.TabIndex = 20;
-            this.label25.Text = "Atq 2";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(286, 94);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(61, 20);
-            this.textBox5.TabIndex = 28;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox2.Location = new System.Drawing.Point(207, 93);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(73, 21);
-            this.comboBox2.TabIndex = 27;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(160, 94);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(41, 20);
-            this.textBox6.TabIndex = 26;
-            // 
-            // CPA3nombre
-            // 
-            this.CPA3nombre.Location = new System.Drawing.Point(44, 94);
-            this.CPA3nombre.Name = "CPA3nombre";
-            this.CPA3nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA3nombre.TabIndex = 24;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(6, 97);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(32, 13);
-            this.label26.TabIndex = 25;
-            this.label26.Text = "Atq 3";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(286, 120);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(61, 20);
-            this.textBox8.TabIndex = 33;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox3.Location = new System.Drawing.Point(207, 119);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(73, 21);
-            this.comboBox3.TabIndex = 32;
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(160, 120);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(41, 20);
-            this.textBox9.TabIndex = 31;
-            // 
-            // CPA4nombre
-            // 
-            this.CPA4nombre.Location = new System.Drawing.Point(44, 120);
-            this.CPA4nombre.Name = "CPA4nombre";
-            this.CPA4nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA4nombre.TabIndex = 29;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(6, 123);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(32, 13);
-            this.label27.TabIndex = 30;
-            this.label27.Text = "Atq 4";
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(286, 146);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(61, 20);
-            this.textBox11.TabIndex = 38;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox4.Location = new System.Drawing.Point(207, 145);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(73, 21);
-            this.comboBox4.TabIndex = 37;
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(160, 146);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(41, 20);
-            this.textBox12.TabIndex = 36;
-            // 
-            // CPA5nombre
-            // 
-            this.CPA5nombre.Location = new System.Drawing.Point(44, 146);
-            this.CPA5nombre.Name = "CPA5nombre";
-            this.CPA5nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA5nombre.TabIndex = 34;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(6, 149);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(32, 13);
-            this.label28.TabIndex = 35;
-            this.label28.Text = "Atq 5";
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(286, 172);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(61, 20);
-            this.textBox14.TabIndex = 43;
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox5.Location = new System.Drawing.Point(207, 171);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(73, 21);
-            this.comboBox5.TabIndex = 42;
-            // 
-            // textBox15
-            // 
-            this.textBox15.Location = new System.Drawing.Point(160, 172);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(41, 20);
-            this.textBox15.TabIndex = 41;
-            // 
-            // CPA6nombre
-            // 
-            this.CPA6nombre.Location = new System.Drawing.Point(44, 172);
-            this.CPA6nombre.Name = "CPA6nombre";
-            this.CPA6nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA6nombre.TabIndex = 39;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(6, 175);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(32, 13);
-            this.label29.TabIndex = 40;
-            this.label29.Text = "Atq 6";
-            // 
-            // textBox17
-            // 
-            this.textBox17.Location = new System.Drawing.Point(286, 198);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(61, 20);
-            this.textBox17.TabIndex = 48;
-            // 
-            // comboBox6
-            // 
-            this.comboBox6.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox6.Location = new System.Drawing.Point(207, 197);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(73, 21);
-            this.comboBox6.TabIndex = 47;
-            // 
-            // textBox18
-            // 
-            this.textBox18.Location = new System.Drawing.Point(160, 198);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(41, 20);
-            this.textBox18.TabIndex = 46;
-            // 
-            // CPA7nombre
-            // 
-            this.CPA7nombre.Location = new System.Drawing.Point(44, 198);
-            this.CPA7nombre.Name = "CPA7nombre";
-            this.CPA7nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA7nombre.TabIndex = 44;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(6, 201);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(32, 13);
-            this.label30.TabIndex = 45;
-            this.label30.Text = "Atq 7";
-            // 
-            // textBox20
-            // 
-            this.textBox20.Location = new System.Drawing.Point(286, 224);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(61, 20);
-            this.textBox20.TabIndex = 53;
-            // 
-            // comboBox7
-            // 
-            this.comboBox7.BackColor = System.Drawing.SystemColors.Window;
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
-            "FIL",
-            "CON",
-            "PEN",
-            "CAL",
-            "ELE",
-            "FRI",
-            "ENE"});
-            this.comboBox7.Location = new System.Drawing.Point(207, 223);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(73, 21);
-            this.comboBox7.TabIndex = 52;
-            // 
-            // textBox21
-            // 
-            this.textBox21.Location = new System.Drawing.Point(160, 224);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(41, 20);
-            this.textBox21.TabIndex = 51;
-            // 
-            // CPA8nombre
-            // 
-            this.CPA8nombre.Location = new System.Drawing.Point(44, 224);
-            this.CPA8nombre.Name = "CPA8nombre";
-            this.CPA8nombre.Size = new System.Drawing.Size(110, 20);
-            this.CPA8nombre.TabIndex = 49;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(6, 227);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(32, 13);
-            this.label31.TabIndex = 50;
-            this.label31.Text = "Atq 8";
+            this.saveFileDialogCreador.DefaultExt = "apj";
+            this.saveFileDialogCreador.Filter = "Anima PJ (*.apj)|*.apj";
+            this.saveFileDialogCreador.Title = "Guardar personaje...";
+            this.saveFileDialogCreador.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogCreador_FileOk);
             // 
             // Form1
             // 
@@ -1958,19 +2411,550 @@ namespace AnimaFacil
             ((System.ComponentModel.ISupportInitialize)(this.numAtaque)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
-        private void tabPage3_Click(object sender, EventArgs e)
+        private void buttonExportar_Click(object sender, EventArgs e)
         {
+            string fileName = "Vacio";
+            if (this.dataGridView1.CurrentRow.Cells["Personaje"] != null)
+            {
+                fileName = this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString();
+            }
+            this.saveFileDialogTabla.FileName = fileName;
+            this.saveFileDialogTabla.ShowDialog();
+        }
+        private void rowsAddednousar(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+        }
+        private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+        private void saveFileDialogTabla_FileOk(object sender, CancelEventArgs e)
+        {
+            string fileName = this.saveFileDialogTabla.FileName;
+            this.escribirFicheroTabla(fileName);
+        }
+        private void escribirFicheroTabla(string nombreFichero) //ESCRIBIR ARCHIVO
+        {
+            /*Personaje Pers;
+            if (this.dataGridView1.CurrentRow.Cells["Personaje"].Value != null && this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString() != "")
+            {
+                text = this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString();
+            }
+            else
+            {
+                text = "Desconocido";
+            }
+            //string text2;
+            if (this.dataGridView1.CurrentRow.Cells["Turno"].Value != null && this.dataGridView1.CurrentRow.Cells["Turno"].Value.ToString() != "")
+            {
+                text2 = this.dataGridView1.CurrentRow.Cells["Turno"].Value.ToString();
+            }
+            else
+            {
+                text2 = "0";
+            }
+            //string text3;
+            if (this.dataGridView1.CurrentRow.Cells["VidaActual"].Value != null && this.dataGridView1.CurrentRow.Cells["VidaActual"].Value.ToString() != "")
+            {
+                text3 = this.dataGridView1.CurrentRow.Cells["VidaActual"].Value.ToString();
+            }
+            else
+            {
+                text3 = "0";
+            }
+            //string text4;
+            if (this.dataGridView1.CurrentRow.Cells["Cansancio"].Value != null && this.dataGridView1.CurrentRow.Cells["Cansancio"].Value.ToString() != "")
+            {
+                text4 = this.dataGridView1.CurrentRow.Cells["Cansancio"].Value.ToString();
+            }
+            else
+            {
+                text4 = "0";
+            }
+            //string text5;
+            if (this.dataGridView1.CurrentRow.Cells["Ki"].Value != null && this.dataGridView1.CurrentRow.Cells["Ki"].Value.ToString() != "")
+            {
+                text5 = this.dataGridView1.CurrentRow.Cells["Ki"].Value.ToString();
+            }
+            else
+            {
+                text5 = "0";
+            }
+            //string text6;
+            if (this.dataGridView1.CurrentRow.Cells["Zeon"].Value != null && this.dataGridView1.CurrentRow.Cells["Zeon"].Value.ToString() != "")
+            {
+                text6 = this.dataGridView1.CurrentRow.Cells["Zeon"].Value.ToString();
+            }
+            else
+            {
+                text6 = "0";
+            }
+            //string text7;
+            if (this.dataGridView1.CurrentRow.Cells["Natura"].Value != null && this.dataGridView1.CurrentRow.Cells["Natura"].Value.ToString() != "")
+            {
+                text7 = this.dataGridView1.CurrentRow.Cells["Natura"].Value.ToString();
+            }
+            else
+            {
+                text7 = "Natura +5/+10";
+            }
+            //string text8;
+            if (this.dataGridView1.CurrentRow.Cells["Uroboros"].Value != null && this.dataGridView1.CurrentRow.Cells["Uroboros"].Value.ToString() != "")
+            {
+                text8 = this.dataGridView1.CurrentRow.Cells["Uroboros"].Value.ToString();
+            }
+            else
+            {
+                text8 = "False";
+            }
+            //string text9;
+            if (this.dataGridView1.CurrentRow.Cells["Notas"].Value != null && this.dataGridView1.CurrentRow.Cells["Notas"].Value.ToString() != "")
+            {
+                text9 = this.dataGridView1.CurrentRow.Cells["Notas"].Value.ToString();
+            }
+            else
+            {
+                text9 = "-";
+            }
+            //string text10;
+            if (this.dataGridView1.CurrentRow.Cells["Suerte"].Value != null && this.dataGridView1.CurrentRow.Cells["Suerte"].Value.ToString() != "")
+            {
+                text10 = this.dataGridView1.CurrentRow.Cells["Suerte"].Value.ToString();
+            }
+            else
+            {
+                text10 = "Normal";
+            }
+            //string text11;
+            if (this.dataGridView1.CurrentRow.Cells["CV"].Value != null && this.dataGridView1.CurrentRow.Cells["CV"].Value.ToString() != "")
+            {
+                text11 = this.dataGridView1.CurrentRow.Cells["CV"].Value.ToString();
+            }
+            else
+            {
+                text11 = "0";
+            }
+            string[] contents = new string[]
+            {
+                "ANIMAFACILCHARACTERDATA",
+                text,
+                text2,
+                text3,
+                text4,
+                text5,
+                text6,
+                text7,
+                text8,
+                text9,
+                text10,
+                text11
+            };
+            File.WriteAllLines(nombreFichero, contents);*/
+        }
+        private void buttonImportar_Click(object sender, EventArgs e)
+        {
+            this.openFileDialogTabla.ShowDialog();
+        }
 
+
+
+        private void openFileDialogTabla_FileOk(object sender, CancelEventArgs e)
+        {
+            Personaje perstemp = new Personaje();
+            BinaryFormatter BF = new BinaryFormatter();
+            string fileName = this.openFileDialogTabla.FileName;
+            FileStream FS = new FileStream(fileName, FileMode.Open);
+            try
+            {
+                perstemp = (Personaje)BF.Deserialize(FS);
+            }
+            catch (SerializationException error)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + error.Message);
+                throw;
+            }
+            finally
+            {
+                FS.Close();
+            }
+            bool Haskey;
+            int NombreMas = 0;
+            Haskey = ListaPers.ContainsKey(perstemp.Nombre);
+            while (Haskey)
+            {
+                NombreMas++;
+                perstemp.Nombre = perstemp.Nombre + NombreMas;
+                Haskey = ListaPers.ContainsKey(perstemp.Nombre);
+            }
+            ListaPers.Add(perstemp.Nombre, perstemp);
+            dataGridView1.Rows.Add();
+            int i = dataGridView1.Rows.Count - 1;
+            dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
+            dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
+            dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
+            dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
+            dataGridView1.Rows[i].Cells["Ki"].Value = perstemp.Ki;
+            dataGridView1.Rows[i].Cells["Zeon"].Value = perstemp.Zeon;
+            dataGridView1.Rows[i].Cells["CV"].Value = perstemp.CV;
+            dataGridView1.Rows[i].Cells["Natura"].Value = perstemp.Natura;
+            dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
+            dataGridView1.Rows[i].Cells["Suerte"].Value = perstemp.Suerte;
+        }
+
+        private void saveFileDialogCreador_FileOk(object sender, CancelEventArgs e)
+        {
+            string fileName = this.saveFileDialogCreador.FileName;
+            escribirficheroCreador(fileName);
+            
+        }
+
+        void escribirficheroCreador(string filename)
+        {
+            
+            BinaryFormatter BF = new BinaryFormatter();
+            
+            FileStream FS = new FileStream(filename, FileMode.Create);
+            
+
+            try
+            {
+                BF.Serialize(FS, PersAGuardar);
+            }
+            catch (SerializationException error)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + error.Message);
+                throw;
+            }
+            finally
+            {
+                FS.Close();
+            }
+            
+        }
+
+        private void CPsave_Click(object sender, EventArgs e)
+        {
+            string fileName = "Vacio";
+            if (CPnombre.Text != null)
+            {
+                fileName = CPnombre.Text;
+            }
+            Personaje perstemp = new Personaje();
+            perstemp.Nombre = CPnombre.Text;
+            perstemp.Ki = ParseNullableInt(CPki.Text);
+            perstemp.Zeon = ParseNullableInt(CPzeon.Text);
+            perstemp.CV = ParseNullableInt(CPcv.Text);
+            perstemp.Turno = ParseNullableInt(CPturno.Text);
+            perstemp.Vida = ParseNullableInt(CPvida.Text);
+            perstemp.Cansancio = ParseNullableInt(CPcansancio.Text);
+            perstemp.Natura = CPnatura.Text;
+            perstemp.Suerte = CPsuerte.Text;
+
+            perstemp.ListaAtaques[0].Nombre = CPA1nombre.Text; 
+            perstemp.ListaAtaques[1].Nombre = CPA2nombre.Text;
+            perstemp.ListaAtaques[2].Nombre = CPA3nombre.Text;
+            perstemp.ListaAtaques[3].Nombre = CPA4nombre.Text;
+            perstemp.ListaAtaques[4].Nombre = CPA5nombre.Text;
+            perstemp.ListaAtaques[5].Nombre = CPA6nombre.Text;
+            perstemp.ListaAtaques[6].Nombre = CPA7nombre.Text;
+            perstemp.ListaAtaques[7].Nombre = CPA8nombre.Text;
+
+            perstemp.ListaAtaques[0].HA = ParseNullableInt(CPA1ha.Text);
+            perstemp.ListaAtaques[1].HA = ParseNullableInt(CPA2ha.Text);
+            perstemp.ListaAtaques[2].HA = ParseNullableInt(CPA3ha.Text);
+            perstemp.ListaAtaques[3].HA = ParseNullableInt(CPA4ha.Text);
+            perstemp.ListaAtaques[4].HA = ParseNullableInt(CPA5ha.Text);
+            perstemp.ListaAtaques[5].HA = ParseNullableInt(CPA6ha.Text);
+            perstemp.ListaAtaques[6].HA = ParseNullableInt(CPA7ha.Text);
+            perstemp.ListaAtaques[7].HA = ParseNullableInt(CPA8ha.Text);
+
+            perstemp.ListaAtaques[0].Critico = CPA1critico.Text;
+            perstemp.ListaAtaques[1].Critico = CPA2critico.Text;
+            perstemp.ListaAtaques[2].Critico = CPA3critico.Text;
+            perstemp.ListaAtaques[3].Critico = CPA4critico.Text;
+            perstemp.ListaAtaques[4].Critico = CPA5critico.Text;
+            perstemp.ListaAtaques[5].Critico = CPA6critico.Text;
+            perstemp.ListaAtaques[6].Critico = CPA7critico.Text;
+            perstemp.ListaAtaques[7].Critico = CPA8critico.Text;
+
+            perstemp.ListaAtaques[0].Dano = ParseNullableInt(CPA1dano.Text);
+            perstemp.ListaAtaques[1].Dano = ParseNullableInt(CPA2dano.Text);
+            perstemp.ListaAtaques[2].Dano = ParseNullableInt(CPA3dano.Text);
+            perstemp.ListaAtaques[3].Dano = ParseNullableInt(CPA4dano.Text);
+            perstemp.ListaAtaques[4].Dano = ParseNullableInt(CPA5dano.Text);
+            perstemp.ListaAtaques[5].Dano = ParseNullableInt(CPA6dano.Text);
+            perstemp.ListaAtaques[6].Dano = ParseNullableInt(CPA7dano.Text);
+            perstemp.ListaAtaques[7].Dano = ParseNullableInt(CPA8dano.Text);
+
+            perstemp.ListaDefensa[0].Nombre = CPD1nombre.Text;
+            perstemp.ListaDefensa[1].Nombre = CPD2nombre.Text;
+            perstemp.ListaDefensa[2].Nombre = CPD3nombre.Text;
+            perstemp.ListaDefensa[3].Nombre = CPD4nombre.Text;
+            perstemp.ListaDefensa[4].Nombre = CPD5nombre.Text;
+            perstemp.ListaDefensa[5].Nombre = CPD6nombre.Text;
+            perstemp.ListaDefensa[6].Nombre = CPD7nombre.Text;
+            perstemp.ListaDefensa[7].Nombre = CPD8nombre.Text;
+
+            perstemp.ListaDefensa[0].Def = ParseNullableInt(CPD1defensa.Text);
+            perstemp.ListaDefensa[1].Def = ParseNullableInt(CPD2defensa.Text);
+            perstemp.ListaDefensa[2].Def = ParseNullableInt(CPD3defensa.Text);
+            perstemp.ListaDefensa[3].Def = ParseNullableInt(CPD4defensa.Text);
+            perstemp.ListaDefensa[4].Def = ParseNullableInt(CPD5defensa.Text);
+            perstemp.ListaDefensa[5].Def = ParseNullableInt(CPD6defensa.Text);
+            perstemp.ListaDefensa[6].Def = ParseNullableInt(CPD7defensa.Text);
+            perstemp.ListaDefensa[7].Def = ParseNullableInt(CPD8defensa.Text);
+
+            perstemp.FIL = ParseNullableInt(CPTAfil.Text);
+            perstemp.CAL = ParseNullableInt(CPTAcal.Text);
+            perstemp.CON = ParseNullableInt(CPTAcon.Text);
+            perstemp.ELE = ParseNullableInt(CPTAele.Text);
+            perstemp.PEN = ParseNullableInt(CPTApen.Text);
+            perstemp.FRI = ParseNullableInt(CPTAfri.Text);
+            perstemp.ENE = ParseNullableInt(CPTAene.Text);
+
+            PersAGuardar = perstemp;
+
+            this.saveFileDialogCreador.FileName = fileName;
+            this.saveFileDialogCreador.ShowDialog();
+        }
+
+        int ParseNullableInt(string value)
+        {
+            if (value == null || value.Trim() == string.Empty || value == "")
+            {
+                return 0;
+            }
+            else
+            {
+                try
+                {
+                    return int.Parse(value);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                ListaPers.Remove(dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString());
+                dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+            }
+            
+        }
+
+        private void CPload_Click(object sender, EventArgs e)
+        {
+            openFileDialogCreador.ShowDialog();
+        }
+
+        private void openFileDialogCreador_FileOk(object sender, CancelEventArgs e)
+        {
+            Personaje perstemp = new Personaje();
+            BinaryFormatter BF = new BinaryFormatter();
+            string fileName = this.openFileDialogCreador.FileName;
+            FileStream FS = new FileStream(fileName, FileMode.Open);
+            try
+            {
+                perstemp = (Personaje)BF.Deserialize(FS);
+            }
+            catch (SerializationException error)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + error.Message);
+                throw;
+            }
+            finally
+            {
+                FS.Close();
+            }
+
+            CPnombre.Text = perstemp.Nombre;
+            CPki.Text = perstemp.Ki.ToString();
+            CPzeon.Text = perstemp.Zeon.ToString();
+            CPcv.Text = perstemp.CV.ToString();
+            CPturno.Text = perstemp.Turno.ToString();
+            CPvida.Text = perstemp.Vida.ToString();
+            CPcansancio.Text = perstemp.Cansancio.ToString();
+            CPnatura.Text = perstemp.Natura;
+            CPsuerte.Text = perstemp.Suerte;
+
+            CPA1nombre.Text = perstemp.ListaAtaques[0].Nombre;
+            CPA2nombre.Text = perstemp.ListaAtaques[1].Nombre;
+            CPA3nombre.Text = perstemp.ListaAtaques[2].Nombre;
+            CPA4nombre.Text = perstemp.ListaAtaques[3].Nombre;
+            CPA5nombre.Text = perstemp.ListaAtaques[4].Nombre;
+            CPA6nombre.Text = perstemp.ListaAtaques[5].Nombre;
+            CPA7nombre.Text = perstemp.ListaAtaques[6].Nombre;
+            CPA8nombre.Text = perstemp.ListaAtaques[7].Nombre;
+
+            CPA1ha.Text = perstemp.ListaAtaques[0].HA.ToString();
+            CPA2ha.Text = perstemp.ListaAtaques[1].HA.ToString();
+            CPA3ha.Text = perstemp.ListaAtaques[2].HA.ToString();
+            CPA4ha.Text = perstemp.ListaAtaques[3].HA.ToString();
+            CPA5ha.Text = perstemp.ListaAtaques[4].HA.ToString();
+            CPA6ha.Text = perstemp.ListaAtaques[5].HA.ToString();
+            CPA7ha.Text = perstemp.ListaAtaques[6].HA.ToString();
+            CPA8ha.Text = perstemp.ListaAtaques[7].HA.ToString();
+
+            perstemp.ListaAtaques[0].Critico = CPA1critico.Text;  
+            perstemp.ListaAtaques[1].Critico = CPA2critico.Text;  
+            perstemp.ListaAtaques[2].Critico = CPA3critico.Text;  
+            perstemp.ListaAtaques[3].Critico = CPA4critico.Text;  
+            perstemp.ListaAtaques[4].Critico = CPA5critico.Text;  
+            perstemp.ListaAtaques[5].Critico = CPA6critico.Text;  
+            perstemp.ListaAtaques[6].Critico = CPA7critico.Text;
+            perstemp.ListaAtaques[7].Critico = CPA8critico.Text;
+
+            CPA1dano.Text = perstemp.ListaAtaques[0].Dano.ToString();
+            CPA2dano.Text = perstemp.ListaAtaques[1].Dano.ToString();
+            CPA3dano.Text = perstemp.ListaAtaques[2].Dano.ToString();
+            CPA4dano.Text = perstemp.ListaAtaques[3].Dano.ToString();
+            CPA5dano.Text = perstemp.ListaAtaques[4].Dano.ToString();
+            CPA6dano.Text = perstemp.ListaAtaques[5].Dano.ToString();
+            CPA7dano.Text = perstemp.ListaAtaques[6].Dano.ToString();
+            CPA8dano.Text = perstemp.ListaAtaques[7].Dano.ToString();
+
+            CPD1nombre.Text = perstemp.ListaDefensa[0].Nombre; 
+            CPD2nombre.Text = perstemp.ListaDefensa[1].Nombre; 
+            CPD3nombre.Text = perstemp.ListaDefensa[2].Nombre; 
+            CPD4nombre.Text = perstemp.ListaDefensa[3].Nombre; 
+            CPD5nombre.Text = perstemp.ListaDefensa[4].Nombre; 
+            CPD6nombre.Text = perstemp.ListaDefensa[5].Nombre; 
+            CPD7nombre.Text = perstemp.ListaDefensa[6].Nombre;
+            CPD8nombre.Text = perstemp.ListaDefensa[7].Nombre;
+
+            CPD1defensa.Text = perstemp.ListaDefensa[0].Def.ToString(); 
+            CPD2defensa.Text = perstemp.ListaDefensa[1].Def.ToString(); 
+            CPD3defensa.Text = perstemp.ListaDefensa[2].Def.ToString(); 
+            CPD4defensa.Text = perstemp.ListaDefensa[3].Def.ToString(); 
+            CPD5defensa.Text = perstemp.ListaDefensa[4].Def.ToString(); 
+            CPD6defensa.Text = perstemp.ListaDefensa[5].Def.ToString(); 
+            CPD7defensa.Text = perstemp.ListaDefensa[6].Def.ToString();
+            CPD8defensa.Text = perstemp.ListaDefensa[7].Def.ToString();
+
+            CPTAfil.Text = perstemp.FIL.ToString();
+            CPTAcal.Text = perstemp.CAL.ToString();
+            CPTAcon.Text = perstemp.CON.ToString();
+            CPTAele.Text = perstemp.ELE.ToString();
+            CPTApen.Text = perstemp.PEN.ToString();
+            CPTAfri.Text = perstemp.FRI.ToString();
+            CPTAene.Text = perstemp.ENE.ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Personaje perstemp = new Personaje();
+            perstemp.Nombre = CPnombre.Text;
+            perstemp.Ki = ParseNullableInt(CPki.Text);
+            perstemp.Zeon = ParseNullableInt(CPzeon.Text);
+            perstemp.CV = ParseNullableInt(CPcv.Text);
+            perstemp.Turno = ParseNullableInt(CPturno.Text);
+            perstemp.Vida = ParseNullableInt(CPvida.Text);
+            perstemp.Cansancio = ParseNullableInt(CPcansancio.Text);
+            perstemp.Natura = CPnatura.Text;
+            perstemp.Suerte = CPsuerte.Text;
+
+            perstemp.ListaAtaques[0].Nombre = CPA1nombre.Text;
+            perstemp.ListaAtaques[1].Nombre = CPA2nombre.Text;
+            perstemp.ListaAtaques[2].Nombre = CPA3nombre.Text;
+            perstemp.ListaAtaques[3].Nombre = CPA4nombre.Text;
+            perstemp.ListaAtaques[4].Nombre = CPA5nombre.Text;
+            perstemp.ListaAtaques[5].Nombre = CPA6nombre.Text;
+            perstemp.ListaAtaques[6].Nombre = CPA7nombre.Text;
+            perstemp.ListaAtaques[7].Nombre = CPA8nombre.Text;
+
+            perstemp.ListaAtaques[0].HA = ParseNullableInt(CPA1ha.Text);
+            perstemp.ListaAtaques[1].HA = ParseNullableInt(CPA2ha.Text);
+            perstemp.ListaAtaques[2].HA = ParseNullableInt(CPA3ha.Text);
+            perstemp.ListaAtaques[3].HA = ParseNullableInt(CPA4ha.Text);
+            perstemp.ListaAtaques[4].HA = ParseNullableInt(CPA5ha.Text);
+            perstemp.ListaAtaques[5].HA = ParseNullableInt(CPA6ha.Text);
+            perstemp.ListaAtaques[6].HA = ParseNullableInt(CPA7ha.Text);
+            perstemp.ListaAtaques[7].HA = ParseNullableInt(CPA8ha.Text);
+
+            perstemp.ListaAtaques[0].Critico = CPA1critico.Text;
+            perstemp.ListaAtaques[1].Critico = CPA2critico.Text;
+            perstemp.ListaAtaques[2].Critico = CPA3critico.Text;
+            perstemp.ListaAtaques[3].Critico = CPA4critico.Text;
+            perstemp.ListaAtaques[4].Critico = CPA5critico.Text;
+            perstemp.ListaAtaques[5].Critico = CPA6critico.Text;
+            perstemp.ListaAtaques[6].Critico = CPA7critico.Text;
+            perstemp.ListaAtaques[7].Critico = CPA8critico.Text;
+
+            perstemp.ListaAtaques[0].Dano = ParseNullableInt(CPA1dano.Text);
+            perstemp.ListaAtaques[1].Dano = ParseNullableInt(CPA2dano.Text);
+            perstemp.ListaAtaques[2].Dano = ParseNullableInt(CPA3dano.Text);
+            perstemp.ListaAtaques[3].Dano = ParseNullableInt(CPA4dano.Text);
+            perstemp.ListaAtaques[4].Dano = ParseNullableInt(CPA5dano.Text);
+            perstemp.ListaAtaques[5].Dano = ParseNullableInt(CPA6dano.Text);
+            perstemp.ListaAtaques[6].Dano = ParseNullableInt(CPA7dano.Text);
+            perstemp.ListaAtaques[7].Dano = ParseNullableInt(CPA8dano.Text);
+
+            perstemp.ListaDefensa[0].Nombre = CPD1nombre.Text;
+            perstemp.ListaDefensa[1].Nombre = CPD2nombre.Text;
+            perstemp.ListaDefensa[2].Nombre = CPD3nombre.Text;
+            perstemp.ListaDefensa[3].Nombre = CPD4nombre.Text;
+            perstemp.ListaDefensa[4].Nombre = CPD5nombre.Text;
+            perstemp.ListaDefensa[5].Nombre = CPD6nombre.Text;
+            perstemp.ListaDefensa[6].Nombre = CPD7nombre.Text;
+            perstemp.ListaDefensa[7].Nombre = CPD8nombre.Text;
+
+            perstemp.ListaDefensa[0].Def = ParseNullableInt(CPD1defensa.Text);
+            perstemp.ListaDefensa[1].Def = ParseNullableInt(CPD2defensa.Text);
+            perstemp.ListaDefensa[2].Def = ParseNullableInt(CPD3defensa.Text);
+            perstemp.ListaDefensa[3].Def = ParseNullableInt(CPD4defensa.Text);
+            perstemp.ListaDefensa[4].Def = ParseNullableInt(CPD5defensa.Text);
+            perstemp.ListaDefensa[5].Def = ParseNullableInt(CPD6defensa.Text);
+            perstemp.ListaDefensa[6].Def = ParseNullableInt(CPD7defensa.Text);
+            perstemp.ListaDefensa[7].Def = ParseNullableInt(CPD8defensa.Text);
+
+            perstemp.FIL = ParseNullableInt(CPTAfil.Text);
+            perstemp.CAL = ParseNullableInt(CPTAcal.Text);
+            perstemp.CON = ParseNullableInt(CPTAcon.Text);
+            perstemp.ELE = ParseNullableInt(CPTAele.Text);
+            perstemp.PEN = ParseNullableInt(CPTApen.Text);
+            perstemp.FRI = ParseNullableInt(CPTAfri.Text);
+            perstemp.ENE = ParseNullableInt(CPTAene.Text);
+
+            bool Haskey;
+            int NombreMas = 0;
+            Haskey = ListaPers.ContainsKey(perstemp.Nombre);
+            while (Haskey)
+            {
+                NombreMas++;
+                perstemp.Nombre = perstemp.Nombre + NombreMas;
+                Haskey = ListaPers.ContainsKey(perstemp.Nombre);
+            }
+            ListaPers.Add(perstemp.Nombre, perstemp);
+            dataGridView1.Rows.Add();
+            int i = dataGridView1.Rows.Count - 1;
+            dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
+            dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
+            dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
+            dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
+            dataGridView1.Rows[i].Cells["Ki"].Value = perstemp.Ki;
+            dataGridView1.Rows[i].Cells["Zeon"].Value = perstemp.Zeon;
+            dataGridView1.Rows[i].Cells["CV"].Value = perstemp.CV;
+            dataGridView1.Rows[i].Cells["Natura"].Value = perstemp.Natura;
+            dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
+            dataGridView1.Rows[i].Cells["Suerte"].Value = perstemp.Suerte;
         }
     }
     internal static class Program
@@ -1982,6 +2966,47 @@ namespace AnimaFacil
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+    }
+
+    [Serializable()]
+    public class Personaje
+    {
+        public string Nombre;
+        public int Cansancio;
+        public int Turno;
+        public int Ki;
+        public int Zeon;
+        public int CV;
+        public int Vida;
+        public string Natura;
+        public string Suerte;
+        public string Notas;
+        public bool Uroboros;
+        public Ataque[] ListaAtaques = new Ataque[8];
+        public Defensa[] ListaDefensa = new Defensa[8];
+
+        [Serializable()]
+        public struct Ataque
+        {
+            public string Nombre;
+            public int HA;
+            public string Critico;
+            public int Dano;
+        }
+        [Serializable()]
+        public struct Defensa
+        {
+            public string Nombre;
+            public int Def;
+        }
+
+        public int FIL;
+        public int CAL;
+        public int CON;
+        public int ELE;
+        public int PEN;
+        public int FRI;
+        public int ENE;
     }
 }
 namespace AnimaFacil.Properties
