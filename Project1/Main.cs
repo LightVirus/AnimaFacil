@@ -80,6 +80,7 @@ namespace AnimaFacil
         private DataGridViewTextBoxColumn DadosT;
         private DataGridViewTextBoxColumn Iniciativa;
         private DataGridViewTextBoxColumn VidaActual;
+        private DataGridViewTextBoxColumn VidaMax;
         private DataGridViewTextBoxColumn Cansancio;
         private DataGridViewTextBoxColumn Ki;
         private DataGridViewTextBoxColumn Zeon;
@@ -209,6 +210,33 @@ namespace AnimaFacil
         private Label label53;
         private TextBox CPnotas;
         private Button Cpclean;
+        private TabControl tabControl2;
+        private TabPage tabPage4;
+        private Label label55;
+        private Label label54;
+        private ComboBox CALatacante;
+        private TabPage tabPage5;
+        private TextBox CALAdado;
+        private Label label56;
+        private Button CALcal;
+        private RichTextBox CALlog;
+        private ComboBox CALdefensa;
+        private Label label60;
+        private Label label62;
+        private ComboBox CALdefensor;
+        private TextBox CALAbono;
+        private Label label58;
+        private ComboBox CALataque;
+        private Label label57;
+        private RichTextBox CALresultado;
+        private TextBox CALDta;
+        private Label label59;
+        private TextBox CALDbono;
+        private Label label61;
+        private TextBox CALDdado;
+        private Label label64;
+        private TextBox CALAta;
+        private Label label63;
         Dictionary<string,Personaje> ListaPers = new Dictionary<string, Personaje>();
         public Form1()
         {
@@ -585,32 +613,22 @@ namespace AnimaFacil
         }
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericTurno = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.buttonImportar = new System.Windows.Forms.Button();
-            this.buttonExportar = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.buttonIniciativas = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBoxResultadoOp = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxOperacion = new System.Windows.Forms.ComboBox();
-            this.numOperador2 = new System.Windows.Forms.NumericUpDown();
-            this.numOperador1 = new System.Windows.Forms.NumericUpDown();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.CALatacante = new System.Windows.Forms.ComboBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -622,12 +640,30 @@ namespace AnimaFacil
             this.numTA = new System.Windows.Forms.NumericUpDown();
             this.numDefensa = new System.Windows.Forms.NumericUpDown();
             this.numAtaque = new System.Windows.Forms.NumericUpDown();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxResultadoOp = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxOperacion = new System.Windows.Forms.ComboBox();
+            this.numOperador2 = new System.Windows.Forms.NumericUpDown();
+            this.numOperador1 = new System.Windows.Forms.NumericUpDown();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numericTurno = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonImportar = new System.Windows.Forms.Button();
+            this.buttonExportar = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.buttonIniciativas = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Personaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Turno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DadosT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Iniciativa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VidaActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VidaMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cansancio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ki = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Zeon = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -760,18 +796,42 @@ namespace AnimaFacil
             this.openFileDialogTabla = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogCreador = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogCreador = new System.Windows.Forms.SaveFileDialog();
+            this.label56 = new System.Windows.Forms.Label();
+            this.CALAdado = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.CALataque = new System.Windows.Forms.ComboBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.CALAbono = new System.Windows.Forms.TextBox();
+            this.CALdefensa = new System.Windows.Forms.ComboBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.CALdefensor = new System.Windows.Forms.ComboBox();
+            this.CALlog = new System.Windows.Forms.RichTextBox();
+            this.CALcal = new System.Windows.Forms.Button();
+            this.label63 = new System.Windows.Forms.Label();
+            this.CALAta = new System.Windows.Forms.TextBox();
+            this.CALDta = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.CALDbono = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.CALDdado = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.CALresultado = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numOperador2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOperador1)).BeginInit();
+            this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDano)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDefensa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAtaque)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numOperador2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numOperador1)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -792,204 +852,109 @@ namespace AnimaFacil
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1055, 538);
+            this.tabControl1.Size = new System.Drawing.Size(1055, 589);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.tabControl2);
             this.tabPage1.Controls.Add(this.groupBox3);
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.buttonImportar);
             this.tabPage1.Controls.Add(this.buttonExportar);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.buttonIniciativas);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1047, 512);
+            this.tabPage1.Size = new System.Drawing.Size(1047, 563);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Principal";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // tabControl2
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(481, 413);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Eliminar personaje seleccionado";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Location = new System.Drawing.Point(6, 390);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(891, 167);
+            this.tabControl2.TabIndex = 9;
             // 
-            // groupBox3
+            // tabPage4
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox3.Controls.Add(this.numericTurno);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Location = new System.Drawing.Point(578, 440);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(138, 66);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Contador de turno";
+            this.tabPage4.Controls.Add(this.CALresultado);
+            this.tabPage4.Controls.Add(this.CALDta);
+            this.tabPage4.Controls.Add(this.label59);
+            this.tabPage4.Controls.Add(this.CALDbono);
+            this.tabPage4.Controls.Add(this.label61);
+            this.tabPage4.Controls.Add(this.CALDdado);
+            this.tabPage4.Controls.Add(this.label64);
+            this.tabPage4.Controls.Add(this.CALAta);
+            this.tabPage4.Controls.Add(this.label63);
+            this.tabPage4.Controls.Add(this.CALcal);
+            this.tabPage4.Controls.Add(this.CALlog);
+            this.tabPage4.Controls.Add(this.CALdefensa);
+            this.tabPage4.Controls.Add(this.label60);
+            this.tabPage4.Controls.Add(this.label62);
+            this.tabPage4.Controls.Add(this.CALdefensor);
+            this.tabPage4.Controls.Add(this.CALAbono);
+            this.tabPage4.Controls.Add(this.label58);
+            this.tabPage4.Controls.Add(this.CALataque);
+            this.tabPage4.Controls.Add(this.label57);
+            this.tabPage4.Controls.Add(this.CALAdado);
+            this.tabPage4.Controls.Add(this.label56);
+            this.tabPage4.Controls.Add(this.label55);
+            this.tabPage4.Controls.Add(this.label54);
+            this.tabPage4.Controls.Add(this.CALatacante);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(883, 141);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "Calculadora Combate Avanzada";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // numericTurno
+            // label55
             // 
-            this.numericTurno.Location = new System.Drawing.Point(9, 41);
-            this.numericTurno.Name = "numericTurno";
-            this.numericTurno.Size = new System.Drawing.Size(123, 20);
-            this.numericTurno.TabIndex = 1;
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(215, 9);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(0, 13);
+            this.label55.TabIndex = 2;
             // 
-            // label15
+            // label54
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 24);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(35, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Turno";
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(7, 14);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(50, 13);
+            this.label54.TabIndex = 1;
+            this.label54.Text = "Atacante";
             // 
-            // buttonImportar
+            // CALatacante
             // 
-            this.buttonImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonImportar.Location = new System.Drawing.Point(677, 413);
-            this.buttonImportar.Name = "buttonImportar";
-            this.buttonImportar.Size = new System.Drawing.Size(190, 23);
-            this.buttonImportar.TabIndex = 6;
-            this.buttonImportar.Text = "Importar personaje desde archivo";
-            this.buttonImportar.UseVisualStyleBackColor = true;
-            this.buttonImportar.Click += new System.EventHandler(this.buttonImportar_Click);
+            this.CALatacante.FormattingEnabled = true;
+            this.CALatacante.Location = new System.Drawing.Point(63, 10);
+            this.CALatacante.Name = "CALatacante";
+            this.CALatacante.Size = new System.Drawing.Size(121, 21);
+            this.CALatacante.TabIndex = 0;
+            this.CALatacante.SelectedValueChanged += new System.EventHandler(this.UpdateCALAtacante);
+            
             // 
-            // buttonExportar
+            // tabPage5
             // 
-            this.buttonExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExportar.Enabled = false;
-            this.buttonExportar.Location = new System.Drawing.Point(873, 411);
-            this.buttonExportar.Name = "buttonExportar";
-            this.buttonExportar.Size = new System.Drawing.Size(173, 23);
-            this.buttonExportar.TabIndex = 5;
-            this.buttonExportar.Text = "Enviar seleccionado al creador";
-            this.buttonExportar.UseVisualStyleBackColor = true;
-            this.buttonExportar.Click += new System.EventHandler(this.buttonExportar_Click);
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(181, 418);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(94, 13);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Fondo Rojo = Pifia";
-            // 
-            // buttonIniciativas
-            // 
-            this.buttonIniciativas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonIniciativas.Location = new System.Drawing.Point(6, 411);
-            this.buttonIniciativas.Name = "buttonIniciativas";
-            this.buttonIniciativas.Size = new System.Drawing.Size(169, 23);
-            this.buttonIniciativas.TabIndex = 3;
-            this.buttonIniciativas.Text = "Calcular nuevas iniciativas";
-            this.buttonIniciativas.UseVisualStyleBackColor = true;
-            this.buttonIniciativas.Click += new System.EventHandler(this.buttonIniciativas_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.textBoxResultadoOp);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.comboBoxOperacion);
-            this.groupBox2.Controls.Add(this.numOperador2);
-            this.groupBox2.Controls.Add(this.numOperador1);
-            this.groupBox2.Location = new System.Drawing.Point(722, 440);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(324, 66);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Calculadora Básica";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(197, 21);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(55, 13);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Resultado";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(114, 21);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Num.2";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 21);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 13);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Num.1";
-            // 
-            // textBoxResultadoOp
-            // 
-            this.textBoxResultadoOp.Location = new System.Drawing.Point(200, 39);
-            this.textBoxResultadoOp.Name = "textBoxResultadoOp";
-            this.textBoxResultadoOp.ReadOnly = true;
-            this.textBoxResultadoOp.Size = new System.Drawing.Size(118, 20);
-            this.textBoxResultadoOp.TabIndex = 5;
-            this.textBoxResultadoOp.Text = "0";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(181, 43);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(13, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "=";
-            // 
-            // comboBoxOperacion
-            // 
-            this.comboBoxOperacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOperacion.FormattingEnabled = true;
-            this.comboBoxOperacion.Items.AddRange(new object[] {
-            "+",
-            "-",
-            "x",
-            ":"});
-            this.comboBoxOperacion.Location = new System.Drawing.Point(70, 40);
-            this.comboBoxOperacion.Name = "comboBoxOperacion";
-            this.comboBoxOperacion.Size = new System.Drawing.Size(41, 21);
-            this.comboBoxOperacion.TabIndex = 3;
-            this.comboBoxOperacion.SelectedValueChanged += new System.EventHandler(this.comboBoxOperacion_SelectedValueChanged);
-            // 
-            // numOperador2
-            // 
-            this.numOperador2.Location = new System.Drawing.Point(117, 40);
-            this.numOperador2.Name = "numOperador2";
-            this.numOperador2.Size = new System.Drawing.Size(58, 20);
-            this.numOperador2.TabIndex = 2;
-            this.numOperador2.ValueChanged += new System.EventHandler(this.numOperador2_ValueChanged);
-            // 
-            // numOperador1
-            // 
-            this.numOperador1.Location = new System.Drawing.Point(6, 40);
-            this.numOperador1.Name = "numOperador1";
-            this.numOperador1.Size = new System.Drawing.Size(58, 20);
-            this.numOperador1.TabIndex = 1;
-            this.numOperador1.ValueChanged += new System.EventHandler(this.numOperador1_ValueChanged);
+            this.tabPage5.Controls.Add(this.groupBox1);
+            this.tabPage5.Controls.Add(this.groupBox2);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(883, 141);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Calculadora Combate Simple";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -1004,7 +969,7 @@ namespace AnimaFacil
             this.groupBox1.Controls.Add(this.numTA);
             this.groupBox1.Controls.Add(this.numDefensa);
             this.groupBox1.Controls.Add(this.numAtaque);
-            this.groupBox1.Location = new System.Drawing.Point(6, 440);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(565, 66);
             this.groupBox1.TabIndex = 1;
@@ -1096,6 +1061,183 @@ namespace AnimaFacil
             this.numAtaque.TabIndex = 0;
             this.numAtaque.ValueChanged += new System.EventHandler(this.numAtaque_ValueChanged);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.textBoxResultadoOp);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.comboBoxOperacion);
+            this.groupBox2.Controls.Add(this.numOperador2);
+            this.groupBox2.Controls.Add(this.numOperador1);
+            this.groupBox2.Location = new System.Drawing.Point(6, 75);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(324, 60);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Calculadora Básica";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(198, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(55, 13);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Resultado";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(118, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Num.2";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Num.1";
+            // 
+            // textBoxResultadoOp
+            // 
+            this.textBoxResultadoOp.Location = new System.Drawing.Point(200, 31);
+            this.textBoxResultadoOp.Name = "textBoxResultadoOp";
+            this.textBoxResultadoOp.ReadOnly = true;
+            this.textBoxResultadoOp.Size = new System.Drawing.Size(118, 20);
+            this.textBoxResultadoOp.TabIndex = 5;
+            this.textBoxResultadoOp.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(181, 35);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "=";
+            // 
+            // comboBoxOperacion
+            // 
+            this.comboBoxOperacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOperacion.FormattingEnabled = true;
+            this.comboBoxOperacion.Items.AddRange(new object[] {
+            "+",
+            "-",
+            "x",
+            ":"});
+            this.comboBoxOperacion.Location = new System.Drawing.Point(70, 32);
+            this.comboBoxOperacion.Name = "comboBoxOperacion";
+            this.comboBoxOperacion.Size = new System.Drawing.Size(41, 21);
+            this.comboBoxOperacion.TabIndex = 3;
+            this.comboBoxOperacion.SelectedValueChanged += new System.EventHandler(this.comboBoxOperacion_SelectedValueChanged);
+            // 
+            // numOperador2
+            // 
+            this.numOperador2.Location = new System.Drawing.Point(117, 32);
+            this.numOperador2.Name = "numOperador2";
+            this.numOperador2.Size = new System.Drawing.Size(58, 20);
+            this.numOperador2.TabIndex = 2;
+            this.numOperador2.ValueChanged += new System.EventHandler(this.numOperador2_ValueChanged);
+            // 
+            // numOperador1
+            // 
+            this.numOperador1.Location = new System.Drawing.Point(6, 32);
+            this.numOperador1.Name = "numOperador1";
+            this.numOperador1.Size = new System.Drawing.Size(58, 20);
+            this.numOperador1.TabIndex = 1;
+            this.numOperador1.ValueChanged += new System.EventHandler(this.numOperador1_ValueChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox3.Controls.Add(this.numericTurno);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Location = new System.Drawing.Point(899, 412);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(138, 66);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Contador de turno";
+            // 
+            // numericTurno
+            // 
+            this.numericTurno.Location = new System.Drawing.Point(9, 41);
+            this.numericTurno.Name = "numericTurno";
+            this.numericTurno.Size = new System.Drawing.Size(123, 20);
+            this.numericTurno.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(35, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Turno";
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(476, 361);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Eliminar personaje seleccionado";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonImportar
+            // 
+            this.buttonImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonImportar.Location = new System.Drawing.Point(672, 361);
+            this.buttonImportar.Name = "buttonImportar";
+            this.buttonImportar.Size = new System.Drawing.Size(190, 23);
+            this.buttonImportar.TabIndex = 6;
+            this.buttonImportar.Text = "Importar personaje desde archivo";
+            this.buttonImportar.UseVisualStyleBackColor = true;
+            this.buttonImportar.Click += new System.EventHandler(this.buttonImportar_Click);
+            // 
+            // buttonExportar
+            // 
+            this.buttonExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExportar.Enabled = false;
+            this.buttonExportar.Location = new System.Drawing.Point(868, 361);
+            this.buttonExportar.Name = "buttonExportar";
+            this.buttonExportar.Size = new System.Drawing.Size(173, 23);
+            this.buttonExportar.TabIndex = 5;
+            this.buttonExportar.Text = "Enviar seleccionado al creador";
+            this.buttonExportar.UseVisualStyleBackColor = true;
+            this.buttonExportar.Click += new System.EventHandler(this.buttonExportar_Click);
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(181, 366);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(94, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Fondo Rojo = Pifia";
+            // 
+            // buttonIniciativas
+            // 
+            this.buttonIniciativas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonIniciativas.Location = new System.Drawing.Point(6, 361);
+            this.buttonIniciativas.Name = "buttonIniciativas";
+            this.buttonIniciativas.Size = new System.Drawing.Size(169, 23);
+            this.buttonIniciativas.TabIndex = 3;
+            this.buttonIniciativas.Text = "Calcular nuevas iniciativas";
+            this.buttonIniciativas.UseVisualStyleBackColor = true;
+            this.buttonIniciativas.Click += new System.EventHandler(this.buttonIniciativas_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -1109,6 +1251,7 @@ namespace AnimaFacil
             this.DadosT,
             this.Iniciativa,
             this.VidaActual,
+            this.VidaMax,
             this.Cansancio,
             this.Ki,
             this.Zeon,
@@ -1121,7 +1264,7 @@ namespace AnimaFacil
             this.dataGridView1.Location = new System.Drawing.Point(6, 6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dataGridView1.Size = new System.Drawing.Size(1040, 399);
+            this.dataGridView1.Size = new System.Drawing.Size(1040, 347);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
@@ -1129,33 +1272,35 @@ namespace AnimaFacil
             this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
             this.dataGridView1.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowLeave);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.rowsAddednousar);
+            this.dataGridView1.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(rowsRemovednousar);
             // 
             // Personaje
             // 
             this.Personaje.HeaderText = "Personaje";
             this.Personaje.Name = "Personaje";
+            this.Personaje.ReadOnly = true;
             this.Personaje.Width = 70;
             // 
             // Turno
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            this.Turno.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Format = "N0";
+            this.Turno.DefaultCellStyle = dataGridViewCellStyle9;
             this.Turno.HeaderText = "Turno";
             this.Turno.Name = "Turno";
             this.Turno.Width = 71;
             // 
             // DadosT
             // 
-            dataGridViewCellStyle2.Format = "N0";
-            this.DadosT.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Format = "N0";
+            this.DadosT.DefaultCellStyle = dataGridViewCellStyle10;
             this.DadosT.HeaderText = "Dados Turno";
             this.DadosT.Name = "DadosT";
             this.DadosT.Width = 71;
             // 
             // Iniciativa
             // 
-            dataGridViewCellStyle3.Format = "N0";
-            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Format = "N0";
+            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle11;
             this.Iniciativa.HeaderText = "Iniciativa";
             this.Iniciativa.Name = "Iniciativa";
             this.Iniciativa.ReadOnly = true;
@@ -1163,32 +1308,41 @@ namespace AnimaFacil
             // 
             // VidaActual
             // 
-            dataGridViewCellStyle4.Format = "N0";
-            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Format = "N0";
+            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle12;
             this.VidaActual.HeaderText = "Vida";
             this.VidaActual.Name = "VidaActual";
             this.VidaActual.Width = 72;
             // 
+            // VidaMax
+            // 
+            dataGridViewCellStyle13.Format = "N0";
+            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle13;
+            this.VidaMax.HeaderText = "Vida Total";
+            this.VidaMax.Name = "VidaMax";
+            this.VidaMax.ReadOnly = true;
+            this.VidaMax.Width = 72;
+            // 
             // Cansancio
             // 
-            dataGridViewCellStyle5.Format = "N0";
-            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle14.Format = "N0";
+            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle14;
             this.Cansancio.HeaderText = "Cansancio";
             this.Cansancio.Name = "Cansancio";
             this.Cansancio.Width = 72;
             // 
             // Ki
             // 
-            dataGridViewCellStyle6.Format = "N0";
-            this.Ki.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle15.Format = "N0";
+            this.Ki.DefaultCellStyle = dataGridViewCellStyle15;
             this.Ki.HeaderText = "Ki";
             this.Ki.Name = "Ki";
             this.Ki.Width = 71;
             // 
             // Zeon
             // 
-            dataGridViewCellStyle7.Format = "N0";
-            this.Zeon.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle16.Format = "N0";
+            this.Zeon.DefaultCellStyle = dataGridViewCellStyle16;
             this.Zeon.HeaderText = "Zeon";
             this.Zeon.Name = "Zeon";
             this.Zeon.Width = 71;
@@ -1244,7 +1398,7 @@ namespace AnimaFacil
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1047, 512);
+            this.tabPage3.Size = new System.Drawing.Size(1047, 563);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Creador Personajes";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1285,7 +1439,7 @@ namespace AnimaFacil
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Location = new System.Drawing.Point(7, 7);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1034, 499);
+            this.groupBox4.Size = new System.Drawing.Size(1034, 550);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Personaje";
@@ -2281,9 +2435,9 @@ namespace AnimaFacil
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(235, 55);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(58, 13);
+            this.label20.Size = new System.Drawing.Size(51, 13);
             this.label20.TabIndex = 8;
-            this.label20.Text = "Pt. de vida";
+            this.label20.Text = "Vida Max";
             // 
             // CPcv
             // 
@@ -2358,7 +2512,7 @@ namespace AnimaFacil
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1047, 512);
+            this.tabPage2.Size = new System.Drawing.Size(1047, 563);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Acerca de...";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -2430,12 +2584,192 @@ namespace AnimaFacil
             this.saveFileDialogCreador.Title = "Guardar personaje...";
             this.saveFileDialogCreador.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogCreador_FileOk);
             // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(390, 14);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(33, 13);
+            this.label56.TabIndex = 3;
+            this.label56.Text = "Dado";
+            this.label56.Click += new System.EventHandler(this.label56_Click);
+            // 
+            // CALAdado
+            // 
+            this.CALAdado.Location = new System.Drawing.Point(429, 11);
+            this.CALAdado.Name = "CALAdado";
+            this.CALAdado.Size = new System.Drawing.Size(42, 20);
+            this.CALAdado.TabIndex = 4;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(206, 14);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(41, 13);
+            this.label57.TabIndex = 5;
+            this.label57.Text = "Ataque";
+            // 
+            // CALataque
+            // 
+            this.CALataque.FormattingEnabled = true;
+            this.CALataque.Location = new System.Drawing.Point(253, 10);
+            this.CALataque.Name = "CALataque";
+            this.CALataque.Size = new System.Drawing.Size(121, 21);
+            this.CALataque.TabIndex = 6;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(486, 14);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(70, 13);
+            this.label58.TabIndex = 7;
+            this.label58.Text = "Bonos / Pen.";
+            // 
+            // CALAbono
+            // 
+            this.CALAbono.Location = new System.Drawing.Point(562, 12);
+            this.CALAbono.Name = "CALAbono";
+            this.CALAbono.Size = new System.Drawing.Size(43, 20);
+            this.CALAbono.TabIndex = 8;
+            this.CALAbono.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // CALdefensa
+            // 
+            this.CALdefensa.FormattingEnabled = true;
+            this.CALdefensa.Location = new System.Drawing.Point(253, 46);
+            this.CALdefensa.Name = "CALdefensa";
+            this.CALdefensa.Size = new System.Drawing.Size(121, 21);
+            this.CALdefensa.TabIndex = 14;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(206, 49);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(47, 13);
+            this.label60.TabIndex = 13;
+            this.label60.Text = "Defensa";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(7, 49);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(50, 13);
+            this.label62.TabIndex = 10;
+            this.label62.Text = "Defensor";
+            // 
+            // CALdefensor
+            // 
+            this.CALdefensor.FormattingEnabled = true;
+            this.CALdefensor.Location = new System.Drawing.Point(63, 45);
+            this.CALdefensor.Name = "CALdefensor";
+            this.CALdefensor.Size = new System.Drawing.Size(121, 21);
+            this.CALdefensor.TabIndex = 9;
+            this.CALdefensor.SelectedValueChanged += new System.EventHandler(this.UpdateCALDefensor);
+            // 
+            // CALlog
+            // 
+            this.CALlog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CALlog.Location = new System.Drawing.Point(717, 10);
+            this.CALlog.Name = "CALlog";
+            this.CALlog.ReadOnly = true;
+            this.CALlog.Size = new System.Drawing.Size(160, 125);
+            this.CALlog.TabIndex = 17;
+            this.CALlog.Text = "";
+            // 
+            // CALcal
+            // 
+            this.CALcal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CALcal.Location = new System.Drawing.Point(15, 89);
+            this.CALcal.Name = "CALcal";
+            this.CALcal.Size = new System.Drawing.Size(169, 23);
+            this.CALcal.TabIndex = 10;
+            this.CALcal.Text = "Calcular";
+            this.CALcal.UseVisualStyleBackColor = true;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(621, 15);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(48, 13);
+            this.label63.TabIndex = 18;
+            this.label63.Text = "Mod. TA";
+            // 
+            // CALAta
+            // 
+            this.CALAta.Location = new System.Drawing.Point(675, 12);
+            this.CALAta.Name = "CALAta";
+            this.CALAta.Size = new System.Drawing.Size(27, 20);
+            this.CALAta.TabIndex = 19;
+            // 
+            // CALDta
+            // 
+            this.CALDta.Location = new System.Drawing.Point(675, 47);
+            this.CALDta.Name = "CALDta";
+            this.CALDta.Size = new System.Drawing.Size(27, 20);
+            this.CALDta.TabIndex = 25;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(621, 50);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(48, 13);
+            this.label59.TabIndex = 24;
+            this.label59.Text = "Mod. TA";
+            // 
+            // CALDbono
+            // 
+            this.CALDbono.Location = new System.Drawing.Point(562, 47);
+            this.CALDbono.Name = "CALDbono";
+            this.CALDbono.Size = new System.Drawing.Size(43, 20);
+            this.CALDbono.TabIndex = 23;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(486, 49);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(70, 13);
+            this.label61.TabIndex = 22;
+            this.label61.Text = "Bonos / Pen.";
+            // 
+            // CALDdado
+            // 
+            this.CALDdado.Location = new System.Drawing.Point(429, 46);
+            this.CALDdado.Name = "CALDdado";
+            this.CALDdado.Size = new System.Drawing.Size(42, 20);
+            this.CALDdado.TabIndex = 21;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(390, 49);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(33, 13);
+            this.label64.TabIndex = 20;
+            this.label64.Text = "Dado";
+            // 
+            // CALresultado
+            // 
+            this.CALresultado.BackColor = System.Drawing.SystemColors.Control;
+            this.CALresultado.Location = new System.Drawing.Point(190, 73);
+            this.CALresultado.Name = "CALresultado";
+            this.CALresultado.ReadOnly = true;
+            this.CALresultado.Size = new System.Drawing.Size(521, 62);
+            this.CALresultado.TabIndex = 26;
+            this.CALresultado.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1069, 562);
+            this.ClientSize = new System.Drawing.Size(1069, 613);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -2444,19 +2778,23 @@ namespace AnimaFacil
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numOperador2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOperador1)).EndInit();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDano)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDefensa)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAtaque)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numOperador2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numOperador1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -2481,7 +2819,14 @@ namespace AnimaFacil
         }
         private void rowsAddednousar(object sender, DataGridViewRowsAddedEventArgs e)
         {
+            UpdateCALPrincipal();
         }
+        private void rowsRemovednousar(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            UpdateCALPrincipal();
+        }
+        
+
         private void dataGridView1_RowLeave(object sender, DataGridViewCellEventArgs e)
         {
         }
@@ -2808,6 +3153,7 @@ namespace AnimaFacil
                 dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
                 dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
                 dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
+                dataGridView1.Rows[i].Cells["VidaMax"].Value = perstemp.Vida;
                 dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
                 dataGridView1.Rows[i].Cells["Ki"].Value = perstemp.Ki;
                 dataGridView1.Rows[i].Cells["Zeon"].Value = perstemp.Zeon;
@@ -2819,6 +3165,48 @@ namespace AnimaFacil
                 dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
             }
             
+        }
+
+        void UpdateCALPrincipal()
+        {
+            CALatacante.Items.Clear();
+            CALdefensor.Items.Clear();
+            CALataque.Items.Clear();
+            CALdefensa.Items.Clear();
+            CALAdado.Clear();
+            CALDdado.Clear();
+            CALAbono.Clear();
+            CALDbono.Clear();
+            CALAta.Clear();
+            CALDta.Clear();
+
+            foreach (KeyValuePair<string, Personaje> Pers in ListaPers)
+            {
+                CALatacante.Items.Add(Pers.Key);
+                CALdefensor.Items.Add(Pers.Key);
+            }
+        }
+
+        void UpdateCALAtacante(object sender, EventArgs e)
+        {
+            Personaje perstemp;
+            ListaPers.TryGetValue(CALatacante.SelectedValue.ToString(), out perstemp);
+            foreach (Personaje.Ataque Ata in perstemp.ListaAtaques)
+            {
+                if(Ata.Nombre != null && Ata.Nombre !="")
+                {
+                    if(Ata.Critico != null && Ata.Critico != "")
+                    {
+
+                    }
+                }
+
+            }
+        }
+
+        void UpdateCALDefensor(object sender, EventArgs e)
+        {
+
         }
 
         private void Cpclean_Click(object sender, EventArgs e)
@@ -2897,6 +3285,16 @@ namespace AnimaFacil
             CPTApen.Clear();
             CPTAfri.Clear();
             CPTAene.Clear();
+        }
+
+        private void label56_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
     internal static class Program
