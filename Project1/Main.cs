@@ -205,6 +205,10 @@ namespace AnimaFacil
         private Button button1;
         private Button CPload;
         private Button button2;
+        private CheckBox CPuroboros;
+        private Label label53;
+        private TextBox CPnotas;
+        private Button Cpclean;
         Dictionary<string,Personaje> ListaPers = new Dictionary<string, Personaje>();
         public Form1()
         {
@@ -635,6 +639,10 @@ namespace AnimaFacil
             this.Notas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.Cpclean = new System.Windows.Forms.Button();
+            this.label53 = new System.Windows.Forms.Label();
+            this.CPnotas = new System.Windows.Forms.TextBox();
+            this.CPuroboros = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.CPload = new System.Windows.Forms.Button();
             this.CPsuerte = new System.Windows.Forms.ComboBox();
@@ -864,7 +872,7 @@ namespace AnimaFacil
             this.buttonExportar.Name = "buttonExportar";
             this.buttonExportar.Size = new System.Drawing.Size(173, 23);
             this.buttonExportar.TabIndex = 5;
-            this.buttonExportar.Text = "Exportar personaje seleccionado";
+            this.buttonExportar.Text = "Enviar seleccionado al creador";
             this.buttonExportar.UseVisualStyleBackColor = true;
             this.buttonExportar.Click += new System.EventHandler(this.buttonExportar_Click);
             // 
@@ -1247,6 +1255,10 @@ namespace AnimaFacil
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox4.Controls.Add(this.Cpclean);
+            this.groupBox4.Controls.Add(this.label53);
+            this.groupBox4.Controls.Add(this.CPnotas);
+            this.groupBox4.Controls.Add(this.CPuroboros);
             this.groupBox4.Controls.Add(this.button2);
             this.groupBox4.Controls.Add(this.CPload);
             this.groupBox4.Controls.Add(this.CPsuerte);
@@ -1278,6 +1290,42 @@ namespace AnimaFacil
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Personaje";
             // 
+            // Cpclean
+            // 
+            this.Cpclean.Location = new System.Drawing.Point(558, 427);
+            this.Cpclean.Name = "Cpclean";
+            this.Cpclean.Size = new System.Drawing.Size(101, 23);
+            this.Cpclean.TabIndex = 67;
+            this.Cpclean.Text = "Vaciar";
+            this.Cpclean.UseVisualStyleBackColor = true;
+            this.Cpclean.Click += new System.EventHandler(this.Cpclean_Click);
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(489, 20);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(35, 13);
+            this.label53.TabIndex = 66;
+            this.label53.Text = "Notas";
+            // 
+            // CPnotas
+            // 
+            this.CPnotas.Location = new System.Drawing.Point(530, 17);
+            this.CPnotas.Name = "CPnotas";
+            this.CPnotas.Size = new System.Drawing.Size(158, 20);
+            this.CPnotas.TabIndex = 65;
+            // 
+            // CPuroboros
+            // 
+            this.CPuroboros.AutoSize = true;
+            this.CPuroboros.Location = new System.Drawing.Point(556, 68);
+            this.CPuroboros.Name = "CPuroboros";
+            this.CPuroboros.Size = new System.Drawing.Size(69, 17);
+            this.CPuroboros.TabIndex = 64;
+            this.CPuroboros.Text = "Uroboros";
+            this.CPuroboros.UseVisualStyleBackColor = true;
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(558, 392);
@@ -1308,7 +1356,7 @@ namespace AnimaFacil
             "Mala"});
             this.CPsuerte.Location = new System.Drawing.Point(411, 84);
             this.CPsuerte.Name = "CPsuerte";
-            this.CPsuerte.Size = new System.Drawing.Size(73, 21);
+            this.CPsuerte.Size = new System.Drawing.Size(107, 21);
             this.CPsuerte.TabIndex = 61;
             // 
             // label52
@@ -1330,7 +1378,7 @@ namespace AnimaFacil
             "Natura +15"});
             this.CPnatura.Location = new System.Drawing.Point(411, 50);
             this.CPnatura.Name = "CPnatura";
-            this.CPnatura.Size = new System.Drawing.Size(73, 21);
+            this.CPnatura.Size = new System.Drawing.Size(107, 21);
             this.CPnatura.TabIndex = 54;
             // 
             // label51
@@ -2427,13 +2475,9 @@ namespace AnimaFacil
 
         private void buttonExportar_Click(object sender, EventArgs e)
         {
-            string fileName = "Vacio";
-            if (this.dataGridView1.CurrentRow.Cells["Personaje"] != null)
-            {
-                fileName = this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString();
-            }
-            this.saveFileDialogTabla.FileName = fileName;
-            this.saveFileDialogTabla.ShowDialog();
+            Personaje perstemp = new Personaje();
+            ListaPers.TryGetValue(dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString(), out perstemp);
+            Pers2Creador(perstemp);
         }
         private void rowsAddednousar(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -2444,126 +2488,9 @@ namespace AnimaFacil
         private void saveFileDialogTabla_FileOk(object sender, CancelEventArgs e)
         {
             string fileName = this.saveFileDialogTabla.FileName;
-            this.escribirFicheroTabla(fileName);
+            //this.escribirFicheroTabla(fileName);
         }
-        private void escribirFicheroTabla(string nombreFichero) //ESCRIBIR ARCHIVO
-        {
-            /*Personaje Pers;
-            if (this.dataGridView1.CurrentRow.Cells["Personaje"].Value != null && this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString() != "")
-            {
-                text = this.dataGridView1.CurrentRow.Cells["Personaje"].Value.ToString();
-            }
-            else
-            {
-                text = "Desconocido";
-            }
-            //string text2;
-            if (this.dataGridView1.CurrentRow.Cells["Turno"].Value != null && this.dataGridView1.CurrentRow.Cells["Turno"].Value.ToString() != "")
-            {
-                text2 = this.dataGridView1.CurrentRow.Cells["Turno"].Value.ToString();
-            }
-            else
-            {
-                text2 = "0";
-            }
-            //string text3;
-            if (this.dataGridView1.CurrentRow.Cells["VidaActual"].Value != null && this.dataGridView1.CurrentRow.Cells["VidaActual"].Value.ToString() != "")
-            {
-                text3 = this.dataGridView1.CurrentRow.Cells["VidaActual"].Value.ToString();
-            }
-            else
-            {
-                text3 = "0";
-            }
-            //string text4;
-            if (this.dataGridView1.CurrentRow.Cells["Cansancio"].Value != null && this.dataGridView1.CurrentRow.Cells["Cansancio"].Value.ToString() != "")
-            {
-                text4 = this.dataGridView1.CurrentRow.Cells["Cansancio"].Value.ToString();
-            }
-            else
-            {
-                text4 = "0";
-            }
-            //string text5;
-            if (this.dataGridView1.CurrentRow.Cells["Ki"].Value != null && this.dataGridView1.CurrentRow.Cells["Ki"].Value.ToString() != "")
-            {
-                text5 = this.dataGridView1.CurrentRow.Cells["Ki"].Value.ToString();
-            }
-            else
-            {
-                text5 = "0";
-            }
-            //string text6;
-            if (this.dataGridView1.CurrentRow.Cells["Zeon"].Value != null && this.dataGridView1.CurrentRow.Cells["Zeon"].Value.ToString() != "")
-            {
-                text6 = this.dataGridView1.CurrentRow.Cells["Zeon"].Value.ToString();
-            }
-            else
-            {
-                text6 = "0";
-            }
-            //string text7;
-            if (this.dataGridView1.CurrentRow.Cells["Natura"].Value != null && this.dataGridView1.CurrentRow.Cells["Natura"].Value.ToString() != "")
-            {
-                text7 = this.dataGridView1.CurrentRow.Cells["Natura"].Value.ToString();
-            }
-            else
-            {
-                text7 = "Natura +5/+10";
-            }
-            //string text8;
-            if (this.dataGridView1.CurrentRow.Cells["Uroboros"].Value != null && this.dataGridView1.CurrentRow.Cells["Uroboros"].Value.ToString() != "")
-            {
-                text8 = this.dataGridView1.CurrentRow.Cells["Uroboros"].Value.ToString();
-            }
-            else
-            {
-                text8 = "False";
-            }
-            //string text9;
-            if (this.dataGridView1.CurrentRow.Cells["Notas"].Value != null && this.dataGridView1.CurrentRow.Cells["Notas"].Value.ToString() != "")
-            {
-                text9 = this.dataGridView1.CurrentRow.Cells["Notas"].Value.ToString();
-            }
-            else
-            {
-                text9 = "-";
-            }
-            //string text10;
-            if (this.dataGridView1.CurrentRow.Cells["Suerte"].Value != null && this.dataGridView1.CurrentRow.Cells["Suerte"].Value.ToString() != "")
-            {
-                text10 = this.dataGridView1.CurrentRow.Cells["Suerte"].Value.ToString();
-            }
-            else
-            {
-                text10 = "Normal";
-            }
-            //string text11;
-            if (this.dataGridView1.CurrentRow.Cells["CV"].Value != null && this.dataGridView1.CurrentRow.Cells["CV"].Value.ToString() != "")
-            {
-                text11 = this.dataGridView1.CurrentRow.Cells["CV"].Value.ToString();
-            }
-            else
-            {
-                text11 = "0";
-            }
-            string[] contents = new string[]
-            {
-                "ANIMAFACILCHARACTERDATA",
-                text,
-                text2,
-                text3,
-                text4,
-                text5,
-                text6,
-                text7,
-                text8,
-                text9,
-                text10,
-                text11
-            };
-            File.WriteAllLines(nombreFichero, contents);*/
-        }
+        
         private void buttonImportar_Click(object sender, EventArgs e)
         {
             this.openFileDialogTabla.ShowDialog();
@@ -2590,28 +2517,7 @@ namespace AnimaFacil
             {
                 FS.Close();
             }
-            bool Haskey;
-            int NombreMas = 0;
-            Haskey = ListaPers.ContainsKey(perstemp.Nombre);
-            while (Haskey)
-            {
-                NombreMas++;
-                perstemp.Nombre = perstemp.Nombre + NombreMas;
-                Haskey = ListaPers.ContainsKey(perstemp.Nombre);
-            }
-            ListaPers.Add(perstemp.Nombre, perstemp);
-            dataGridView1.Rows.Add();
-            int i = dataGridView1.Rows.Count - 1;
-            dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
-            dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
-            dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
-            dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
-            dataGridView1.Rows[i].Cells["Ki"].Value = perstemp.Ki;
-            dataGridView1.Rows[i].Cells["Zeon"].Value = perstemp.Zeon;
-            dataGridView1.Rows[i].Cells["CV"].Value = perstemp.CV;
-            dataGridView1.Rows[i].Cells["Natura"].Value = perstemp.Natura;
-            dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
-            dataGridView1.Rows[i].Cells["Suerte"].Value = perstemp.Suerte;
+            Pers2Table(perstemp);
         }
 
         private void saveFileDialogCreador_FileOk(object sender, CancelEventArgs e)
@@ -2652,80 +2558,7 @@ namespace AnimaFacil
             {
                 fileName = CPnombre.Text;
             }
-            Personaje perstemp = new Personaje();
-            perstemp.Nombre = CPnombre.Text;
-            perstemp.Ki = ParseNullableInt(CPki.Text);
-            perstemp.Zeon = ParseNullableInt(CPzeon.Text);
-            perstemp.CV = ParseNullableInt(CPcv.Text);
-            perstemp.Turno = ParseNullableInt(CPturno.Text);
-            perstemp.Vida = ParseNullableInt(CPvida.Text);
-            perstemp.Cansancio = ParseNullableInt(CPcansancio.Text);
-            perstemp.Natura = CPnatura.Text;
-            perstemp.Suerte = CPsuerte.Text;
-
-            perstemp.ListaAtaques[0].Nombre = CPA1nombre.Text; 
-            perstemp.ListaAtaques[1].Nombre = CPA2nombre.Text;
-            perstemp.ListaAtaques[2].Nombre = CPA3nombre.Text;
-            perstemp.ListaAtaques[3].Nombre = CPA4nombre.Text;
-            perstemp.ListaAtaques[4].Nombre = CPA5nombre.Text;
-            perstemp.ListaAtaques[5].Nombre = CPA6nombre.Text;
-            perstemp.ListaAtaques[6].Nombre = CPA7nombre.Text;
-            perstemp.ListaAtaques[7].Nombre = CPA8nombre.Text;
-
-            perstemp.ListaAtaques[0].HA = ParseNullableInt(CPA1ha.Text);
-            perstemp.ListaAtaques[1].HA = ParseNullableInt(CPA2ha.Text);
-            perstemp.ListaAtaques[2].HA = ParseNullableInt(CPA3ha.Text);
-            perstemp.ListaAtaques[3].HA = ParseNullableInt(CPA4ha.Text);
-            perstemp.ListaAtaques[4].HA = ParseNullableInt(CPA5ha.Text);
-            perstemp.ListaAtaques[5].HA = ParseNullableInt(CPA6ha.Text);
-            perstemp.ListaAtaques[6].HA = ParseNullableInt(CPA7ha.Text);
-            perstemp.ListaAtaques[7].HA = ParseNullableInt(CPA8ha.Text);
-
-            perstemp.ListaAtaques[0].Critico = CPA1critico.Text;
-            perstemp.ListaAtaques[1].Critico = CPA2critico.Text;
-            perstemp.ListaAtaques[2].Critico = CPA3critico.Text;
-            perstemp.ListaAtaques[3].Critico = CPA4critico.Text;
-            perstemp.ListaAtaques[4].Critico = CPA5critico.Text;
-            perstemp.ListaAtaques[5].Critico = CPA6critico.Text;
-            perstemp.ListaAtaques[6].Critico = CPA7critico.Text;
-            perstemp.ListaAtaques[7].Critico = CPA8critico.Text;
-
-            perstemp.ListaAtaques[0].Dano = ParseNullableInt(CPA1dano.Text);
-            perstemp.ListaAtaques[1].Dano = ParseNullableInt(CPA2dano.Text);
-            perstemp.ListaAtaques[2].Dano = ParseNullableInt(CPA3dano.Text);
-            perstemp.ListaAtaques[3].Dano = ParseNullableInt(CPA4dano.Text);
-            perstemp.ListaAtaques[4].Dano = ParseNullableInt(CPA5dano.Text);
-            perstemp.ListaAtaques[5].Dano = ParseNullableInt(CPA6dano.Text);
-            perstemp.ListaAtaques[6].Dano = ParseNullableInt(CPA7dano.Text);
-            perstemp.ListaAtaques[7].Dano = ParseNullableInt(CPA8dano.Text);
-
-            perstemp.ListaDefensa[0].Nombre = CPD1nombre.Text;
-            perstemp.ListaDefensa[1].Nombre = CPD2nombre.Text;
-            perstemp.ListaDefensa[2].Nombre = CPD3nombre.Text;
-            perstemp.ListaDefensa[3].Nombre = CPD4nombre.Text;
-            perstemp.ListaDefensa[4].Nombre = CPD5nombre.Text;
-            perstemp.ListaDefensa[5].Nombre = CPD6nombre.Text;
-            perstemp.ListaDefensa[6].Nombre = CPD7nombre.Text;
-            perstemp.ListaDefensa[7].Nombre = CPD8nombre.Text;
-
-            perstemp.ListaDefensa[0].Def = ParseNullableInt(CPD1defensa.Text);
-            perstemp.ListaDefensa[1].Def = ParseNullableInt(CPD2defensa.Text);
-            perstemp.ListaDefensa[2].Def = ParseNullableInt(CPD3defensa.Text);
-            perstemp.ListaDefensa[3].Def = ParseNullableInt(CPD4defensa.Text);
-            perstemp.ListaDefensa[4].Def = ParseNullableInt(CPD5defensa.Text);
-            perstemp.ListaDefensa[5].Def = ParseNullableInt(CPD6defensa.Text);
-            perstemp.ListaDefensa[6].Def = ParseNullableInt(CPD7defensa.Text);
-            perstemp.ListaDefensa[7].Def = ParseNullableInt(CPD8defensa.Text);
-
-            perstemp.FIL = ParseNullableInt(CPTAfil.Text);
-            perstemp.CAL = ParseNullableInt(CPTAcal.Text);
-            perstemp.CON = ParseNullableInt(CPTAcon.Text);
-            perstemp.ELE = ParseNullableInt(CPTAele.Text);
-            perstemp.PEN = ParseNullableInt(CPTApen.Text);
-            perstemp.FRI = ParseNullableInt(CPTAfri.Text);
-            perstemp.ENE = ParseNullableInt(CPTAene.Text);
-
-            PersAGuardar = perstemp;
+            PersAGuardar = Creador2Pers();
 
             this.saveFileDialogCreador.FileName = fileName;
             this.saveFileDialogCreador.ShowDialog();
@@ -2785,82 +2618,19 @@ namespace AnimaFacil
                 FS.Close();
             }
 
-            CPnombre.Text = perstemp.Nombre;
-            CPki.Text = perstemp.Ki.ToString();
-            CPzeon.Text = perstemp.Zeon.ToString();
-            CPcv.Text = perstemp.CV.ToString();
-            CPturno.Text = perstemp.Turno.ToString();
-            CPvida.Text = perstemp.Vida.ToString();
-            CPcansancio.Text = perstemp.Cansancio.ToString();
-            CPnatura.Text = perstemp.Natura;
-            CPsuerte.Text = perstemp.Suerte;
-
-            CPA1nombre.Text = perstemp.ListaAtaques[0].Nombre;
-            CPA2nombre.Text = perstemp.ListaAtaques[1].Nombre;
-            CPA3nombre.Text = perstemp.ListaAtaques[2].Nombre;
-            CPA4nombre.Text = perstemp.ListaAtaques[3].Nombre;
-            CPA5nombre.Text = perstemp.ListaAtaques[4].Nombre;
-            CPA6nombre.Text = perstemp.ListaAtaques[5].Nombre;
-            CPA7nombre.Text = perstemp.ListaAtaques[6].Nombre;
-            CPA8nombre.Text = perstemp.ListaAtaques[7].Nombre;
-
-            CPA1ha.Text = perstemp.ListaAtaques[0].HA.ToString();
-            CPA2ha.Text = perstemp.ListaAtaques[1].HA.ToString();
-            CPA3ha.Text = perstemp.ListaAtaques[2].HA.ToString();
-            CPA4ha.Text = perstemp.ListaAtaques[3].HA.ToString();
-            CPA5ha.Text = perstemp.ListaAtaques[4].HA.ToString();
-            CPA6ha.Text = perstemp.ListaAtaques[5].HA.ToString();
-            CPA7ha.Text = perstemp.ListaAtaques[6].HA.ToString();
-            CPA8ha.Text = perstemp.ListaAtaques[7].HA.ToString();
-
-            perstemp.ListaAtaques[0].Critico = CPA1critico.Text;  
-            perstemp.ListaAtaques[1].Critico = CPA2critico.Text;  
-            perstemp.ListaAtaques[2].Critico = CPA3critico.Text;  
-            perstemp.ListaAtaques[3].Critico = CPA4critico.Text;  
-            perstemp.ListaAtaques[4].Critico = CPA5critico.Text;  
-            perstemp.ListaAtaques[5].Critico = CPA6critico.Text;  
-            perstemp.ListaAtaques[6].Critico = CPA7critico.Text;
-            perstemp.ListaAtaques[7].Critico = CPA8critico.Text;
-
-            CPA1dano.Text = perstemp.ListaAtaques[0].Dano.ToString();
-            CPA2dano.Text = perstemp.ListaAtaques[1].Dano.ToString();
-            CPA3dano.Text = perstemp.ListaAtaques[2].Dano.ToString();
-            CPA4dano.Text = perstemp.ListaAtaques[3].Dano.ToString();
-            CPA5dano.Text = perstemp.ListaAtaques[4].Dano.ToString();
-            CPA6dano.Text = perstemp.ListaAtaques[5].Dano.ToString();
-            CPA7dano.Text = perstemp.ListaAtaques[6].Dano.ToString();
-            CPA8dano.Text = perstemp.ListaAtaques[7].Dano.ToString();
-
-            CPD1nombre.Text = perstemp.ListaDefensa[0].Nombre; 
-            CPD2nombre.Text = perstemp.ListaDefensa[1].Nombre; 
-            CPD3nombre.Text = perstemp.ListaDefensa[2].Nombre; 
-            CPD4nombre.Text = perstemp.ListaDefensa[3].Nombre; 
-            CPD5nombre.Text = perstemp.ListaDefensa[4].Nombre; 
-            CPD6nombre.Text = perstemp.ListaDefensa[5].Nombre; 
-            CPD7nombre.Text = perstemp.ListaDefensa[6].Nombre;
-            CPD8nombre.Text = perstemp.ListaDefensa[7].Nombre;
-
-            CPD1defensa.Text = perstemp.ListaDefensa[0].Def.ToString(); 
-            CPD2defensa.Text = perstemp.ListaDefensa[1].Def.ToString(); 
-            CPD3defensa.Text = perstemp.ListaDefensa[2].Def.ToString(); 
-            CPD4defensa.Text = perstemp.ListaDefensa[3].Def.ToString(); 
-            CPD5defensa.Text = perstemp.ListaDefensa[4].Def.ToString(); 
-            CPD6defensa.Text = perstemp.ListaDefensa[5].Def.ToString(); 
-            CPD7defensa.Text = perstemp.ListaDefensa[6].Def.ToString();
-            CPD8defensa.Text = perstemp.ListaDefensa[7].Def.ToString();
-
-            CPTAfil.Text = perstemp.FIL.ToString();
-            CPTAcal.Text = perstemp.CAL.ToString();
-            CPTAcon.Text = perstemp.CON.ToString();
-            CPTAele.Text = perstemp.ELE.ToString();
-            CPTApen.Text = perstemp.PEN.ToString();
-            CPTAfri.Text = perstemp.FRI.ToString();
-            CPTAene.Text = perstemp.ENE.ToString();
+            Pers2Creador(perstemp);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Personaje perstemp = Creador2Pers();
+            Pers2Table(perstemp);       
+        }
+
+        Personaje Creador2Pers()
+        {
             Personaje perstemp = new Personaje();
+
             perstemp.Nombre = CPnombre.Text;
             perstemp.Ki = ParseNullableInt(CPki.Text);
             perstemp.Zeon = ParseNullableInt(CPzeon.Text);
@@ -2870,6 +2640,8 @@ namespace AnimaFacil
             perstemp.Cansancio = ParseNullableInt(CPcansancio.Text);
             perstemp.Natura = CPnatura.Text;
             perstemp.Suerte = CPsuerte.Text;
+            perstemp.Uroboros = CPuroboros.Checked;
+            perstemp.Notas = CPnotas.Text;
 
             perstemp.ListaAtaques[0].Nombre = CPA1nombre.Text;
             perstemp.ListaAtaques[1].Nombre = CPA2nombre.Text;
@@ -2933,28 +2705,198 @@ namespace AnimaFacil
             perstemp.FRI = ParseNullableInt(CPTAfri.Text);
             perstemp.ENE = ParseNullableInt(CPTAene.Text);
 
-            bool Haskey;
-            int NombreMas = 0;
-            Haskey = ListaPers.ContainsKey(perstemp.Nombre);
-            while (Haskey)
+            return perstemp;
+
+        }
+
+        void Pers2Creador(Personaje perstemp)
+        {
+            CPnombre.Text = perstemp.Nombre;
+            CPki.Text = perstemp.Ki.ToString();
+            CPzeon.Text = perstemp.Zeon.ToString();
+            CPcv.Text = perstemp.CV.ToString();
+            CPturno.Text = perstemp.Turno.ToString();
+            CPvida.Text = perstemp.Vida.ToString();
+            CPcansancio.Text = perstemp.Cansancio.ToString();
+            CPnatura.Text = perstemp.Natura;
+            CPsuerte.Text = perstemp.Suerte;
+            CPuroboros.Checked = perstemp.Uroboros;
+            CPnotas.Text = perstemp.Notas;
+
+            CPA1nombre.Text = perstemp.ListaAtaques[0].Nombre;
+            CPA2nombre.Text = perstemp.ListaAtaques[1].Nombre;
+            CPA3nombre.Text = perstemp.ListaAtaques[2].Nombre;
+            CPA4nombre.Text = perstemp.ListaAtaques[3].Nombre;
+            CPA5nombre.Text = perstemp.ListaAtaques[4].Nombre;
+            CPA6nombre.Text = perstemp.ListaAtaques[5].Nombre;
+            CPA7nombre.Text = perstemp.ListaAtaques[6].Nombre;
+            CPA8nombre.Text = perstemp.ListaAtaques[7].Nombre;
+
+            CPA1ha.Text = perstemp.ListaAtaques[0].HA.ToString();
+            CPA2ha.Text = perstemp.ListaAtaques[1].HA.ToString();
+            CPA3ha.Text = perstemp.ListaAtaques[2].HA.ToString();
+            CPA4ha.Text = perstemp.ListaAtaques[3].HA.ToString();
+            CPA5ha.Text = perstemp.ListaAtaques[4].HA.ToString();
+            CPA6ha.Text = perstemp.ListaAtaques[5].HA.ToString();
+            CPA7ha.Text = perstemp.ListaAtaques[6].HA.ToString();
+            CPA8ha.Text = perstemp.ListaAtaques[7].HA.ToString();
+
+            CPA1critico.Text = perstemp.ListaAtaques[0].Critico;
+            CPA2critico.Text = perstemp.ListaAtaques[1].Critico;
+            CPA3critico.Text = perstemp.ListaAtaques[2].Critico;
+            CPA4critico.Text = perstemp.ListaAtaques[3].Critico;
+            CPA5critico.Text = perstemp.ListaAtaques[4].Critico;
+            CPA6critico.Text = perstemp.ListaAtaques[5].Critico;
+            CPA7critico.Text = perstemp.ListaAtaques[6].Critico;
+            CPA8critico.Text = perstemp.ListaAtaques[7].Critico;
+
+            CPA1dano.Text = perstemp.ListaAtaques[0].Dano.ToString();
+            CPA2dano.Text = perstemp.ListaAtaques[1].Dano.ToString();
+            CPA3dano.Text = perstemp.ListaAtaques[2].Dano.ToString();
+            CPA4dano.Text = perstemp.ListaAtaques[3].Dano.ToString();
+            CPA5dano.Text = perstemp.ListaAtaques[4].Dano.ToString();
+            CPA6dano.Text = perstemp.ListaAtaques[5].Dano.ToString();
+            CPA7dano.Text = perstemp.ListaAtaques[6].Dano.ToString();
+            CPA8dano.Text = perstemp.ListaAtaques[7].Dano.ToString();
+
+            CPD1nombre.Text = perstemp.ListaDefensa[0].Nombre;
+            CPD2nombre.Text = perstemp.ListaDefensa[1].Nombre;
+            CPD3nombre.Text = perstemp.ListaDefensa[2].Nombre;
+            CPD4nombre.Text = perstemp.ListaDefensa[3].Nombre;
+            CPD5nombre.Text = perstemp.ListaDefensa[4].Nombre;
+            CPD6nombre.Text = perstemp.ListaDefensa[5].Nombre;
+            CPD7nombre.Text = perstemp.ListaDefensa[6].Nombre;
+            CPD8nombre.Text = perstemp.ListaDefensa[7].Nombre;
+
+            CPD1defensa.Text = perstemp.ListaDefensa[0].Def.ToString();
+            CPD2defensa.Text = perstemp.ListaDefensa[1].Def.ToString();
+            CPD3defensa.Text = perstemp.ListaDefensa[2].Def.ToString();
+            CPD4defensa.Text = perstemp.ListaDefensa[3].Def.ToString();
+            CPD5defensa.Text = perstemp.ListaDefensa[4].Def.ToString();
+            CPD6defensa.Text = perstemp.ListaDefensa[5].Def.ToString();
+            CPD7defensa.Text = perstemp.ListaDefensa[6].Def.ToString();
+            CPD8defensa.Text = perstemp.ListaDefensa[7].Def.ToString();
+
+            CPTAfil.Text = perstemp.FIL.ToString();
+            CPTAcal.Text = perstemp.CAL.ToString();
+            CPTAcon.Text = perstemp.CON.ToString();
+            CPTAele.Text = perstemp.ELE.ToString();
+            CPTApen.Text = perstemp.PEN.ToString();
+            CPTAfri.Text = perstemp.FRI.ToString();
+            CPTAene.Text = perstemp.ENE.ToString();
+        }
+
+        void Pers2Table(Personaje perstemp)
+        {
+            if(perstemp.Nombre != null && perstemp.Nombre != "")
             {
-                NombreMas++;
-                perstemp.Nombre = perstemp.Nombre + NombreMas;
+                bool Haskey;
+                int NombreMas = 0;
                 Haskey = ListaPers.ContainsKey(perstemp.Nombre);
+                string test = perstemp.Nombre;
+                while (Haskey)
+                {
+                    NombreMas++;
+                    test = perstemp.Nombre;
+                    test = test + NombreMas;
+                    Haskey = ListaPers.ContainsKey(test);
+                }
+                perstemp.Nombre = test;
+                ListaPers.Add(perstemp.Nombre, perstemp);
+                dataGridView1.Rows.Add();
+                int i = dataGridView1.Rows.Count - 1;
+                dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
+                dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
+                dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
+                dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
+                dataGridView1.Rows[i].Cells["Ki"].Value = perstemp.Ki;
+                dataGridView1.Rows[i].Cells["Zeon"].Value = perstemp.Zeon;
+                dataGridView1.Rows[i].Cells["CV"].Value = perstemp.CV;
+                dataGridView1.Rows[i].Cells["Natura"].Value = perstemp.Natura;
+                dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
+                dataGridView1.Rows[i].Cells["Suerte"].Value = perstemp.Suerte;
+                dataGridView1.Rows[i].Cells["Uroboros"].Value = perstemp.Uroboros;
+                dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
             }
-            ListaPers.Add(perstemp.Nombre, perstemp);
-            dataGridView1.Rows.Add();
-            int i = dataGridView1.Rows.Count - 1;
-            dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
-            dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
-            dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
-            dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
-            dataGridView1.Rows[i].Cells["Ki"].Value = perstemp.Ki;
-            dataGridView1.Rows[i].Cells["Zeon"].Value = perstemp.Zeon;
-            dataGridView1.Rows[i].Cells["CV"].Value = perstemp.CV;
-            dataGridView1.Rows[i].Cells["Natura"].Value = perstemp.Natura;
-            dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
-            dataGridView1.Rows[i].Cells["Suerte"].Value = perstemp.Suerte;
+            
+        }
+
+        private void Cpclean_Click(object sender, EventArgs e)
+        {
+            CPnombre.Clear();
+            CPki.Clear();
+            CPzeon.Clear();
+            CPcv.Clear();
+            CPturno.Clear();
+            CPvida.Clear();
+            CPcansancio.Clear();            
+            CPnotas.Clear();
+            CPnatura.SelectedIndex = -1;
+            CPsuerte.SelectedIndex = -1;
+            CPuroboros.Checked = false;
+
+
+            CPA1nombre.Clear();
+            CPA2nombre.Clear();
+            CPA3nombre.Clear();
+            CPA4nombre.Clear();
+            CPA5nombre.Clear();
+            CPA6nombre.Clear();
+            CPA7nombre.Clear();
+            CPA8nombre.Clear();
+
+            CPA1ha.Clear();
+            CPA2ha.Clear();
+            CPA3ha.Clear();
+            CPA4ha.Clear();
+            CPA5ha.Clear();
+            CPA6ha.Clear();
+            CPA7ha.Clear();
+            CPA8ha.Clear();
+
+            CPA1critico.SelectedIndex = -1;
+            CPA2critico.SelectedIndex = -1;
+            CPA3critico.SelectedIndex = -1;
+            CPA4critico.SelectedIndex = -1;
+            CPA5critico.SelectedIndex = -1;
+            CPA6critico.SelectedIndex = -1;
+            CPA7critico.SelectedIndex = -1;
+            CPA8critico.SelectedIndex = -1;
+
+            CPA1dano.Clear();
+            CPA2dano.Clear();
+            CPA3dano.Clear();
+            CPA4dano.Clear();
+            CPA5dano.Clear();
+            CPA6dano.Clear();
+            CPA7dano.Clear();
+            CPA8dano.Clear();
+
+            CPD1nombre.Clear();
+            CPD2nombre.Clear();
+            CPD3nombre.Clear();
+            CPD4nombre.Clear();
+            CPD5nombre.Clear();
+            CPD6nombre.Clear();
+            CPD7nombre.Clear();
+            CPD8nombre.Clear();
+
+            CPD1defensa.Clear();
+            CPD2defensa.Clear();
+            CPD3defensa.Clear();
+            CPD4defensa.Clear();
+            CPD5defensa.Clear();
+            CPD6defensa.Clear();
+            CPD7defensa.Clear();
+            CPD8defensa.Clear();
+
+            CPTAfil.Clear();
+            CPTAcal.Clear();
+            CPTAcon.Clear();
+            CPTAele.Clear();
+            CPTApen.Clear();
+            CPTAfri.Clear();
+            CPTAene.Clear();
         }
     }
     internal static class Program
