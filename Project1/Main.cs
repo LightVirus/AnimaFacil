@@ -90,7 +90,6 @@ namespace AnimaFacil
         private DataGridViewCheckBoxColumn Uroboros;
         private DataGridViewTextBoxColumn Sorpresa;
         private DataGridViewTextBoxColumn Notas;
-        private GroupBox groupBox3;
         private NumericUpDown numericTurno;
         private TabPage tabPage3;
         private GroupBox groupBox4;
@@ -240,6 +239,8 @@ namespace AnimaFacil
         Dictionary<string,Personaje> ListaPers = new Dictionary<string, Personaje>();
 
         List<int> AtaqueIndex = new List<int>();
+        private GroupBox groupBox8;
+        private GroupBox groupBox9;
         List<int> DefensaIndex = new List<int>();
 
         public Form1()
@@ -392,6 +393,60 @@ namespace AnimaFacil
             num5 *= 5;
             this.textBoxResultadoComb.Text = "CONTRATAQUE: +" + num5;
         }
+
+        int CheckPifiaTurno(int suerte, int dado)
+        {
+            if (suerte == 0)
+            {
+                if (dado == 1)
+                {
+                    return -125;
+                }
+                if (dado == 2)
+                {
+                    return -100;
+                }
+                if (dado == 3)
+                {
+                    return -75;
+                }
+            }
+            if (suerte == -1)
+            {
+                if (dado == 1)
+                {
+                    return -125;
+                }
+                if (dado == 2)
+                {
+                    return -100;
+                }
+                if (dado == 3)
+                {
+                    return -75;
+                }
+                if (dado == 4)
+                {
+                    return -75;
+                }
+                if (dado == 5)
+                {
+                    return -75;
+                }
+            }
+            if (suerte == 1)
+            {
+                if (dado == 1)
+                {
+                    return -125;
+                }
+                if (dado == 2)
+                {
+                    return -100;
+                }
+            }
+            return dado;
+        }
         private void buttonIniciativas_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow dataGridViewRow in (IEnumerable)this.dataGridView1.Rows)
@@ -443,6 +498,7 @@ namespace AnimaFacil
                     else
                     {
                         num2 = int.Parse(dataGridViewRow.Cells["DadosT"].Value.ToString());
+                        num2 = CheckPifiaTurno(suerte, num2);
                     }   
                     int num3 = num + num2;
                     dataGridViewRow.Cells["Iniciativa"].Value = num3;
@@ -458,6 +514,7 @@ namespace AnimaFacil
             }
             int num4 = int.Parse(this.numericTurno.Value.ToString());
             this.numericTurno.Value = num4 + 1;
+            CALlog.Text = CALlog.Text + "----Turno " + (num4 + 1) + " ----" + Environment.NewLine;
             this.dataGridView1.Sort(this.dataGridView1.Columns["Iniciativa"], ListSortDirection.Descending);
             this.sorpresaComprobator();
         }
@@ -617,42 +674,46 @@ namespace AnimaFacil
         }
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.numericTurno = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.CALresultado = new System.Windows.Forms.RichTextBox();
-            this.CALDta = new System.Windows.Forms.TextBox();
-            this.label59 = new System.Windows.Forms.Label();
-            this.CALDbono = new System.Windows.Forms.TextBox();
-            this.label61 = new System.Windows.Forms.Label();
-            this.CALDdado = new System.Windows.Forms.TextBox();
-            this.label64 = new System.Windows.Forms.Label();
-            this.CALAta = new System.Windows.Forms.TextBox();
-            this.label63 = new System.Windows.Forms.Label();
-            this.CALcal = new System.Windows.Forms.Button();
-            this.CALlog = new System.Windows.Forms.RichTextBox();
-            this.CALdefensa = new System.Windows.Forms.ComboBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label62 = new System.Windows.Forms.Label();
-            this.CALdefensor = new System.Windows.Forms.ComboBox();
-            this.CALAbono = new System.Windows.Forms.TextBox();
-            this.label58 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.CALataque = new System.Windows.Forms.ComboBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.CALAdado = new System.Windows.Forms.TextBox();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
             this.CALatacante = new System.Windows.Forms.ComboBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.CALAdado = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.CALAta = new System.Windows.Forms.TextBox();
+            this.CALAbono = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.CALDta = new System.Windows.Forms.TextBox();
+            this.CALdefensa = new System.Windows.Forms.ComboBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.CALDbono = new System.Windows.Forms.TextBox();
+            this.CALdefensor = new System.Windows.Forms.ComboBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.CALDdado = new System.Windows.Forms.TextBox();
+            this.CALresultado = new System.Windows.Forms.RichTextBox();
+            this.CALlog = new System.Windows.Forms.RichTextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.CALcal = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -674,9 +735,6 @@ namespace AnimaFacil
             this.comboBoxOperacion = new System.Windows.Forms.ComboBox();
             this.numOperador2 = new System.Windows.Forms.NumericUpDown();
             this.numOperador1 = new System.Windows.Forms.NumericUpDown();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.numericTurno = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonImportar = new System.Windows.Forms.Button();
             this.buttonExportar = new System.Windows.Forms.Button();
@@ -823,8 +881,11 @@ namespace AnimaFacil
             this.saveFileDialogCreador = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDano)).BeginInit();
@@ -834,8 +895,6 @@ namespace AnimaFacil
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOperador2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOperador1)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -861,8 +920,9 @@ namespace AnimaFacil
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.numericTurno);
+            this.tabPage1.Controls.Add(this.label15);
             this.tabPage1.Controls.Add(this.tabControl2);
-            this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.buttonImportar);
             this.tabPage1.Controls.Add(this.buttonExportar);
@@ -877,230 +937,276 @@ namespace AnimaFacil
             this.tabPage1.Text = "Principal";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // numericTurno
+            // 
+            this.numericTurno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericTurno.Location = new System.Drawing.Point(328, 377);
+            this.numericTurno.Name = "numericTurno";
+            this.numericTurno.Size = new System.Drawing.Size(123, 20);
+            this.numericTurno.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(325, 361);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(35, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Turno";
+            // 
             // tabControl2
             // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(6, 390);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(891, 167);
+            this.tabControl2.Size = new System.Drawing.Size(1035, 167);
             this.tabControl2.TabIndex = 9;
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox8);
+            this.tabPage4.Controls.Add(this.groupBox9);
             this.tabPage4.Controls.Add(this.CALresultado);
-            this.tabPage4.Controls.Add(this.CALDta);
-            this.tabPage4.Controls.Add(this.label59);
-            this.tabPage4.Controls.Add(this.CALDbono);
-            this.tabPage4.Controls.Add(this.label61);
-            this.tabPage4.Controls.Add(this.CALDdado);
-            this.tabPage4.Controls.Add(this.label64);
-            this.tabPage4.Controls.Add(this.CALAta);
-            this.tabPage4.Controls.Add(this.label63);
-            this.tabPage4.Controls.Add(this.CALcal);
             this.tabPage4.Controls.Add(this.CALlog);
-            this.tabPage4.Controls.Add(this.CALdefensa);
-            this.tabPage4.Controls.Add(this.label60);
-            this.tabPage4.Controls.Add(this.label62);
-            this.tabPage4.Controls.Add(this.CALdefensor);
-            this.tabPage4.Controls.Add(this.CALAbono);
-            this.tabPage4.Controls.Add(this.label58);
-            this.tabPage4.Controls.Add(this.CALataque);
-            this.tabPage4.Controls.Add(this.label57);
-            this.tabPage4.Controls.Add(this.CALAdado);
-            this.tabPage4.Controls.Add(this.label56);
             this.tabPage4.Controls.Add(this.label55);
-            this.tabPage4.Controls.Add(this.label54);
-            this.tabPage4.Controls.Add(this.CALatacante);
+            this.tabPage4.Controls.Add(this.CALcal);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(883, 141);
+            this.tabPage4.Size = new System.Drawing.Size(1027, 141);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Calculadora Combate Avanzada";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // CALresultado
+            // groupBox8
             // 
-            this.CALresultado.BackColor = System.Drawing.SystemColors.Control;
-            this.CALresultado.Location = new System.Drawing.Point(190, 73);
-            this.CALresultado.Name = "CALresultado";
-            this.CALresultado.ReadOnly = true;
-            this.CALresultado.Size = new System.Drawing.Size(521, 62);
-            this.CALresultado.TabIndex = 26;
-            this.CALresultado.Text = "";
-            // 
-            // CALDta
-            // 
-            this.CALDta.Location = new System.Drawing.Point(675, 47);
-            this.CALDta.Name = "CALDta";
-            this.CALDta.Size = new System.Drawing.Size(27, 20);
-            this.CALDta.TabIndex = 25;
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(621, 50);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(48, 13);
-            this.label59.TabIndex = 24;
-            this.label59.Text = "Mod. TA";
-            // 
-            // CALDbono
-            // 
-            this.CALDbono.Location = new System.Drawing.Point(562, 47);
-            this.CALDbono.Name = "CALDbono";
-            this.CALDbono.Size = new System.Drawing.Size(43, 20);
-            this.CALDbono.TabIndex = 23;
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(486, 49);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(70, 13);
-            this.label61.TabIndex = 22;
-            this.label61.Text = "Bonos / Pen.";
-            // 
-            // CALDdado
-            // 
-            this.CALDdado.Location = new System.Drawing.Point(429, 46);
-            this.CALDdado.Name = "CALDdado";
-            this.CALDdado.Size = new System.Drawing.Size(42, 20);
-            this.CALDdado.TabIndex = 21;
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(390, 49);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(33, 13);
-            this.label64.TabIndex = 20;
-            this.label64.Text = "Dado";
-            // 
-            // CALAta
-            // 
-            this.CALAta.Location = new System.Drawing.Point(675, 12);
-            this.CALAta.Name = "CALAta";
-            this.CALAta.Size = new System.Drawing.Size(27, 20);
-            this.CALAta.TabIndex = 19;
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(621, 15);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(48, 13);
-            this.label63.TabIndex = 18;
-            this.label63.Text = "Mod. TA";
-            // 
-            // CALcal
-            // 
-            this.CALcal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CALcal.Location = new System.Drawing.Point(15, 89);
-            this.CALcal.Name = "CALcal";
-            this.CALcal.Size = new System.Drawing.Size(169, 23);
-            this.CALcal.TabIndex = 10;
-            this.CALcal.Text = "Calcular";
-            this.CALcal.UseVisualStyleBackColor = true;
-            this.CALcal.Click += new System.EventHandler(this.CALcal_Click);
-            // 
-            // CALlog
-            // 
-            this.CALlog.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.CALlog.Location = new System.Drawing.Point(717, 10);
-            this.CALlog.Name = "CALlog";
-            this.CALlog.ReadOnly = true;
-            this.CALlog.Size = new System.Drawing.Size(160, 125);
-            this.CALlog.TabIndex = 17;
-            this.CALlog.Text = "";
-            // 
-            // CALdefensa
-            // 
-            this.CALdefensa.FormattingEnabled = true;
-            this.CALdefensa.Location = new System.Drawing.Point(253, 46);
-            this.CALdefensa.Name = "CALdefensa";
-            this.CALdefensa.Size = new System.Drawing.Size(121, 21);
-            this.CALdefensa.TabIndex = 14;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(206, 49);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(47, 13);
-            this.label60.TabIndex = 13;
-            this.label60.Text = "Defensa";
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(7, 49);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(50, 13);
-            this.label62.TabIndex = 10;
-            this.label62.Text = "Defensor";
-            // 
-            // CALdefensor
-            // 
-            this.CALdefensor.FormattingEnabled = true;
-            this.CALdefensor.Location = new System.Drawing.Point(63, 45);
-            this.CALdefensor.Name = "CALdefensor";
-            this.CALdefensor.Size = new System.Drawing.Size(121, 21);
-            this.CALdefensor.TabIndex = 9;
-            this.CALdefensor.SelectedValueChanged += new System.EventHandler(this.UpdateCALDefensor);
-            // 
-            // CALAbono
-            // 
-            this.CALAbono.Location = new System.Drawing.Point(562, 12);
-            this.CALAbono.Name = "CALAbono";
-            this.CALAbono.Size = new System.Drawing.Size(43, 20);
-            this.CALAbono.TabIndex = 8;
-            this.CALAbono.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(486, 14);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(70, 13);
-            this.label58.TabIndex = 7;
-            this.label58.Text = "Bonos / Pen.";
+            this.groupBox8.Controls.Add(this.CALataque);
+            this.groupBox8.Controls.Add(this.CALatacante);
+            this.groupBox8.Controls.Add(this.label54);
+            this.groupBox8.Controls.Add(this.label56);
+            this.groupBox8.Controls.Add(this.CALAdado);
+            this.groupBox8.Controls.Add(this.label57);
+            this.groupBox8.Controls.Add(this.label58);
+            this.groupBox8.Controls.Add(this.CALAta);
+            this.groupBox8.Controls.Add(this.CALAbono);
+            this.groupBox8.Controls.Add(this.label63);
+            this.groupBox8.Location = new System.Drawing.Point(6, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(194, 132);
+            this.groupBox8.TabIndex = 26;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "ATQ";
             // 
             // CALataque
             // 
             this.CALataque.FormattingEnabled = true;
-            this.CALataque.Location = new System.Drawing.Point(253, 10);
+            this.CALataque.Location = new System.Drawing.Point(62, 46);
             this.CALataque.Name = "CALataque";
             this.CALataque.Size = new System.Drawing.Size(121, 21);
             this.CALataque.TabIndex = 6;
             // 
-            // label57
+            // CALatacante
             // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(206, 14);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(41, 13);
-            this.label57.TabIndex = 5;
-            this.label57.Text = "Ataque";
+            this.CALatacante.FormattingEnabled = true;
+            this.CALatacante.Location = new System.Drawing.Point(62, 14);
+            this.CALatacante.Name = "CALatacante";
+            this.CALatacante.Size = new System.Drawing.Size(121, 21);
+            this.CALatacante.TabIndex = 0;
+            this.CALatacante.SelectedValueChanged += new System.EventHandler(this.UpdateCALAtacante);
             // 
-            // CALAdado
+            // label54
             // 
-            this.CALAdado.Location = new System.Drawing.Point(429, 11);
-            this.CALAdado.Name = "CALAdado";
-            this.CALAdado.Size = new System.Drawing.Size(42, 20);
-            this.CALAdado.TabIndex = 4;
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(6, 18);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(50, 13);
+            this.label54.TabIndex = 1;
+            this.label54.Text = "Atacante";
             // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(390, 14);
+            this.label56.Location = new System.Drawing.Point(15, 79);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(33, 13);
             this.label56.TabIndex = 3;
             this.label56.Text = "Dado";
             this.label56.Click += new System.EventHandler(this.label56_Click);
+            // 
+            // CALAdado
+            // 
+            this.CALAdado.Location = new System.Drawing.Point(9, 96);
+            this.CALAdado.Name = "CALAdado";
+            this.CALAdado.Size = new System.Drawing.Size(42, 20);
+            this.CALAdado.TabIndex = 4;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(15, 49);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(41, 13);
+            this.label57.TabIndex = 5;
+            this.label57.Text = "Ataque";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(61, 79);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(70, 13);
+            this.label58.TabIndex = 7;
+            this.label58.Text = "Bonos / Pen.";
+            // 
+            // CALAta
+            // 
+            this.CALAta.Location = new System.Drawing.Point(144, 96);
+            this.CALAta.Name = "CALAta";
+            this.CALAta.Size = new System.Drawing.Size(27, 20);
+            this.CALAta.TabIndex = 19;
+            // 
+            // CALAbono
+            // 
+            this.CALAbono.Location = new System.Drawing.Point(71, 96);
+            this.CALAbono.Name = "CALAbono";
+            this.CALAbono.Size = new System.Drawing.Size(43, 20);
+            this.CALAbono.TabIndex = 8;
+            this.CALAbono.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(135, 79);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(48, 13);
+            this.label63.TabIndex = 18;
+            this.label63.Text = "Mod. TA";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.label60);
+            this.groupBox9.Controls.Add(this.CALDta);
+            this.groupBox9.Controls.Add(this.CALdefensa);
+            this.groupBox9.Controls.Add(this.label59);
+            this.groupBox9.Controls.Add(this.label62);
+            this.groupBox9.Controls.Add(this.CALDbono);
+            this.groupBox9.Controls.Add(this.CALdefensor);
+            this.groupBox9.Controls.Add(this.label61);
+            this.groupBox9.Controls.Add(this.label64);
+            this.groupBox9.Controls.Add(this.CALDdado);
+            this.groupBox9.Location = new System.Drawing.Point(209, 6);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(194, 132);
+            this.groupBox9.TabIndex = 27;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "DEF";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(9, 49);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(47, 13);
+            this.label60.TabIndex = 13;
+            this.label60.Text = "Defensa";
+            // 
+            // CALDta
+            // 
+            this.CALDta.Location = new System.Drawing.Point(144, 96);
+            this.CALDta.Name = "CALDta";
+            this.CALDta.Size = new System.Drawing.Size(27, 20);
+            this.CALDta.TabIndex = 25;
+            // 
+            // CALdefensa
+            // 
+            this.CALdefensa.FormattingEnabled = true;
+            this.CALdefensa.Location = new System.Drawing.Point(62, 46);
+            this.CALdefensa.Name = "CALdefensa";
+            this.CALdefensa.Size = new System.Drawing.Size(121, 21);
+            this.CALdefensa.TabIndex = 14;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(135, 79);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(48, 13);
+            this.label59.TabIndex = 24;
+            this.label59.Text = "Mod. TA";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(6, 19);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(50, 13);
+            this.label62.TabIndex = 10;
+            this.label62.Text = "Defensor";
+            // 
+            // CALDbono
+            // 
+            this.CALDbono.Location = new System.Drawing.Point(71, 96);
+            this.CALDbono.Name = "CALDbono";
+            this.CALDbono.Size = new System.Drawing.Size(43, 20);
+            this.CALDbono.TabIndex = 23;
+            // 
+            // CALdefensor
+            // 
+            this.CALdefensor.FormattingEnabled = true;
+            this.CALdefensor.Location = new System.Drawing.Point(62, 16);
+            this.CALdefensor.Name = "CALdefensor";
+            this.CALdefensor.Size = new System.Drawing.Size(121, 21);
+            this.CALdefensor.TabIndex = 9;
+            this.CALdefensor.SelectedValueChanged += new System.EventHandler(this.UpdateCALDefensor);
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(61, 79);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(70, 13);
+            this.label61.TabIndex = 22;
+            this.label61.Text = "Bonos / Pen.";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(15, 79);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(33, 13);
+            this.label64.TabIndex = 20;
+            this.label64.Text = "Dado";
+            // 
+            // CALDdado
+            // 
+            this.CALDdado.Location = new System.Drawing.Point(9, 96);
+            this.CALDdado.Name = "CALDdado";
+            this.CALDdado.Size = new System.Drawing.Size(42, 20);
+            this.CALDdado.TabIndex = 21;
+            // 
+            // CALresultado
+            // 
+            this.CALresultado.BackColor = System.Drawing.SystemColors.Control;
+            this.CALresultado.Location = new System.Drawing.Point(409, 9);
+            this.CALresultado.Name = "CALresultado";
+            this.CALresultado.ReadOnly = true;
+            this.CALresultado.Size = new System.Drawing.Size(247, 42);
+            this.CALresultado.TabIndex = 26;
+            this.CALresultado.Text = "";
+            // 
+            // CALlog
+            // 
+            this.CALlog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CALlog.Location = new System.Drawing.Point(662, 6);
+            this.CALlog.Name = "CALlog";
+            this.CALlog.ReadOnly = true;
+            this.CALlog.Size = new System.Drawing.Size(359, 129);
+            this.CALlog.TabIndex = 17;
+            this.CALlog.Text = "";
             // 
             // label55
             // 
@@ -1110,23 +1216,16 @@ namespace AnimaFacil
             this.label55.Size = new System.Drawing.Size(0, 13);
             this.label55.TabIndex = 2;
             // 
-            // label54
+            // CALcal
             // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(7, 14);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(50, 13);
-            this.label54.TabIndex = 1;
-            this.label54.Text = "Atacante";
-            // 
-            // CALatacante
-            // 
-            this.CALatacante.FormattingEnabled = true;
-            this.CALatacante.Location = new System.Drawing.Point(63, 10);
-            this.CALatacante.Name = "CALatacante";
-            this.CALatacante.Size = new System.Drawing.Size(121, 21);
-            this.CALatacante.TabIndex = 0;
-            this.CALatacante.SelectedValueChanged += new System.EventHandler(this.UpdateCALAtacante);
+            this.CALcal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CALcal.Location = new System.Drawing.Point(445, 75);
+            this.CALcal.Name = "CALcal";
+            this.CALcal.Size = new System.Drawing.Size(169, 23);
+            this.CALcal.TabIndex = 10;
+            this.CALcal.Text = "Calcular";
+            this.CALcal.UseVisualStyleBackColor = true;
+            this.CALcal.Click += new System.EventHandler(this.CALcal_Click);
             // 
             // tabPage5
             // 
@@ -1135,7 +1234,7 @@ namespace AnimaFacil
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(883, 141);
+            this.tabPage5.Size = new System.Drawing.Size(1027, 141);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Calculadora Combate Simple";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1339,34 +1438,6 @@ namespace AnimaFacil
             this.numOperador1.TabIndex = 1;
             this.numOperador1.ValueChanged += new System.EventHandler(this.numOperador1_ValueChanged);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox3.Controls.Add(this.numericTurno);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Location = new System.Drawing.Point(899, 412);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(138, 66);
-            this.groupBox3.TabIndex = 7;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Contador de turno";
-            // 
-            // numericTurno
-            // 
-            this.numericTurno.Location = new System.Drawing.Point(9, 41);
-            this.numericTurno.Name = "numericTurno";
-            this.numericTurno.Size = new System.Drawing.Size(123, 20);
-            this.numericTurno.TabIndex = 1;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 24);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(35, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Turno";
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1467,24 +1538,24 @@ namespace AnimaFacil
             // 
             // Turno
             // 
-            dataGridViewCellStyle1.Format = "N0";
-            this.Turno.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Format = "N0";
+            this.Turno.DefaultCellStyle = dataGridViewCellStyle9;
             this.Turno.HeaderText = "Turno";
             this.Turno.Name = "Turno";
             this.Turno.Width = 71;
             // 
             // DadosT
             // 
-            dataGridViewCellStyle2.Format = "N0";
-            this.DadosT.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Format = "N0";
+            this.DadosT.DefaultCellStyle = dataGridViewCellStyle10;
             this.DadosT.HeaderText = "Dados Turno";
             this.DadosT.Name = "DadosT";
             this.DadosT.Width = 71;
             // 
             // Iniciativa
             // 
-            dataGridViewCellStyle3.Format = "N0";
-            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Format = "N0";
+            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle11;
             this.Iniciativa.HeaderText = "Iniciativa";
             this.Iniciativa.Name = "Iniciativa";
             this.Iniciativa.ReadOnly = true;
@@ -1492,16 +1563,16 @@ namespace AnimaFacil
             // 
             // VidaActual
             // 
-            dataGridViewCellStyle4.Format = "N0";
-            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Format = "N0";
+            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle12;
             this.VidaActual.HeaderText = "Vida";
             this.VidaActual.Name = "VidaActual";
             this.VidaActual.Width = 72;
             // 
             // VidaMax
             // 
-            dataGridViewCellStyle5.Format = "N0";
-            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.Format = "N0";
+            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle13;
             this.VidaMax.HeaderText = "Vida Total";
             this.VidaMax.Name = "VidaMax";
             this.VidaMax.ReadOnly = true;
@@ -1509,24 +1580,24 @@ namespace AnimaFacil
             // 
             // Cansancio
             // 
-            dataGridViewCellStyle6.Format = "N0";
-            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Format = "N0";
+            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle14;
             this.Cansancio.HeaderText = "Cansancio";
             this.Cansancio.Name = "Cansancio";
             this.Cansancio.Width = 72;
             // 
             // Ki
             // 
-            dataGridViewCellStyle7.Format = "N0";
-            this.Ki.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.Format = "N0";
+            this.Ki.DefaultCellStyle = dataGridViewCellStyle15;
             this.Ki.HeaderText = "Ki";
             this.Ki.Name = "Ki";
             this.Ki.Width = 71;
             // 
             // Zeon
             // 
-            dataGridViewCellStyle8.Format = "N0";
-            this.Zeon.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.Format = "N0";
+            this.Zeon.DefaultCellStyle = dataGridViewCellStyle16;
             this.Zeon.HeaderText = "Zeon";
             this.Zeon.Name = "Zeon";
             this.Zeon.Width = 71;
@@ -2782,9 +2853,14 @@ namespace AnimaFacil
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -2796,9 +2872,6 @@ namespace AnimaFacil
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOperador2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numOperador1)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -3174,9 +3247,13 @@ namespace AnimaFacil
         void UpdateCALPrincipal()
         {
             CALatacante.Items.Clear();
+            CALatacante.Text = "";
             CALdefensor.Items.Clear();
+            CALdefensor.Text = "";
             CALataque.Items.Clear();
+            CALataque.Text = "";
             CALdefensa.Items.Clear();
+            CALdefensa.Text = "";
             CALAdado.Clear();
             CALDdado.Clear();
             CALAbono.Clear();
@@ -3196,6 +3273,10 @@ namespace AnimaFacil
             Personaje perstemp;
             AtaqueIndex.Clear();
             CALataque.Items.Clear();
+            CALataque.Text = "";
+            CALAdado.Clear();           
+            CALAbono.Clear();            
+            CALAta.Clear();
             ListaPers.TryGetValue(CALatacante.SelectedItem.ToString(), out perstemp);
             for (int i = 0; i < perstemp.ListaAtaques.Length; i++)
             {
@@ -3216,6 +3297,10 @@ namespace AnimaFacil
             Personaje perstemp;
             DefensaIndex.Clear();
             CALdefensa.Items.Clear();
+            CALdefensa.Text = "";
+            CALDdado.Clear();
+            CALDbono.Clear();
+            CALDta.Clear();
             ListaPers.TryGetValue(CALdefensor.SelectedItem.ToString(), out perstemp);
             for (int i = 0; i < perstemp.ListaDefensa.Length; i++)
             {
@@ -3231,13 +3316,20 @@ namespace AnimaFacil
         {
             Personaje AtaPers;
             Personaje DefPers;
+
+            if (CALatacante.SelectedIndex == -1)
+                return;
             ListaPers.TryGetValue(CALatacante.SelectedItem.ToString(), out AtaPers);
-            ListaPers.TryGetValue(CALatacante.SelectedItem.ToString(), out DefPers);
+            if (CALdefensor.SelectedIndex == -1)
+                return;
+            ListaPers.TryGetValue(CALdefensor.SelectedItem.ToString(), out DefPers);
+
+
             if(AtaPers != null && DefPers != null && CALataque.SelectedIndex != -1 && CALdefensa.SelectedIndex !=-1)
             {
-                
-                int numAta = Convert.ToInt32(AtaPers.ListaAtaques[AtaqueIndex[CALataque.SelectedIndex]].HA + CALAbono.Text.ToString() + CALAdado.Text.ToString());
-                int numDef = Convert.ToInt32(DefPers.ListaDefensa[DefensaIndex[CALdefensa.SelectedIndex]].Def + CALDbono.Text.ToString() + CALDdado.Text.ToString());
+
+                int numAta = Convert.ToInt32(AtaPers.ListaAtaques[AtaqueIndex[CALataque.SelectedIndex]].HA + ParseNullableInt(CALAbono.Text.ToString()) + ParseNullableInt(CALAdado.Text.ToString()));
+                int numDef = Convert.ToInt32(DefPers.ListaDefensa[DefensaIndex[CALdefensa.SelectedIndex]].Def + ParseNullableInt(CALDbono.Text.ToString()) + ParseNullableInt(CALDdado.Text.ToString()));
                 string TAtype = AtaPers.ListaAtaques[AtaqueIndex[CALataque.SelectedIndex]].Critico;
                 int numTA = Convert.ToInt32(TACalculator(DefPers, TAtype) + ParseNullableInt(CALAta.Text) + ParseNullableInt(CALDta.Text));
                 int numDano = AtaPers.ListaAtaques[AtaqueIndex[CALataque.SelectedIndex]].Dano;
@@ -3248,23 +3340,42 @@ namespace AnimaFacil
                 Console.WriteLine("TA type: " + TAtype);
                 Console.WriteLine("Daño: " + numDano);
                 Console.WriteLine("Diferencia: " + numDif);
+                Console.WriteLine("HA" + AtaPers.ListaAtaques[AtaqueIndex[CALataque.SelectedIndex]].HA + " + " + ParseNullableInt(CALAbono.Text.ToString()) + " + " + ParseNullableInt(CALAdado.Text.ToString()));
+                string LogStart;
+                string LogEnd;
+                LogStart = AtaPers.Nombre + " --> " + DefPers.Nombre + " = ";
                 if (numDif >= 0)
                 {
                     string text = "Ataque falló. Defensor pierde acción.";
+                    LogEnd = "Fallo, pierde acción" + Environment.NewLine;
                     numDif = numDif / 10 * 10;
                     numDif = numDif - 20 - numTA * 10;
                     if (numDif > 0)
                     {
                         numDif = numDif * numDano / 100;
                         text = "Daño total: " + numDif;
+                        LogEnd = numDif + " Dmg" + Environment.NewLine;
+                        for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                        {
+                            if(dataGridView1.Rows[i].Cells["Personaje"].Value.ToString() == DefPers.Nombre)
+                            {
+                                if (numDif >= (ParseNullableInt(dataGridView1.Rows[i].Cells["VidaActual"].Value.ToString()) / 2))
+                                {
+                                    text = text + " CRITICO";
+                                    LogEnd = numDif + " Dmg CRITICO" + Environment.NewLine;
+                                }
+                            }
+                        }
                     }
                     CALresultado.Text = text;
+                    CALlog.Text = CALlog.Text + LogStart + LogEnd;
                     return;
                 }
                 numDif = -numDif / 2;
                 numDif /= 5;
                 numDif *= 5;
                 CALresultado.Text = "CONTRATAQUE: +" + numDif;
+                CALlog.Text = CALlog.Text + LogStart + "Contra: " + numDif + Environment.NewLine;
             } 
         }
 
