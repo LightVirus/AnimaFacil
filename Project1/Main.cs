@@ -218,7 +218,6 @@ namespace AnimaFacil
         private TextBox CALAdado;
         private Label label56;
         private Button CALcal;
-        private RichTextBox CALlog;
         private ComboBox CALdefensa;
         private Label label60;
         private Label label62;
@@ -227,7 +226,6 @@ namespace AnimaFacil
         private Label label58;
         private ComboBox CALataque;
         private Label label57;
-        private RichTextBox CALresultado;
         private TextBox CALDta;
         private Label label59;
         private TextBox CALDbono;
@@ -241,6 +239,11 @@ namespace AnimaFacil
         List<int> AtaqueIndex = new List<int>();
         private GroupBox groupBox8;
         private GroupBox groupBox9;
+        private TextBox CALlog;
+        private TextBox CALresultado;
+        private Label label65;
+        private Label label66;
+        private TextBox textBox1;
         List<int> DefensaIndex = new List<int>();
 
         public Form1()
@@ -674,20 +677,23 @@ namespace AnimaFacil
         }
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.numericTurno = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.CALresultado = new System.Windows.Forms.TextBox();
+            this.CALlog = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.CALataque = new System.Windows.Forms.ComboBox();
             this.CALatacante = new System.Windows.Forms.ComboBox();
@@ -710,8 +716,6 @@ namespace AnimaFacil
             this.label61 = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.CALDdado = new System.Windows.Forms.TextBox();
-            this.CALresultado = new System.Windows.Forms.RichTextBox();
-            this.CALlog = new System.Windows.Forms.RichTextBox();
             this.label55 = new System.Windows.Forms.Label();
             this.CALcal = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -871,6 +875,7 @@ namespace AnimaFacil
             this.CPnombre = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label65 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -879,6 +884,8 @@ namespace AnimaFacil
             this.openFileDialogTabla = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogCreador = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogCreador = new System.Windows.Forms.SaveFileDialog();
+            this.label66 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
@@ -934,7 +941,7 @@ namespace AnimaFacil
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1047, 563);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Principal";
+            this.tabPage1.Text = "Tabla";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // numericTurno
@@ -968,10 +975,10 @@ namespace AnimaFacil
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.groupBox8);
-            this.tabPage4.Controls.Add(this.groupBox9);
             this.tabPage4.Controls.Add(this.CALresultado);
             this.tabPage4.Controls.Add(this.CALlog);
+            this.tabPage4.Controls.Add(this.groupBox8);
+            this.tabPage4.Controls.Add(this.groupBox9);
             this.tabPage4.Controls.Add(this.label55);
             this.tabPage4.Controls.Add(this.CALcal);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -981,6 +988,31 @@ namespace AnimaFacil
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Calculadora Combate Avanzada";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // CALresultado
+            // 
+            this.CALresultado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CALresultado.Location = new System.Drawing.Point(410, 36);
+            this.CALresultado.Name = "CALresultado";
+            this.CALresultado.ReadOnly = true;
+            this.CALresultado.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.CALresultado.Size = new System.Drawing.Size(246, 20);
+            this.CALresultado.TabIndex = 29;
+            this.CALresultado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CALlog
+            // 
+            this.CALlog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CALlog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CALlog.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.CALlog.Location = new System.Drawing.Point(662, 4);
+            this.CALlog.Multiline = true;
+            this.CALlog.Name = "CALlog";
+            this.CALlog.ReadOnly = true;
+            this.CALlog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.CALlog.Size = new System.Drawing.Size(359, 131);
+            this.CALlog.TabIndex = 28;
+            this.CALlog.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox8
             // 
@@ -1187,26 +1219,6 @@ namespace AnimaFacil
             this.CALDdado.Name = "CALDdado";
             this.CALDdado.Size = new System.Drawing.Size(42, 20);
             this.CALDdado.TabIndex = 21;
-            // 
-            // CALresultado
-            // 
-            this.CALresultado.BackColor = System.Drawing.SystemColors.Control;
-            this.CALresultado.Location = new System.Drawing.Point(409, 9);
-            this.CALresultado.Name = "CALresultado";
-            this.CALresultado.ReadOnly = true;
-            this.CALresultado.Size = new System.Drawing.Size(247, 42);
-            this.CALresultado.TabIndex = 26;
-            this.CALresultado.Text = "";
-            // 
-            // CALlog
-            // 
-            this.CALlog.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.CALlog.Location = new System.Drawing.Point(662, 6);
-            this.CALlog.Name = "CALlog";
-            this.CALlog.ReadOnly = true;
-            this.CALlog.Size = new System.Drawing.Size(359, 129);
-            this.CALlog.TabIndex = 17;
-            this.CALlog.Text = "";
             // 
             // label55
             // 
@@ -1538,24 +1550,24 @@ namespace AnimaFacil
             // 
             // Turno
             // 
-            dataGridViewCellStyle9.Format = "N0";
-            this.Turno.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Format = "N0";
+            this.Turno.DefaultCellStyle = dataGridViewCellStyle1;
             this.Turno.HeaderText = "Turno";
             this.Turno.Name = "Turno";
             this.Turno.Width = 71;
             // 
             // DadosT
             // 
-            dataGridViewCellStyle10.Format = "N0";
-            this.DadosT.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Format = "N0";
+            this.DadosT.DefaultCellStyle = dataGridViewCellStyle2;
             this.DadosT.HeaderText = "Dados Turno";
             this.DadosT.Name = "DadosT";
             this.DadosT.Width = 71;
             // 
             // Iniciativa
             // 
-            dataGridViewCellStyle11.Format = "N0";
-            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Format = "N0";
+            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle3;
             this.Iniciativa.HeaderText = "Iniciativa";
             this.Iniciativa.Name = "Iniciativa";
             this.Iniciativa.ReadOnly = true;
@@ -1563,16 +1575,16 @@ namespace AnimaFacil
             // 
             // VidaActual
             // 
-            dataGridViewCellStyle12.Format = "N0";
-            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Format = "N0";
+            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle4;
             this.VidaActual.HeaderText = "Vida";
             this.VidaActual.Name = "VidaActual";
             this.VidaActual.Width = 72;
             // 
             // VidaMax
             // 
-            dataGridViewCellStyle13.Format = "N0";
-            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle5.Format = "N0";
+            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle5;
             this.VidaMax.HeaderText = "Vida Total";
             this.VidaMax.Name = "VidaMax";
             this.VidaMax.ReadOnly = true;
@@ -1580,24 +1592,24 @@ namespace AnimaFacil
             // 
             // Cansancio
             // 
-            dataGridViewCellStyle14.Format = "N0";
-            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle6.Format = "N0";
+            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle6;
             this.Cansancio.HeaderText = "Cansancio";
             this.Cansancio.Name = "Cansancio";
             this.Cansancio.Width = 72;
             // 
             // Ki
             // 
-            dataGridViewCellStyle15.Format = "N0";
-            this.Ki.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle7.Format = "N0";
+            this.Ki.DefaultCellStyle = dataGridViewCellStyle7;
             this.Ki.HeaderText = "Ki";
             this.Ki.Name = "Ki";
             this.Ki.Width = 71;
             // 
             // Zeon
             // 
-            dataGridViewCellStyle16.Format = "N0";
-            this.Zeon.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle8.Format = "N0";
+            this.Zeon.DefaultCellStyle = dataGridViewCellStyle8;
             this.Zeon.HeaderText = "Zeon";
             this.Zeon.Name = "Zeon";
             this.Zeon.Width = 71;
@@ -2760,6 +2772,9 @@ namespace AnimaFacil
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.label66);
+            this.tabPage2.Controls.Add(this.label65);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
@@ -2772,15 +2787,25 @@ namespace AnimaFacil
             this.tabPage2.Text = "Acerca de...";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Location = new System.Drawing.Point(245, 101);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(551, 42);
+            this.label65.TabIndex = 4;
+            this.label65.Text = "Actualizacion por Unai Lujambio";
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(291, 448);
+            this.label14.Location = new System.Drawing.Point(335, 441);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(556, 31);
+            this.label14.Size = new System.Drawing.Size(353, 31);
             this.label14.TabIndex = 3;
-            this.label14.Text = "E-Mail del autor: guillermocanino@gmail.com";
+            this.label14.Text = "guillermocanino@gmail.com";
             // 
             // label13
             // 
@@ -2795,21 +2820,21 @@ namespace AnimaFacil
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(150, 93);
+            this.label12.Location = new System.Drawing.Point(230, 59);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(779, 42);
+            this.label12.Size = new System.Drawing.Size(581, 42);
             this.label12.TabIndex = 1;
-            this.label12.Text = "Creado por Guillermo Canino y Unai Lujambio";
+            this.label12.Text = "Idea original por Guillermo Canino";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(375, 51);
+            this.label11.Location = new System.Drawing.Point(366, 17);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(303, 42);
             this.label11.TabIndex = 0;
-            this.label11.Text = "Anima Fácil v.1.2";
+            this.label11.Text = "Anima Fácil v.2.0";
             // 
             // saveFileDialogTabla
             // 
@@ -2838,6 +2863,30 @@ namespace AnimaFacil
             this.saveFileDialogCreador.Filter = "Anima PJ (*.apj)|*.apj";
             this.saveFileDialogCreador.Title = "Guardar personaje...";
             this.saveFileDialogCreador.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogCreador_FileOk);
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Location = new System.Drawing.Point(346, 484);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(323, 31);
+            this.label66.TabIndex = 5;
+            this.label66.Text = "unai.lujambio@gmail.com";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(237, 162);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(530, 266);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
@@ -3508,7 +3557,7 @@ namespace AnimaFacil
         }
     }
 
-    
+
     internal static class Program
     {
         [STAThread]
