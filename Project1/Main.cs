@@ -75,21 +75,6 @@ namespace AnimaFacil
         private Label label13;
         private Label label12;
         private Label label11;
-        private DataGridViewTextBoxColumn Personaje;
-        private DataGridViewTextBoxColumn Turno;
-        private DataGridViewTextBoxColumn DadosT;
-        private DataGridViewTextBoxColumn Iniciativa;
-        private DataGridViewTextBoxColumn VidaActual;
-        private DataGridViewTextBoxColumn VidaMax;
-        private DataGridViewTextBoxColumn Cansancio;
-        private DataGridViewTextBoxColumn Ki;
-        private DataGridViewTextBoxColumn Zeon;
-        private DataGridViewTextBoxColumn CV;
-        private DataGridViewComboBoxColumn Natura;
-        private DataGridViewComboBoxColumn Suerte;
-        private DataGridViewCheckBoxColumn Uroboros;
-        private DataGridViewTextBoxColumn Sorpresa;
-        private DataGridViewTextBoxColumn Notas;
         private NumericUpDown numericTurno;
         private TabPage tabPage3;
         private GroupBox groupBox4;
@@ -244,6 +229,33 @@ namespace AnimaFacil
         private Label label65;
         private Label label66;
         private TextBox textBox1;
+        private CheckBox CPojos;
+        private Label label67;
+        private TextBox CPA8turno;
+        private TextBox CPA7turno;
+        private TextBox CPA6turno;
+        private TextBox CPA5turno;
+        private TextBox CPA4turno;
+        private TextBox CPA3turno;
+        private TextBox CPA2turno;
+        private TextBox CPA1turno;
+        private DataGridViewTextBoxColumn Personaje;
+        private DataGridViewComboBoxColumn Arma;
+        private DataGridViewTextBoxColumn Turno;
+        private DataGridViewTextBoxColumn ModTurno;
+        private DataGridViewTextBoxColumn DadosT;
+        private DataGridViewTextBoxColumn Iniciativa;
+        private DataGridViewTextBoxColumn VidaActual;
+        private DataGridViewTextBoxColumn VidaMax;
+        private DataGridViewTextBoxColumn Cansancio;
+        private DataGridViewTextBoxColumn Ki;
+        private DataGridViewTextBoxColumn Zeon;
+        private DataGridViewTextBoxColumn CV;
+        private DataGridViewComboBoxColumn Natura;
+        private DataGridViewComboBoxColumn Suerte;
+        private DataGridViewCheckBoxColumn Uroboros;
+        private DataGridViewTextBoxColumn Sorpresa;
+        private DataGridViewTextBoxColumn Notas;
         List<int> DefensaIndex = new List<int>();
 
         public Form1()
@@ -517,7 +529,7 @@ namespace AnimaFacil
             }
             int num4 = int.Parse(this.numericTurno.Value.ToString());
             this.numericTurno.Value = num4 + 1;
-            CALlog.Text = CALlog.Text + "----Turno " + (num4 + 1) + " ----" + Environment.NewLine;
+            CALlog.AppendText("----Turno " + (num4 + 1) + " ----" + Environment.NewLine);
             this.dataGridView1.Sort(this.dataGridView1.Columns["Iniciativa"], ListSortDirection.Descending);
             this.sorpresaComprobator();
         }
@@ -685,6 +697,7 @@ namespace AnimaFacil
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -746,7 +759,9 @@ namespace AnimaFacil
             this.buttonIniciativas = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Personaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Arma = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Turno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModTurno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DadosT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Iniciativa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VidaActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -762,6 +777,7 @@ namespace AnimaFacil
             this.Notas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.CPojos = new System.Windows.Forms.CheckBox();
             this.Cpclean = new System.Windows.Forms.Button();
             this.label53 = new System.Windows.Forms.Label();
             this.CPnotas = new System.Windows.Forms.TextBox();
@@ -820,6 +836,15 @@ namespace AnimaFacil
             this.CPturno = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label67 = new System.Windows.Forms.Label();
+            this.CPA8turno = new System.Windows.Forms.TextBox();
+            this.CPA7turno = new System.Windows.Forms.TextBox();
+            this.CPA6turno = new System.Windows.Forms.TextBox();
+            this.CPA5turno = new System.Windows.Forms.TextBox();
+            this.CPA4turno = new System.Windows.Forms.TextBox();
+            this.CPA3turno = new System.Windows.Forms.TextBox();
+            this.CPA2turno = new System.Windows.Forms.TextBox();
+            this.CPA1turno = new System.Windows.Forms.TextBox();
             this.CPA8dano = new System.Windows.Forms.TextBox();
             this.CPA8critico = new System.Windows.Forms.ComboBox();
             this.CPA8ha = new System.Windows.Forms.TextBox();
@@ -875,6 +900,8 @@ namespace AnimaFacil
             this.CPnombre = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -884,8 +911,6 @@ namespace AnimaFacil
             this.openFileDialogTabla = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogCreador = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogCreador = new System.Windows.Forms.SaveFileDialog();
-            this.label66 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
@@ -1006,6 +1031,7 @@ namespace AnimaFacil
             this.CALlog.BackColor = System.Drawing.SystemColors.ControlLight;
             this.CALlog.ForeColor = System.Drawing.SystemColors.MenuText;
             this.CALlog.Location = new System.Drawing.Point(662, 4);
+            this.CALlog.MaxLength = 327670000;
             this.CALlog.Multiline = true;
             this.CALlog.Name = "CALlog";
             this.CALlog.ReadOnly = true;
@@ -1327,6 +1353,11 @@ namespace AnimaFacil
             // numDano
             // 
             this.numDano.Location = new System.Drawing.Point(249, 40);
+            this.numDano.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numDano.Name = "numDano";
             this.numDano.Size = new System.Drawing.Size(75, 20);
             this.numDano.TabIndex = 3;
@@ -1334,15 +1365,45 @@ namespace AnimaFacil
             // 
             // numTA
             // 
+            this.numTA.Increment = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numTA.Location = new System.Drawing.Point(168, 40);
+            this.numTA.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
+            this.numTA.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.numTA.Name = "numTA";
             this.numTA.Size = new System.Drawing.Size(75, 20);
             this.numTA.TabIndex = 2;
+            this.numTA.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.numTA.ValueChanged += new System.EventHandler(this.numTA_ValueChanged);
             // 
             // numDefensa
             // 
             this.numDefensa.Location = new System.Drawing.Point(87, 40);
+            this.numDefensa.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numDefensa.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.numDefensa.Name = "numDefensa";
             this.numDefensa.Size = new System.Drawing.Size(75, 20);
             this.numDefensa.TabIndex = 1;
@@ -1351,6 +1412,16 @@ namespace AnimaFacil
             // numAtaque
             // 
             this.numAtaque.Location = new System.Drawing.Point(6, 40);
+            this.numAtaque.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numAtaque.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.numAtaque.Name = "numAtaque";
             this.numAtaque.Size = new System.Drawing.Size(75, 20);
             this.numAtaque.TabIndex = 0;
@@ -1514,7 +1585,9 @@ namespace AnimaFacil
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Personaje,
+            this.Arma,
             this.Turno,
+            this.ModTurno,
             this.DadosT,
             this.Iniciativa,
             this.VidaActual,
@@ -1543,115 +1616,147 @@ namespace AnimaFacil
             // 
             // Personaje
             // 
+            this.Personaje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Personaje.HeaderText = "Personaje";
             this.Personaje.Name = "Personaje";
             this.Personaje.ReadOnly = true;
-            this.Personaje.Width = 70;
+            this.Personaje.Width = 79;
+            // 
+            // Arma
+            // 
+            this.Arma.DropDownWidth = 2;
+            this.Arma.HeaderText = "Arma Actual";
+            this.Arma.Items.AddRange(new object[] {
+            "Sin Arma"});
+            this.Arma.Name = "Arma";
+            this.Arma.ToolTipText = "Arma empuñada (calculo iniciativas)";
+            this.Arma.Width = 130;
             // 
             // Turno
             // 
+            this.Turno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             dataGridViewCellStyle1.Format = "N0";
             this.Turno.DefaultCellStyle = dataGridViewCellStyle1;
             this.Turno.HeaderText = "Turno";
             this.Turno.Name = "Turno";
-            this.Turno.Width = 71;
+            this.Turno.Width = 60;
+            // 
+            // ModTurno
+            // 
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = null;
+            this.ModTurno.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ModTurno.HeaderText = "Mod Turno";
+            this.ModTurno.Name = "ModTurno";
+            this.ModTurno.Width = 50;
             // 
             // DadosT
             // 
-            dataGridViewCellStyle2.Format = "N0";
-            this.DadosT.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Format = "N0";
+            this.DadosT.DefaultCellStyle = dataGridViewCellStyle3;
             this.DadosT.HeaderText = "Dados Turno";
             this.DadosT.Name = "DadosT";
-            this.DadosT.Width = 71;
+            this.DadosT.Width = 50;
             // 
             // Iniciativa
             // 
-            dataGridViewCellStyle3.Format = "N0";
-            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Iniciativa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle4.Format = "N0";
+            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle4;
             this.Iniciativa.HeaderText = "Iniciativa";
             this.Iniciativa.Name = "Iniciativa";
             this.Iniciativa.ReadOnly = true;
-            this.Iniciativa.Width = 71;
+            this.Iniciativa.Width = 74;
             // 
             // VidaActual
             // 
-            dataGridViewCellStyle4.Format = "N0";
-            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle4;
+            this.VidaActual.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle5.Format = "N0";
+            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle5;
             this.VidaActual.HeaderText = "Vida";
             this.VidaActual.Name = "VidaActual";
-            this.VidaActual.Width = 72;
+            this.VidaActual.Width = 53;
             // 
             // VidaMax
             // 
-            dataGridViewCellStyle5.Format = "N0";
-            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle5;
+            this.VidaMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle6.Format = "N0";
+            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle6;
             this.VidaMax.HeaderText = "Vida Total";
             this.VidaMax.Name = "VidaMax";
             this.VidaMax.ReadOnly = true;
-            this.VidaMax.Width = 72;
+            this.VidaMax.Width = 74;
             // 
             // Cansancio
             // 
-            dataGridViewCellStyle6.Format = "N0";
-            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle6;
+            this.Cansancio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle7.Format = "N0";
+            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle7;
             this.Cansancio.HeaderText = "Cansancio";
             this.Cansancio.Name = "Cansancio";
-            this.Cansancio.Width = 72;
+            this.Cansancio.Width = 82;
             // 
             // Ki
             // 
-            dataGridViewCellStyle7.Format = "N0";
-            this.Ki.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Ki.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle8.Format = "N0";
+            this.Ki.DefaultCellStyle = dataGridViewCellStyle8;
             this.Ki.HeaderText = "Ki";
             this.Ki.Name = "Ki";
-            this.Ki.Width = 71;
+            this.Ki.Width = 41;
             // 
             // Zeon
             // 
-            dataGridViewCellStyle8.Format = "N0";
-            this.Zeon.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Zeon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle9.Format = "N0";
+            this.Zeon.DefaultCellStyle = dataGridViewCellStyle9;
             this.Zeon.HeaderText = "Zeon";
             this.Zeon.Name = "Zeon";
-            this.Zeon.Width = 71;
+            this.Zeon.Width = 57;
             // 
             // CV
             // 
+            this.CV.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.CV.HeaderText = "CV";
             this.CV.Name = "CV";
-            this.CV.Width = 72;
+            this.CV.Width = 46;
             // 
             // Natura
             // 
+            this.Natura.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Natura.HeaderText = "Natura";
             this.Natura.Items.AddRange(new object[] {
             "Natura +0",
             "Natura +5/+10",
             "Natura +15"});
             this.Natura.Name = "Natura";
-            this.Natura.Width = 71;
+            this.Natura.Width = 45;
             // 
             // Suerte
             // 
+            this.Suerte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Suerte.HeaderText = "Suerte";
             this.Suerte.Items.AddRange(new object[] {
             "Normal",
             "Buena",
             "Mala"});
             this.Suerte.Name = "Suerte";
-            this.Suerte.Width = 71;
+            this.Suerte.Width = 44;
             // 
             // Uroboros
             // 
+            this.Uroboros.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.Uroboros.HeaderText = "¿Uroboros?";
             this.Uroboros.Name = "Uroboros";
-            this.Uroboros.Width = 71;
+            this.Uroboros.Width = 68;
             // 
             // Sorpresa
             // 
+            this.Sorpresa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.Sorpresa.HeaderText = "Sorprendes a...";
             this.Sorpresa.Name = "Sorpresa";
             this.Sorpresa.ReadOnly = true;
-            this.Sorpresa.Width = 72;
+            this.Sorpresa.Width = 96;
             // 
             // Notas
             // 
@@ -1676,6 +1781,7 @@ namespace AnimaFacil
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox4.Controls.Add(this.CPojos);
             this.groupBox4.Controls.Add(this.Cpclean);
             this.groupBox4.Controls.Add(this.label53);
             this.groupBox4.Controls.Add(this.CPnotas);
@@ -1710,6 +1816,16 @@ namespace AnimaFacil
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Personaje";
+            // 
+            // CPojos
+            // 
+            this.CPojos.AutoSize = true;
+            this.CPojos.Location = new System.Drawing.Point(631, 68);
+            this.CPojos.Name = "CPojos";
+            this.CPojos.Size = new System.Drawing.Size(108, 17);
+            this.CPojos.TabIndex = 68;
+            this.CPojos.Text = "Ojos de la muerte";
+            this.CPojos.UseVisualStyleBackColor = true;
             // 
             // Cpclean
             // 
@@ -2000,7 +2116,7 @@ namespace AnimaFacil
             this.groupBox6.Controls.Add(this.label43);
             this.groupBox6.Controls.Add(this.CPD1nombre);
             this.groupBox6.Controls.Add(this.label44);
-            this.groupBox6.Location = new System.Drawing.Point(398, 115);
+            this.groupBox6.Location = new System.Drawing.Point(452, 115);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(261, 261);
             this.groupBox6.TabIndex = 54;
@@ -2227,6 +2343,15 @@ namespace AnimaFacil
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label67);
+            this.groupBox5.Controls.Add(this.CPA8turno);
+            this.groupBox5.Controls.Add(this.CPA7turno);
+            this.groupBox5.Controls.Add(this.CPA6turno);
+            this.groupBox5.Controls.Add(this.CPA5turno);
+            this.groupBox5.Controls.Add(this.CPA4turno);
+            this.groupBox5.Controls.Add(this.CPA3turno);
+            this.groupBox5.Controls.Add(this.CPA2turno);
+            this.groupBox5.Controls.Add(this.CPA1turno);
             this.groupBox5.Controls.Add(this.CPA8dano);
             this.groupBox5.Controls.Add(this.CPA8critico);
             this.groupBox5.Controls.Add(this.CPA8ha);
@@ -2273,10 +2398,75 @@ namespace AnimaFacil
             this.groupBox5.Controls.Add(this.label21);
             this.groupBox5.Location = new System.Drawing.Point(10, 115);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(361, 261);
+            this.groupBox5.Size = new System.Drawing.Size(436, 261);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Ataque";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(365, 16);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(35, 13);
+            this.label67.TabIndex = 62;
+            this.label67.Text = "Turno";
+            // 
+            // CPA8turno
+            // 
+            this.CPA8turno.Location = new System.Drawing.Point(353, 224);
+            this.CPA8turno.Name = "CPA8turno";
+            this.CPA8turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA8turno.TabIndex = 61;
+            // 
+            // CPA7turno
+            // 
+            this.CPA7turno.Location = new System.Drawing.Point(353, 198);
+            this.CPA7turno.Name = "CPA7turno";
+            this.CPA7turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA7turno.TabIndex = 60;
+            // 
+            // CPA6turno
+            // 
+            this.CPA6turno.Location = new System.Drawing.Point(353, 172);
+            this.CPA6turno.Name = "CPA6turno";
+            this.CPA6turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA6turno.TabIndex = 59;
+            // 
+            // CPA5turno
+            // 
+            this.CPA5turno.Location = new System.Drawing.Point(353, 146);
+            this.CPA5turno.Name = "CPA5turno";
+            this.CPA5turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA5turno.TabIndex = 58;
+            // 
+            // CPA4turno
+            // 
+            this.CPA4turno.Location = new System.Drawing.Point(353, 120);
+            this.CPA4turno.Name = "CPA4turno";
+            this.CPA4turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA4turno.TabIndex = 57;
+            // 
+            // CPA3turno
+            // 
+            this.CPA3turno.Location = new System.Drawing.Point(353, 94);
+            this.CPA3turno.Name = "CPA3turno";
+            this.CPA3turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA3turno.TabIndex = 56;
+            // 
+            // CPA2turno
+            // 
+            this.CPA2turno.Location = new System.Drawing.Point(353, 68);
+            this.CPA2turno.Name = "CPA2turno";
+            this.CPA2turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA2turno.TabIndex = 55;
+            // 
+            // CPA1turno
+            // 
+            this.CPA1turno.Location = new System.Drawing.Point(353, 42);
+            this.CPA1turno.Name = "CPA1turno";
+            this.CPA1turno.Size = new System.Drawing.Size(61, 20);
+            this.CPA1turno.TabIndex = 54;
             // 
             // CPA8dano
             // 
@@ -2787,6 +2977,30 @@ namespace AnimaFacil
             this.tabPage2.Text = "Acerca de...";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(237, 162);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(530, 266);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Location = new System.Drawing.Point(346, 484);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(323, 31);
+            this.label66.TabIndex = 5;
+            this.label66.Text = "unai.lujambio@gmail.com";
+            // 
             // label65
             // 
             this.label65.AutoSize = true;
@@ -2832,9 +3046,9 @@ namespace AnimaFacil
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(366, 17);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(303, 42);
+            this.label11.Size = new System.Drawing.Size(324, 42);
             this.label11.TabIndex = 0;
-            this.label11.Text = "Anima Fácil v.2.0";
+            this.label11.Text = "Anima Fácil v.2.1b";
             // 
             // saveFileDialogTabla
             // 
@@ -2863,30 +3077,6 @@ namespace AnimaFacil
             this.saveFileDialogCreador.Filter = "Anima PJ (*.apj)|*.apj";
             this.saveFileDialogCreador.Title = "Guardar personaje...";
             this.saveFileDialogCreador.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogCreador_FileOk);
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label66.Location = new System.Drawing.Point(346, 484);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(323, 31);
-            this.label66.TabIndex = 5;
-            this.label66.Text = "unai.lujambio@gmail.com";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(237, 162);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(530, 266);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
@@ -3132,6 +3322,15 @@ namespace AnimaFacil
             perstemp.ListaAtaques[6].HA = ParseNullableInt(CPA7ha.Text);
             perstemp.ListaAtaques[7].HA = ParseNullableInt(CPA8ha.Text);
 
+            perstemp.ListaAtaques[0].Turno = ParseNullableInt(CPA1turno.Text);
+            perstemp.ListaAtaques[1].Turno = ParseNullableInt(CPA2turno.Text);
+            perstemp.ListaAtaques[2].Turno = ParseNullableInt(CPA3turno.Text);
+            perstemp.ListaAtaques[3].Turno = ParseNullableInt(CPA4turno.Text);
+            perstemp.ListaAtaques[4].Turno = ParseNullableInt(CPA5turno.Text);
+            perstemp.ListaAtaques[5].Turno = ParseNullableInt(CPA6turno.Text);
+            perstemp.ListaAtaques[6].Turno = ParseNullableInt(CPA7turno.Text);
+            perstemp.ListaAtaques[7].Turno = ParseNullableInt(CPA8turno.Text);
+
             perstemp.ListaAtaques[0].Critico = CPA1critico.Text;
             perstemp.ListaAtaques[1].Critico = CPA2critico.Text;
             perstemp.ListaAtaques[2].Critico = CPA3critico.Text;
@@ -3230,6 +3429,15 @@ namespace AnimaFacil
             CPA7dano.Text = perstemp.ListaAtaques[6].Dano.ToString();
             CPA8dano.Text = perstemp.ListaAtaques[7].Dano.ToString();
 
+            CPA1turno.Text = perstemp.ListaAtaques[0].Turno.ToString();
+            CPA2turno.Text = perstemp.ListaAtaques[1].Turno.ToString();
+            CPA3turno.Text = perstemp.ListaAtaques[2].Turno.ToString();
+            CPA4turno.Text = perstemp.ListaAtaques[3].Turno.ToString();
+            CPA5turno.Text = perstemp.ListaAtaques[4].Turno.ToString();
+            CPA6turno.Text = perstemp.ListaAtaques[5].Turno.ToString();
+            CPA7turno.Text = perstemp.ListaAtaques[6].Turno.ToString();
+            CPA8turno.Text = perstemp.ListaAtaques[7].Turno.ToString();
+
             CPD1nombre.Text = perstemp.ListaDefensa[0].Nombre;
             CPD2nombre.Text = perstemp.ListaDefensa[1].Nombre;
             CPD3nombre.Text = perstemp.ListaDefensa[2].Nombre;
@@ -3278,6 +3486,20 @@ namespace AnimaFacil
                 int i = dataGridView1.Rows.Count - 1;
                 dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
                 dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
+                dataGridView1.Rows[i].Cells["Arma"].Value = Arma.Items[0];
+
+                for (int b = 0; b < perstemp.ListaAtaques.Length; b++)
+                {
+                    if (perstemp.ListaAtaques[b].Nombre != null && perstemp.ListaAtaques[b].Nombre != "")
+                    {
+                        if (perstemp.ListaAtaques[b].Critico != null && perstemp.ListaAtaques[b].Critico != "")
+                        {
+                            DataGridViewComboBoxCell tempcelda = (DataGridViewComboBoxCell)dataGridView1.Rows[i].Cells["Arma"];
+                            tempcelda.Items.Add(perstemp.ListaAtaques[b].Nombre + "  T " + perstemp.ListaAtaques[b].Turno);
+                        }
+                    }
+                }
+
                 dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
                 dataGridView1.Rows[i].Cells["VidaMax"].Value = perstemp.Vida;
                 dataGridView1.Rows[i].Cells["Cansancio"].Value = perstemp.Cansancio;
@@ -3408,7 +3630,7 @@ namespace AnimaFacil
                         {
                             if(dataGridView1.Rows[i].Cells["Personaje"].Value.ToString() == DefPers.Nombre)
                             {
-                                if (numDif >= (ParseNullableInt(dataGridView1.Rows[i].Cells["VidaActual"].Value.ToString()) / 2))
+                                if (numDif >= (ParseNullableInt(dataGridView1.Rows[i].Cells["VidaActual"].Value.ToString()) / 2) || AtaPers.OjosMuerte)
                                 {
                                     text = text + " CRITICO";
                                     LogEnd = numDif + " Dmg CRITICO" + Environment.NewLine;
@@ -3417,14 +3639,15 @@ namespace AnimaFacil
                         }
                     }
                     CALresultado.Text = text;
-                    CALlog.Text = CALlog.Text + LogStart + LogEnd;
+                    //CALlog.Text = CALlog.Text + LogStart + LogEnd; 
+                    CALlog.AppendText(LogStart + LogEnd);
                     return;
                 }
                 numDif = -numDif / 2;
                 numDif /= 5;
                 numDif *= 5;
                 CALresultado.Text = "CONTRATAQUE: +" + numDif;
-                CALlog.Text = CALlog.Text + LogStart + "Contra: " + numDif + Environment.NewLine;
+                CALlog.AppendText(LogStart + "Contra: " + numDif + Environment.NewLine);
             } 
         }
 
@@ -3460,6 +3683,15 @@ namespace AnimaFacil
             CPA6ha.Clear();
             CPA7ha.Clear();
             CPA8ha.Clear();
+
+            CPA1turno.Clear();
+            CPA2turno.Clear();
+            CPA3turno.Clear();
+            CPA4turno.Clear();
+            CPA5turno.Clear();
+            CPA6turno.Clear();
+            CPA7turno.Clear();
+            CPA8turno.Clear();
 
             CPA1critico.SelectedIndex = -1;
             CPA2critico.SelectedIndex = -1;
@@ -3583,6 +3815,7 @@ namespace AnimaFacil
         public string Suerte;
         public string Notas;
         public bool Uroboros;
+        public bool OjosMuerte;
         public Ataque[] ListaAtaques = new Ataque[8];
         public Defensa[] ListaDefensa = new Defensa[8];
 
@@ -3593,6 +3826,7 @@ namespace AnimaFacil
             public int HA;
             public string Critico;
             public int Dano;
+            public int Turno;
         }
         [Serializable()]
         public struct Defensa
