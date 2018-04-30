@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
+using System.Data;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
 [assembly: AssemblyCompany("")]
@@ -254,6 +255,7 @@ namespace AnimaFacil
         private DataGridViewComboBoxColumn Natura;
         private DataGridViewComboBoxColumn Suerte;
         private DataGridViewCheckBoxColumn Uroboros;
+        private DataGridViewCheckBoxColumn OjosMuerte;
         private DataGridViewTextBoxColumn Sorpresa;
         private DataGridViewTextBoxColumn Notas;
         List<int> DefensaIndex = new List<int>();
@@ -471,9 +473,9 @@ namespace AnimaFacil
                 int suerte = 0;
                 if (dataGridViewRow.Cells["Personaje"].Value != null && dataGridViewRow.Cells["Personaje"].Value.ToString() != "")
                 {
-                    if (dataGridViewRow.Cells["Turno"].Value != null)
+                    if (dataGridViewRow.Cells["Arma"].Value != null)
                     {
-                        num = int.Parse(dataGridViewRow.Cells["Turno"].Value.ToString());
+                        num = int.Parse(dataGridViewRow.Cells["Arma"].Value.ToString()) + int.Parse(dataGridViewRow.Cells["ModTurno"].Value.ToString());
                     }
                     if (dataGridViewRow.Cells["Natura"].Value != null)
                     {
@@ -509,6 +511,7 @@ namespace AnimaFacil
                     if (dataGridViewRow.Cells["DadosT"].Value == null)
                     {
                         num2 = this.d100Anima(tipo, suerte);
+                        //dataGridViewRow.Cells["DadosT"].Value = num2;
                     }
                     else
                     {
@@ -689,6 +692,7 @@ namespace AnimaFacil
         }
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -698,7 +702,6 @@ namespace AnimaFacil
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.numericTurno = new System.Windows.Forms.NumericUpDown();
@@ -758,23 +761,6 @@ namespace AnimaFacil
             this.label10 = new System.Windows.Forms.Label();
             this.buttonIniciativas = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Personaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Arma = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Turno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModTurno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DadosT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Iniciativa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VidaActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VidaMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cansancio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ki = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Zeon = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Natura = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Suerte = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Uroboros = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Sorpresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Notas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.CPojos = new System.Windows.Forms.CheckBox();
@@ -911,6 +897,24 @@ namespace AnimaFacil
             this.openFileDialogTabla = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogCreador = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogCreador = new System.Windows.Forms.SaveFileDialog();
+            this.Personaje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Arma = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Turno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModTurno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DadosT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Iniciativa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VidaActual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VidaMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cansancio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ki = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Zeon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Natura = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Suerte = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Uroboros = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.OjosMuerte = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Sorpresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Notas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericTurno)).BeginInit();
@@ -1599,6 +1603,7 @@ namespace AnimaFacil
             this.Natura,
             this.Suerte,
             this.Uroboros,
+            this.OjosMuerte,
             this.Sorpresa,
             this.Notas});
             this.dataGridView1.Location = new System.Drawing.Point(6, 6);
@@ -1613,156 +1618,6 @@ namespace AnimaFacil
             this.dataGridView1.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowLeave);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.rowsAddednousar);
             this.dataGridView1.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.rowsRemovednousar);
-            // 
-            // Personaje
-            // 
-            this.Personaje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Personaje.HeaderText = "Personaje";
-            this.Personaje.Name = "Personaje";
-            this.Personaje.ReadOnly = true;
-            this.Personaje.Width = 79;
-            // 
-            // Arma
-            // 
-            this.Arma.DropDownWidth = 2;
-            this.Arma.HeaderText = "Arma Actual";
-            this.Arma.Items.AddRange(new object[] {
-            "Sin Arma"});
-            this.Arma.Name = "Arma";
-            this.Arma.ToolTipText = "Arma empuñada (calculo iniciativas)";
-            this.Arma.Width = 130;
-            // 
-            // Turno
-            // 
-            this.Turno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle1.Format = "N0";
-            this.Turno.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Turno.HeaderText = "Turno";
-            this.Turno.Name = "Turno";
-            this.Turno.Width = 60;
-            // 
-            // ModTurno
-            // 
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = null;
-            this.ModTurno.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ModTurno.HeaderText = "Mod Turno";
-            this.ModTurno.Name = "ModTurno";
-            this.ModTurno.Width = 50;
-            // 
-            // DadosT
-            // 
-            dataGridViewCellStyle3.Format = "N0";
-            this.DadosT.DefaultCellStyle = dataGridViewCellStyle3;
-            this.DadosT.HeaderText = "Dados Turno";
-            this.DadosT.Name = "DadosT";
-            this.DadosT.Width = 50;
-            // 
-            // Iniciativa
-            // 
-            this.Iniciativa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle4.Format = "N0";
-            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Iniciativa.HeaderText = "Iniciativa";
-            this.Iniciativa.Name = "Iniciativa";
-            this.Iniciativa.ReadOnly = true;
-            this.Iniciativa.Width = 74;
-            // 
-            // VidaActual
-            // 
-            this.VidaActual.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle5.Format = "N0";
-            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle5;
-            this.VidaActual.HeaderText = "Vida";
-            this.VidaActual.Name = "VidaActual";
-            this.VidaActual.Width = 53;
-            // 
-            // VidaMax
-            // 
-            this.VidaMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle6.Format = "N0";
-            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle6;
-            this.VidaMax.HeaderText = "Vida Total";
-            this.VidaMax.Name = "VidaMax";
-            this.VidaMax.ReadOnly = true;
-            this.VidaMax.Width = 74;
-            // 
-            // Cansancio
-            // 
-            this.Cansancio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle7.Format = "N0";
-            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Cansancio.HeaderText = "Cansancio";
-            this.Cansancio.Name = "Cansancio";
-            this.Cansancio.Width = 82;
-            // 
-            // Ki
-            // 
-            this.Ki.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle8.Format = "N0";
-            this.Ki.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Ki.HeaderText = "Ki";
-            this.Ki.Name = "Ki";
-            this.Ki.Width = 41;
-            // 
-            // Zeon
-            // 
-            this.Zeon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle9.Format = "N0";
-            this.Zeon.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Zeon.HeaderText = "Zeon";
-            this.Zeon.Name = "Zeon";
-            this.Zeon.Width = 57;
-            // 
-            // CV
-            // 
-            this.CV.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.CV.HeaderText = "CV";
-            this.CV.Name = "CV";
-            this.CV.Width = 46;
-            // 
-            // Natura
-            // 
-            this.Natura.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Natura.HeaderText = "Natura";
-            this.Natura.Items.AddRange(new object[] {
-            "Natura +0",
-            "Natura +5/+10",
-            "Natura +15"});
-            this.Natura.Name = "Natura";
-            this.Natura.Width = 45;
-            // 
-            // Suerte
-            // 
-            this.Suerte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Suerte.HeaderText = "Suerte";
-            this.Suerte.Items.AddRange(new object[] {
-            "Normal",
-            "Buena",
-            "Mala"});
-            this.Suerte.Name = "Suerte";
-            this.Suerte.Width = 44;
-            // 
-            // Uroboros
-            // 
-            this.Uroboros.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Uroboros.HeaderText = "¿Uroboros?";
-            this.Uroboros.Name = "Uroboros";
-            this.Uroboros.Width = 68;
-            // 
-            // Sorpresa
-            // 
-            this.Sorpresa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.Sorpresa.HeaderText = "Sorprendes a...";
-            this.Sorpresa.Name = "Sorpresa";
-            this.Sorpresa.ReadOnly = true;
-            this.Sorpresa.Width = 96;
-            // 
-            // Notas
-            // 
-            this.Notas.HeaderText = "Notas";
-            this.Notas.Name = "Notas";
-            this.Notas.Width = 71;
             // 
             // tabPage3
             // 
@@ -3078,6 +2933,160 @@ namespace AnimaFacil
             this.saveFileDialogCreador.Title = "Guardar personaje...";
             this.saveFileDialogCreador.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogCreador_FileOk);
             // 
+            // Personaje
+            // 
+            this.Personaje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Personaje.HeaderText = "Personaje";
+            this.Personaje.Name = "Personaje";
+            this.Personaje.ReadOnly = true;
+            this.Personaje.Width = 79;
+            // 
+            // Arma
+            // 
+            this.Arma.HeaderText = "Arma Actual";
+            this.Arma.Name = "Arma";
+            this.Arma.ToolTipText = "Arma empuñada (calculo iniciativas)";
+            this.Arma.Width = 130;
+            // 
+            // Turno
+            // 
+            this.Turno.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle1.Format = "N0";
+            this.Turno.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Turno.HeaderText = "Turno";
+            this.Turno.Name = "Turno";
+            this.Turno.Width = 60;
+            // 
+            // ModTurno
+            // 
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = null;
+            this.ModTurno.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ModTurno.HeaderText = "Mod Turno";
+            this.ModTurno.Name = "ModTurno";
+            this.ModTurno.Width = 50;
+            // 
+            // DadosT
+            // 
+            dataGridViewCellStyle3.Format = "N0";
+            this.DadosT.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DadosT.HeaderText = "Dados Turno";
+            this.DadosT.Name = "DadosT";
+            this.DadosT.Width = 50;
+            // 
+            // Iniciativa
+            // 
+            this.Iniciativa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle4.Format = "N0";
+            this.Iniciativa.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Iniciativa.HeaderText = "Iniciativa";
+            this.Iniciativa.Name = "Iniciativa";
+            this.Iniciativa.ReadOnly = true;
+            this.Iniciativa.Width = 74;
+            // 
+            // VidaActual
+            // 
+            this.VidaActual.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle5.Format = "N0";
+            this.VidaActual.DefaultCellStyle = dataGridViewCellStyle5;
+            this.VidaActual.HeaderText = "Vida";
+            this.VidaActual.Name = "VidaActual";
+            this.VidaActual.Width = 53;
+            // 
+            // VidaMax
+            // 
+            this.VidaMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle6.Format = "N0";
+            this.VidaMax.DefaultCellStyle = dataGridViewCellStyle6;
+            this.VidaMax.HeaderText = "Vida Total";
+            this.VidaMax.Name = "VidaMax";
+            this.VidaMax.ReadOnly = true;
+            this.VidaMax.Width = 74;
+            // 
+            // Cansancio
+            // 
+            this.Cansancio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle7.Format = "N0";
+            this.Cansancio.DefaultCellStyle = dataGridViewCellStyle7;
+            this.Cansancio.HeaderText = "Cansancio";
+            this.Cansancio.Name = "Cansancio";
+            this.Cansancio.Width = 82;
+            // 
+            // Ki
+            // 
+            this.Ki.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle8.Format = "N0";
+            this.Ki.DefaultCellStyle = dataGridViewCellStyle8;
+            this.Ki.HeaderText = "Ki";
+            this.Ki.Name = "Ki";
+            this.Ki.Width = 41;
+            // 
+            // Zeon
+            // 
+            this.Zeon.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle9.Format = "N0";
+            this.Zeon.DefaultCellStyle = dataGridViewCellStyle9;
+            this.Zeon.HeaderText = "Zeon";
+            this.Zeon.Name = "Zeon";
+            this.Zeon.Width = 57;
+            // 
+            // CV
+            // 
+            this.CV.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.CV.HeaderText = "CV";
+            this.CV.Name = "CV";
+            this.CV.Width = 46;
+            // 
+            // Natura
+            // 
+            this.Natura.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Natura.HeaderText = "Natura";
+            this.Natura.Items.AddRange(new object[] {
+            "Natura +0",
+            "Natura +5/+10",
+            "Natura +15"});
+            this.Natura.Name = "Natura";
+            this.Natura.Width = 45;
+            // 
+            // Suerte
+            // 
+            this.Suerte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Suerte.HeaderText = "Suerte";
+            this.Suerte.Items.AddRange(new object[] {
+            "Normal",
+            "Buena",
+            "Mala"});
+            this.Suerte.Name = "Suerte";
+            this.Suerte.Width = 44;
+            // 
+            // Uroboros
+            // 
+            this.Uroboros.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Uroboros.HeaderText = "¿Uroboros?";
+            this.Uroboros.Name = "Uroboros";
+            this.Uroboros.Width = 68;
+            // 
+            // OjosMuerte
+            // 
+            this.OjosMuerte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.OjosMuerte.HeaderText = "Ojos de la muerte";
+            this.OjosMuerte.Name = "OjosMuerte";
+            this.OjosMuerte.Width = 57;
+            // 
+            // Sorpresa
+            // 
+            this.Sorpresa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Sorpresa.HeaderText = "Sorprendes a...";
+            this.Sorpresa.Name = "Sorpresa";
+            this.Sorpresa.ReadOnly = true;
+            this.Sorpresa.Width = 96;
+            // 
+            // Notas
+            // 
+            this.Notas.HeaderText = "Notas";
+            this.Notas.Name = "Notas";
+            this.Notas.Width = 71;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3302,6 +3311,7 @@ namespace AnimaFacil
             perstemp.Natura = CPnatura.Text;
             perstemp.Suerte = CPsuerte.Text;
             perstemp.Uroboros = CPuroboros.Checked;
+            perstemp.OjosMuerte = CPojos.Checked;
             perstemp.Notas = CPnotas.Text;
 
             perstemp.ListaAtaques[0].Nombre = CPA1nombre.Text;
@@ -3391,6 +3401,7 @@ namespace AnimaFacil
             CPnatura.Text = perstemp.Natura;
             CPsuerte.Text = perstemp.Suerte;
             CPuroboros.Checked = perstemp.Uroboros;
+            CPojos.Checked = perstemp.OjosMuerte;
             CPnotas.Text = perstemp.Notas;
 
             CPA1nombre.Text = perstemp.ListaAtaques[0].Nombre;
@@ -3486,19 +3497,31 @@ namespace AnimaFacil
                 int i = dataGridView1.Rows.Count - 1;
                 dataGridView1.Rows[i].Cells["Personaje"].Value = perstemp.Nombre;
                 dataGridView1.Rows[i].Cells["Turno"].Value = perstemp.Turno;
-                dataGridView1.Rows[i].Cells["Arma"].Value = Arma.Items[0];
-
+                //dataGridView1.Rows[i].Cells["Arma"].Value = Arma.Items[0];
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Ataque");
+                dt.Columns.Add("Value");
+                dt.Rows.Add("Sin Armas", perstemp.Turno);
                 for (int b = 0; b < perstemp.ListaAtaques.Length; b++)
                 {
                     if (perstemp.ListaAtaques[b].Nombre != null && perstemp.ListaAtaques[b].Nombre != "")
                     {
                         if (perstemp.ListaAtaques[b].Critico != null && perstemp.ListaAtaques[b].Critico != "")
                         {
-                            DataGridViewComboBoxCell tempcelda = (DataGridViewComboBoxCell)dataGridView1.Rows[i].Cells["Arma"];
-                            tempcelda.Items.Add(perstemp.ListaAtaques[b].Nombre + "  T " + perstemp.ListaAtaques[b].Turno);
+                            dt.Rows.Add(perstemp.ListaAtaques[b].Nombre, perstemp.ListaAtaques[b].Turno);
                         }
                     }
                 }
+
+                
+                DataGridViewComboBoxCell tempcelda = (DataGridViewComboBoxCell)dataGridView1.Rows[i].Cells["Arma"];
+                tempcelda.Items.Clear();
+                tempcelda.DisplayMember = "Ataque";
+                tempcelda.ValueMember = "Value";
+                tempcelda.DataSource = dt;
+
+
+                //dataGridView1.Rows[i].Cells["Arma"].Value = Arma.Items[0];
 
                 dataGridView1.Rows[i].Cells["VidaActual"].Value = perstemp.Vida;
                 dataGridView1.Rows[i].Cells["VidaMax"].Value = perstemp.Vida;
@@ -3510,7 +3533,9 @@ namespace AnimaFacil
                 dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
                 dataGridView1.Rows[i].Cells["Suerte"].Value = perstemp.Suerte;
                 dataGridView1.Rows[i].Cells["Uroboros"].Value = perstemp.Uroboros;
+                dataGridView1.Rows[i].Cells["OjosMuerte"].Value = perstemp.OjosMuerte;
                 dataGridView1.Rows[i].Cells["Notas"].Value = perstemp.Notas;
+                dataGridView1.Rows[i].Cells["ModTurno"].Value = "0";
             }
             
         }
@@ -3664,6 +3689,7 @@ namespace AnimaFacil
             CPnatura.SelectedIndex = -1;
             CPsuerte.SelectedIndex = -1;
             CPuroboros.Checked = false;
+            CPojos.Checked = false;
 
 
             CPA1nombre.Clear();
